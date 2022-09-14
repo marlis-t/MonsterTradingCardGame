@@ -1,0 +1,7 @@
+card: kleinstes, kann selbst nichts tun, erstellt wenn nötig in gameControl --> dort name, typ, damage gewürfelt je nach package chosen
+
+deck:enthält 4 cards (vector of cardpointer), leer erstellt, dann die vom user gewählten karten nacheinander hinzugefügt, kann bei neuem Zusammenstellen geleert werden
+
+package: enthält 5 cards (vector of cardpointer), dem user monsterPack, SpellPack oder Mixpack vorgeschlagen, dann erst von gameControl pack erstellt mit schon erstelltem vector of cardpointers, gelöscht nach Kauf
+
+stack: enthält max. 25 cards (vector of cardpointer), leer erstellt, wenn gekauft oder getraded --> packvector oder tradevector{1} hintangefügt; card aus stack entfernen (getraded) oder pausieren (status geändert/in trading) --> index von gameControl herausgefunden

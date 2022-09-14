@@ -64,7 +64,7 @@ class stack{
     --Methods--
     +void addCardsToStack(vector*<cards*> newCards)
     +void removeCard(int index)
-    +void pauseCard(int index)
+    +void changeCardStatus(int index)
 }
 
 class scoreBoard{
@@ -76,8 +76,7 @@ class scoreBoard{
     --Constructor--
     +scoreBoard()
     --Methods--
-
-
+    +void addWinnerAndLoser(String winnerName, String loserName)
 }
 
 interface battle{
@@ -87,7 +86,61 @@ interface battle{
 class dialogue{
 }
 
+class tradingCenter{
+    -card* offerUser1
+    -demand* demandUser1
+    -card* offerUser2
+    -demand* demandUser2
+    ..Getter..
+    +card* getOfferUser1()
+    +card* getOfferUser2()
+    +demand* getDemandUser1()
+    +demand* getDemandUser2()
+    ..Setter..
+    +void setOfferUser1()
+    +void setOfferUser2()
+    +void setDemandUser1()
+    +void setDemandUser2()
+    --Constructor--
+    +tradingCenter()
+}
+
+class demand{
+    -int demandMinDamage
+    -String demandType
+    -String demandElement
+    ..Getter..
+    +int getDemandMinDamage()
+    +String getDemandType()
+    +String getDemandElement()
+    ..Setter..
+    +void setDemandMinDamage(int minDamage)
+    +void setDemandType(String type)
+    +void setDemandElement(String element)
+    --Constructor--
+    +demand(minDamage, type, element)
+    --Methods--
+    +void emptyDemand()
+}
+
 class gameControl{
+ -user* User1
+ -user* User2
+ -battle* currentBattle
+ -dialogue* gameDialogue
+ ..Setter..
+ +void setUser1()
+ +void setUser2()
+ +void setBattle()
+ --Constructor--
+ +gameControl()
+ --Methods--
+ +void startGame()
+ +void signInUsers()
+
+
+
+
 }
 
 

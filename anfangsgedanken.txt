@@ -5,3 +5,9 @@ deck:enthält 4 cards (vector of cardpointer), leer erstellt, dann die vom user 
 package: enthält 5 cards (vector of cardpointer), dem user monsterPack, SpellPack oder Mixpack vorgeschlagen, dann erst von gameControl pack erstellt mit schon erstelltem vector of cardpointers, gelöscht nach Kauf
 
 stack: enthält max. 25 cards (vector of cardpointer), leer erstellt, wenn gekauft oder getraded --> packvector oder tradevector{1} hintangefügt; card aus stack entfernen (getraded) oder pausieren (status geändert/in trading) --> index von gameControl herausgefunden
+
+user: erstellt mit name u password, später veränderbar; hat einen stack und ein deck(leer initialisiert) und einen Dialog; gibt stack und deck an gameControl zur Verwaltung?; coins und score änderbar hier; select deck macht der user
+
+scoreboard: liste von gewinnern und verlierern?; current score nur in dialog angezeigt; kann beide listen zurückgeben und zu ihnen hinzufügen
+
+gamecontrol:

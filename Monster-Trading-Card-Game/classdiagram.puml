@@ -4,9 +4,12 @@ class user{
     -String password
     -int coins
     -int score
+    -String securityToken
     -stack* myStack
     -deck* myDeck
     -dialogue* myDialogue
+    -card* myOffer
+    -demand* myDemand
     ..Getter..
     +String getUsername()
     +String getPassword()
@@ -14,15 +17,22 @@ class user{
     +deck* getDeck()
     +int getCoins()
     +int getScore()
+    +String getSecurityToken()
+    +card* getMyOffer()
+    +demand* getMyDemand()
     ..Setter..
     +void setUsername(String username)
     +void setPassword(String password)
+    +void setMyOffer(card* myOffer)
+    +void setMyDemand(int minDamage, String type, String element)
     --Constructor--
-    +user(username, password)
+    +user(username, password, token)
     --Methods--
     +void changeCoins(int difference)
     +void changeScore(int difference)
     +void selectDeck()
+    +void removeMyOffer()
+    +void removeMyDemand()
 }
 
 class card{
@@ -63,6 +73,7 @@ class stack{
     +stack()
     --Methods--
     +void addCardsToStack(vector*<cards*> newCards)
+    +void addCardToStack(card* newCard)
     +void removeCard(int index)
     +void changeCardStatus(int index)
 }
@@ -79,30 +90,41 @@ class scoreBoard{
     +void addWinnerAndLoser(String winnerName, String loserName)
 }
 
-interface battle{
+class battle{
+    -int round
+    ..Getter..
+    +int getRound()
+    --Constructor--
+    battle()
+    --Methods--
+    +void increaseRound()
+    +card* chooseAttackingCard(user* currentUser)
+    +bool isCardStronger(card* card1, card* card2)(specialty checking included)
+    +bool isUserOutOfCards(user* user1, user* user2)
+}
 
+class monsterBattle extends battle{
+
+}
+
+class mixBattle extends battle{
+    +bool isCardStrongerElements(card* card1, card* card2)(bool is if card is stronger)
 }
 
 class dialogue{
-}
-
-class tradingCenter{
-    -card* offerUser1
-    -demand* demandUser1
-    -card* offerUser2
-    -demand* demandUser2
-    ..Getter..
-    +card* getOfferUser1()
-    +card* getOfferUser2()
-    +demand* getDemandUser1()
-    +demand* getDemandUser2()
-    ..Setter..
-    +void setOfferUser1()
-    +void setOfferUser2()
-    +void setDemandUser1()
-    +void setDemandUser2()
     --Constructor--
-    +tradingCenter()
+    +dialogue()
+    --Methods--
+    +void startScreen()
+    +void LoginOrRegistration()
+    +void tradingScreen(user* currentUser, user* otherUser)
+    +void chooseCard(user* currentUser)
+    +void viewPackages()
+    +void chooseDeck(user* currentUser)
+    +void battleRoundDescription(user* currentUser, user* otherUser)
+    +void victoryScreen(user* currentUser)
+    +void scoreboard(scoreboard* gameScoreboard)
+
 }
 
 class demand{
@@ -119,8 +141,6 @@ class demand{
     +void setDemandElement(String element)
     --Constructor--
     +demand(minDamage, type, element)
-    --Methods--
-    +void emptyDemand()
 }
 
 class gameControl{
@@ -128,29 +148,56 @@ class gameControl{
  -user* User2
  -battle* currentBattle
  -dialogue* gameDialogue
+ -scoreboard* gameScoreboard
  ..Setter..
- +void setUser1()
- +void setUser2()
+ +void setUser1(name, password, token)
+ +void setUser2(name, password, token)
  +void setBattle()
  --Constructor--
  +gameControl()
  --Methods--
- +void startGame()
+ +void playGame()
  +void signInUsers()
-
-
-
-
+ +user* checkWhichUser(String token)
+ +void visitTradingCenter(String token)
+  +void setUpTrade(user* currentUser)
+  +card* selectCardForTrading(user* currentUser)
+  +void setUpDemand(int minDamage, String type, String element)
+ +void viewOtherOffer(String token)
+  +void agreeToTrade(String token)
+   +bool checkIfCardAccepted(card* chosenCard)
+   +void tradeTheCards(user* currentUser, user* recipientUser, card* chosenCard)
+   +int findIndexOfCard(user* thisUser, card* chosenCard)(to actually remove need index)
+ +void changeProfile(user* currentUser)
+ +void buyPackages(user* currentUser)
+  +package* generatePackage(String type)
+ +void chooseBattle()
+ +void startBattle()
+  +void chooseDeck(user* currentUser)
+  +void updateScores(user* winner, user* loser)
+  +void updateScoreboard(String winner, String loser)
+ +void emptyAll()
 }
 
 
+gameControl --> user: controls + includes
+gameControl --> package: controls
+gameControl --> scoreBoard: controls + includes
+gameControl --> battle: controls + includes
+gameControl --> demand: controls
+gameControl --> dialogue: controls + includes
 
+user --> deck: controls + includes
+user --> stack: controls + includes
+user --> demand: includes
+user --> dialogue: controls + includes
 
+deck --> card: controls + includes
 
+stack --> card: controls + includes
 
-
-
-
+battle --> monsterBattle: is parent
+battle --> mixBattle: is parent
 
 
 

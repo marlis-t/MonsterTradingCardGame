@@ -1,3 +1,104 @@
 @startuml
+class user{
+    -String username
+    -String password
+    -int coins
+    -int score
+    -stack* myStack
+    -deck* myDeck
+    -dialogue* myDialogue
+    ..Getter..
+    +String getUsername()
+    +String getPassword()
+    +stack* getStack()
+    +deck* getDeck()
+    +int getCoins()
+    +int getScore()
+    ..Setter..
+    +void setUsername(String username)
+    +void setPassword(String password)
+    --Constructor--
+    +user(username, password)
+    --Methods--
+    +void changeCoins(int difference)
+    +void changeScore(int difference)
+    +void selectDeck()
+}
+
+class card{
+    -String type {spell or monster}
+    -String name
+    -int damage
+    -String element
+    -String status
+    ..Getter & Setter..
+    --Constructor--
+  +card(String type, String name, int damage, String element){}
+}
+
+class deck{
+    -vector<card*> deckOfCards {4}
+    ..Getter..
+    +vector*<card*> getDeckOfCards()
+    --Constructor--
+    +deck()
+    --Method--
+    +void addCardToDeck(card* chosenCard)
+    +void emptyDeck()
+}
+
+class package{
+    -vector<card*> packOfCards {5}
+    ..Getter..
+    +vector*<card*> getPackOfCards()
+    --Constructor--
+    +package(vector*<card*> Cards)
+}
+
+class stack{
+    -vector<card*> allPlayerCards {25}
+    ..Getter..
+    +vector*<card*> getStack()
+    --Constructor--
+    +stack()
+    --Methods--
+    +void addCardsToStack(vector*<cards*> newCards)
+    +void removeCard(int index)
+    +void pauseCard(int index)
+}
+
+class scoreBoard{
+    -vector<String> winner
+    -vector<String> loser
+    ..Getter..
+    +vector*<String> getWinnerList()
+    +vector*<String> getLoserList()
+    --Constructor--
+    +scoreBoard()
+    --Methods--
+
+
+}
+
+interface battle{
+
+}
+
+class dialogue{
+}
+
+class gameControl{
+}
+
+
+
+
+
+
+
+
+
+
+
 
 @enduml

@@ -28,6 +28,8 @@ wahr wird
 
 mixbattle: mit spell und monster, bei iscardstronger wird auch das element einkalkuliert durch isstrongerelements wo element zu damage dazugerechnet, ersetzt normales stronger, bool als antwort
 
+monsterbattle: noch gleich wie battle, vllt zusätze später
+
 demand: inhalt für demand bei tausch, wird mit werten initialisiert, sollte nach tausch bei user gelöscht werden
 
 dialogue: nur für text, bekommt alles nötige von gamecontrol 

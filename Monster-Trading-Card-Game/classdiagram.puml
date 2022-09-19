@@ -103,11 +103,11 @@ class battle{
     +bool isUserOutOfCards(user* user1, user* user2)
 }
 
-class monsterBattle extends battle{
+class monsterBattle{
 
 }
 
-class mixBattle extends battle{
+class mixBattle{
     +bool isCardStrongerElements(card* card1, card* card2)(bool is if card is stronger)
 }
 
@@ -196,8 +196,8 @@ deck --> card: controls + includes
 
 stack --> card: controls + includes
 
-battle --> monsterBattle: is parent
-battle --> mixBattle: is parent
+battle <-- monsterBattle: inherits from
+battle <-- mixBattle: inherits from
 
 
 

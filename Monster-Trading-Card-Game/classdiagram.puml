@@ -4,10 +4,8 @@ class user{
     -String password
     -int coins
     -int score
-    -String securityToken
     -stack* myStack
     -deck* myDeck
-    -dialogue* myDialogue
     -card* myOffer
     -demand* myDemand
     ..Getter..
@@ -17,7 +15,6 @@ class user{
     +deck* getDeck()
     +int getCoins()
     +int getScore()
-    +String getSecurityToken()
     +card* getMyOffer()
     +demand* getMyDemand()
     ..Setter..
@@ -35,21 +32,59 @@ class user{
     +void removeMyDemand()
 }
 
+class userIdentification{
+    -String securityToken
+    ..Getter..
+    +String getSecurityToken()
+    ..Setter..
+    +void setSecurityToken(String securityToken)
+}
+
+enum Element{
+    WATER
+    FIRE
+    NORMAL
+}
+
+enum Type{
+    SPELL
+    MONSTER
+}
+
+enum Effectiveness{
+    VERY EFFECTIVE
+    NORMAL
+    NOT VERY EFFECTIVE
+    (Fire > Normal)
+    (Normal > Water)
+    (Water > Fire)
+}
+
+enum Specialty{
+}
+
 class card{
-    -String type {spell or monster}
+    -(String type {spell or monster})
     -String name
     -int damage
-    -String element
-    -String status
-    ..Getter & Setter..
+    -(String element)
+    -bool isPaused
+    ..Getter..
+    +String getName()
+    +int getDamage()
+    +bool getIsPaused()
+    ..Setter..
+    +void setName(String name)
+    +void setDamage(int damage)
+    +void setIsPaused(bool isPaused)
     --Constructor--
-  +card(String type, String name, int damage, String element){}
+  +card(String name, int damage, bool isPaused)
 }
 
 class deck{
-    -vector<card*> deckOfCards {4}
+    -list<card*> deckOfCards {4}
     ..Getter..
-    +vector*<card*> getDeckOfCards()
+    +list*<card*> getDeckOfCards()
     --Constructor--
     +deck()
     --Method--
@@ -58,32 +93,31 @@ class deck{
 }
 
 class package{
-    -vector<card*> packOfCards {5}
+    -list<card*> packOfCards {5}
     ..Getter..
-    +vector*<card*> getPackOfCards()
+    +list*<card*> getPackOfCards()
     --Constructor--
-    +package(vector*<card*> Cards)
+    +package(list<card*> Cards)
 }
 
 class stack{
-    -vector<card*> allPlayerCards {25}
+    -list<card*> allPlayerCards {25}
     ..Getter..
-    +vector*<card*> getStack()
+    +list*<card*> getStack()
     --Constructor--
     +stack()
     --Methods--
-    +void addCardsToStack(vector*<cards*> newCards)
     +void addCardToStack(card* newCard)
     +void removeCard(int index)
     +void changeCardStatus(int index)
 }
 
 class scoreBoard{
-    -vector<String> winner
-    -vector<String> loser
+    -list<String> winners
+    -list<String> losers
     ..Getter..
-    +vector*<String> getWinnerList()
-    +vector*<String> getLoserList()
+    +list*<String> getWinnerList()
+    +list*<String> getLoserList()
     --Constructor--
     +scoreBoard()
     --Methods--
@@ -97,18 +131,20 @@ class battle{
     --Constructor--
     battle()
     --Methods--
+    +void chooseDeck(user* currentUser)
     +void increaseRound()
     +card* chooseAttackingCard(user* currentUser)
     +bool isCardStronger(card* card1, card* card2)(specialty checking included)
+    +void gainCard(user* cardLosingUser, user* cardGainingUser, card* changingCard)
     +bool isUserOutOfCards(user* user1, user* user2)
 }
 
-class monsterBattle{
+class monsterBattle extends battle{
 
 }
 
-class mixBattle{
-    +bool isCardStrongerElements(card* card1, card* card2)(bool is if card is stronger)
+class mixBattle extends battle{
+    +bool isCardStrongerWithElements(card* card1, card* card2)(bool is if card is stronger)
 }
 
 class dialogue{
@@ -121,8 +157,9 @@ class dialogue{
     +void chooseCard(user* currentUser)
     +void viewPackages()
     +void chooseDeck(user* currentUser)
-    +void battleRoundDescription(user* currentUser, user* otherUser)
-    +void victoryScreen(user* currentUser)
+    +void battleRoundDescription(user* user1, user* user2, card* card1, card* card2)
+    +void battleRoundOutcome(user* user1, user* user2, card* card1, card* card2)
+    +void endScreen(scoreboard* gameScoreboard)
     +void scoreboard(scoreboard* gameScoreboard)
 
 }
@@ -163,17 +200,16 @@ class gameControl{
   +void setUpTrade(user* currentUser)
   +card* selectCardForTrading(user* currentUser)
   +void setUpDemand(int minDamage, String type, String element)
- +void viewOtherOffer(String token)
-  +void agreeToTrade(String token)
-   +bool checkIfCardAccepted(card* chosenCard)
-   +void tradeTheCards(user* currentUser, user* recipientUser, card* chosenCard)
-   +int findIndexOfCard(user* thisUser, card* chosenCard)(to actually remove need index)
+  +void viewOtherOffer(String token)
+   +void agreeToTrade(String token)
+    +bool checkIfCardAccepted(card* chosenCard)
+    +void tradeTheCards(user* currentUser, user* recipientUser, card* chosenCard)
+    +int findIndexOfCard(user* thisUser, card* chosenCard)(to actually remove need index)
  +void changeProfile(user* currentUser)
  +void buyPackages(user* currentUser)
   +package* generatePackage(String type)
  +void chooseBattle()
  +void startBattle()
-  +void chooseDeck(user* currentUser)
   +void updateScores(user* winner, user* loser)
   +void updateScoreboard(String winner, String loser)
  +void emptyAll()
@@ -196,9 +232,10 @@ deck --> card: controls + includes
 
 stack --> card: controls + includes
 
-battle <-- monsterBattle: inherits from
-battle <-- mixBattle: inherits from
+card --> Element: has
+card --> Type: has
+card --> Specialty: has
 
-
+mixBattle --> Effectiveness: has
 
 @enduml

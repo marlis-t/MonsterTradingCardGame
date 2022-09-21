@@ -1,0 +1,2 @@
+# MonsterTradingCardGame
+Semesterprojekt in Sortwarearchitektur

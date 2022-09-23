@@ -1,4 +1,4 @@
-package card;
+package cardrelated;
 
 import lombok.Getter;
 

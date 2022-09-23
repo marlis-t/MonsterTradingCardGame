@@ -7,12 +7,19 @@ public class Deck {
     private List<Card> getDeckOfCards(){
         return this.deckOfCards;
     }
-    Deck(){}
+    Deck(){
+        this.deckOfCards = new ArrayList<Card>();
+    }
     public void addCardToDeck(Card chosenCard){
         deckOfCards.add(chosenCard);
     }
-    public void removeCardFromDeck(int index){
-        deckOfCards.remove(index);
+    public boolean removeCardFromDeck(Card chosenCard){
+        int index = deckOfCards.indexOf(chosenCard);
+        if(index != -1){
+            deckOfCards.remove(index);
+            return true;
+        }
+        return false;
     }
     public void emptyDeck(){
         deckOfCards.clear();

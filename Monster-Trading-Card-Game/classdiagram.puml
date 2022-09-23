@@ -88,8 +88,8 @@ class deck{
     --Constructor--
     +deck()
     --Method--
-    +void addCardToDeck(card* chosenCard)
-    +void removeCardFromDeck(int index)
+    +void addCardToDeck(card chosenCard)
+    +bool removeCardFromDeck(card chosenCard)
     +void emptyDeck()
 }
 
@@ -109,8 +109,8 @@ class stack{
     +stack()
     --Methods--
     +void addCardToStack(card* newCard)
-    +void removeCard(int index)
-    +void changeCardStatus(int index)
+    +bool removeCard(card chosenCard)
+    +bool changeCardStatus(card chosenCard)
 }
 
 class scoreBoard{

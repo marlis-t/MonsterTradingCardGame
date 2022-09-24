@@ -89,6 +89,7 @@ class deck{
     +deck()
     --Method--
     +void addCardToDeck(card* chosenCard)
+    +void removeCardFromDeck(int index)
     +void emptyDeck()
 }
 

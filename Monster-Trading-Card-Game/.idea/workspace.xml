@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Stack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classdiagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/classdiagram.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

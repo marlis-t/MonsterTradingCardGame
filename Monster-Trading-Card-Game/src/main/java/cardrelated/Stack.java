@@ -5,6 +5,7 @@ public class Stack {
     private List<Card> allPlayerCards;
 
     public List<Card> getAllPlayerCards() {
+
         return this.allPlayerCards;
     }
     Stack(){
@@ -12,6 +13,7 @@ public class Stack {
     }
 
     public void addCardToStack(Card chosenCard){
+
         allPlayerCards.add(chosenCard);
     }
     public boolean removeCardFromStack(Card chosenCard){

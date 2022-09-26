@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Deck {
     private List<Card> deckOfCards;
-    private List<Card> getDeckOfCards(){
+    public List<Card> getDeckOfCards(){
+
         return this.deckOfCards;
     }
     Deck(){

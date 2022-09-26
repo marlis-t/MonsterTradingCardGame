@@ -4,87 +4,36 @@ class user{
     -String password
     -int coins
     -int score
-    -stack* myStack
-    -deck* myDeck
-    -card* myOffer
-    -demand* myDemand
+    -Stack myStack
+    -Deck myDeck
     ..Getter..
-    +String getUsername()
-    +String getPassword()
-    +stack* getStack()
-    +deck* getDeck()
-    +int getCoins()
-    +int getScore()
-    +card* getMyOffer()
-    +demand* getMyDemand()
     ..Setter..
-    +void setUsername(String username)
-    +void setPassword(String password)
-    +void setMyOffer(card* myOffer)
-    +void setMyDemand(int minDamage, String type, String element)
     --Constructor--
     +user(username, password, token)
     --Methods--
     +void changeCoins(int difference)
     +void changeScore(int difference)
     +void selectDeck()
-    +void removeMyOffer()
-    +void removeMyDemand()
 }
 
-class userIdentification{
-    -String securityToken
-    ..Getter..
-    +String getSecurityToken()
-    ..Setter..
-    +void setSecurityToken(String securityToken)
-}
-
-enum Element{
-    WATER
-    FIRE
-    NORMAL
-}
-
-enum Type{
-    SPELL
-    MONSTER
-}
-
-enum Effectiveness{
-    VERY EFFECTIVE
-    NORMAL
-    NOT VERY EFFECTIVE
-    (Fire > Normal)
-    (Normal > Water)
-    (Water > Fire)
-}
-
-enum Specialty{
+class userRegistration{
 }
 
 class card{
-    -(String type {spell or monster})
+    -String type {spell or monster}
     -String name
     -int damage
-    -(String element)
+    -String element
     -bool isPaused
     ..Getter..
-    +String getName()
-    +int getDamage()
-    +bool getIsPaused()
     ..Setter..
-    +void setName(String name)
-    +void setDamage(int damage)
-    +void setIsPaused(bool isPaused)
     --Constructor--
   +card(String name, int damage, bool isPaused)
 }
 
 class deck{
-    -list<card*> deckOfCards {4}
+    -List<Card> deckOfCards {4}
     ..Getter..
-    +list*<card*> getDeckOfCards()
     --Constructor--
     +deck()
     --Method--
@@ -94,31 +43,27 @@ class deck{
 }
 
 class package{
-    -list<card*> packOfCards {5}
+    -List<card> packOfCards {5}
     ..Getter..
-    +list*<card*> getPackOfCards()
     --Constructor--
-    +package(list<card*> Cards)
+    +package(List<card> Cards)
 }
 
 class stack{
-    -list<card*> allPlayerCards {25}
+    -List<card> allPlayerCards {25}
     ..Getter..
-    +list*<card*> getStack()
     --Constructor--
     +stack()
     --Methods--
-    +void addCardToStack(card* newCard)
+    +void addCardToStack(card newCard)
     +bool removeCard(card chosenCard)
     +bool changeCardStatus(card chosenCard)
 }
 
 class scoreBoard{
-    -list<String> winners
-    -list<String> losers
+    -List<String> winners
+    -List<String> losers
     ..Getter..
-    +list*<String> getWinnerList()
-    +list*<String> getLoserList()
     --Constructor--
     +scoreBoard()
     --Methods--
@@ -128,16 +73,15 @@ class scoreBoard{
 class battle{
     -int round
     ..Getter..
-    +int getRound()
     --Constructor--
     battle()
     --Methods--
-    +void chooseDeck(user* currentUser)
+    +void chooseDeck(user currentUser)
     +void increaseRound()
-    +card* chooseAttackingCard(user* currentUser)
-    +bool isCardStronger(card* card1, card* card2)(specialty checking included)
-    +void gainCard(user* cardLosingUser, user* cardGainingUser, card* changingCard)
-    +bool isUserOutOfCards(user* user1, user* user2)
+    +card chooseAttackingCard(user currentUser)
+    +bool isCardStronger(card card1, card card2)
+    +void gainCard(user cardLosingUser, user cardGainingUser, card changingCard)
+    +bool isUserOutOfCards(user user1, user user2)
 }
 
 class monsterBattle extends battle{
@@ -145,24 +89,10 @@ class monsterBattle extends battle{
 }
 
 class mixBattle extends battle{
-    +bool isCardStrongerWithElements(card* card1, card* card2)(bool is if card is stronger)
+    +bool isCardStrongerWithElements(card card1, card* card2)
 }
 
 class dialogue{
-    --Constructor--
-    +dialogue()
-    --Methods--
-    +void startScreen()
-    +void LoginOrRegistration()
-    +void tradingScreen(user* currentUser, user* otherUser)
-    +void chooseCard(user* currentUser)
-    +void viewPackages()
-    +void chooseDeck(user* currentUser)
-    +void battleRoundDescription(user* user1, user* user2, card* card1, card* card2)
-    +void battleRoundOutcome(user* user1, user* user2, card* card1, card* card2)
-    +void endScreen(scoreboard* gameScoreboard)
-    +void scoreboard(scoreboard* gameScoreboard)
-
 }
 
 class demand{
@@ -170,73 +100,50 @@ class demand{
     -String demandType
     -String demandElement
     ..Getter..
-    +int getDemandMinDamage()
-    +String getDemandType()
-    +String getDemandElement()
     ..Setter..
-    +void setDemandMinDamage(int minDamage)
-    +void setDemandType(String type)
-    +void setDemandElement(String element)
     --Constructor--
     +demand(minDamage, type, element)
 }
 
 class gameControl{
- -user* User1
- -user* User2
- -battle* currentBattle
- -dialogue* gameDialogue
- -scoreboard* gameScoreboard
+ -user User1
+ -user User2
+ -battle currentBattle
+ -dialogue gameDialogue
+ -scoreboard gameScoreboard
+ ..Getter..
  ..Setter..
- +void setUser1(name, password, token)
- +void setUser2(name, password, token)
- +void setBattle()
  --Constructor--
  +gameControl()
  --Methods--
  +void playGame()
  +void signInUsers()
- +user* checkWhichUser(String token)
  +void visitTradingCenter(String token)
-  +void setUpTrade(user* currentUser)
-  +card* selectCardForTrading(user* currentUser)
+  +card selectCardForTrading(user currentUser)
   +void setUpDemand(int minDamage, String type, String element)
-  +void viewOtherOffer(String token)
-   +void agreeToTrade(String token)
-    +bool checkIfCardAccepted(card* chosenCard)
-    +void tradeTheCards(user* currentUser, user* recipientUser, card* chosenCard)
-    +int findIndexOfCard(user* thisUser, card* chosenCard)(to actually remove need index)
- +void changeProfile(user* currentUser)
- +void buyPackages(user* currentUser)
-  +package* generatePackage(String type)
+ +void changeProfile(user currentUser)
+ +void buyPackages(user currentUser)
+  +package generatePackage(String type)
  +void chooseBattle()
  +void startBattle()
   +void updateScores(user* winner, user* loser)
   +void updateScoreboard(String winner, String loser)
- +void emptyAll()
 }
 
 
-gameControl --> user: controls + includes
-gameControl --> package: controls
-gameControl --> scoreBoard: controls + includes
-gameControl --> battle: controls + includes
-gameControl --> demand: controls
-gameControl --> dialogue: controls + includes
+gameControl --> user
+gameControl --> package
+gameControl --> scoreBoard
+gameControl --> battle
+gameControl --> demand
+gameControl --> dialogue
 
-user --> deck: controls + includes
-user --> stack: controls + includes
-user --> demand: includes
-user --> dialogue: controls + includes
+user --> deck
+user --> stack
+user --> demand
 
-deck --> card: controls + includes
+deck --> card
 
-stack --> card: controls + includes
-
-card --> Element: has
-card --> Type: has
-card --> Specialty: has
-
-mixBattle --> Effectiveness: has
+stack --> card
 
 @enduml

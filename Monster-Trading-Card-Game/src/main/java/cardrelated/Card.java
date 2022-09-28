@@ -1,28 +1,32 @@
 package cardrelated;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class Card {
     @Getter
+    @Setter
     private String name;
     @Getter
+    @Setter
     private int damage;
     @Getter
-    private boolean isPaused;
+    @Setter
+    private boolean paused;
     @Getter
+    @Setter
     private String type;
     @Getter
+    @Setter
     private String element;
-    public void setIsPaused(boolean isPaused) {
-        this.isPaused = isPaused;
-    }
+    //public void setIsPaused(boolean isPaused) {this.paused = isPaused;}
 
     Card(String name, int damage, String type, String element){
-        this.name = name;
-        this.damage = damage;
-        this.isPaused = false;
-        this.type = type;
-        this.element = element;
+        setName(name);
+        setDamage(damage);
+        setPaused(false);
+        setType(type);
+        setElement(element);
     }
 
 

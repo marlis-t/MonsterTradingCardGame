@@ -7,8 +7,11 @@
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Package.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Package.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Stack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/userrelated/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/userrelated/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,13 +47,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/gitchamp"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/MARLIS/Fh_Technikum/Semester 3/Software/gitchamp&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />

@@ -1,13 +1,13 @@
 package cardrelated;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.*;
 
 public class Deck {
+    @Getter
     private List<Card> deckOfCards;
-    public List<Card> getDeckOfCards(){
-
-        return this.deckOfCards;
-    }
     Deck(){
         this.deckOfCards = new ArrayList<Card>();
     }

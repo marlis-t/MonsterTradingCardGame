@@ -1,19 +1,17 @@
 package cardrelated;
+import lombok.Getter;
+
 import java.util.*;
 
 public class Stack {
+    @Getter
     private List<Card> allPlayerCards;
 
-    public List<Card> getAllPlayerCards() {
-
-        return this.allPlayerCards;
-    }
     Stack(){
         this.allPlayerCards = new ArrayList<Card>();
     }
 
     public void addCardToStack(Card chosenCard){
-
         allPlayerCards.add(chosenCard);
     }
     public boolean removeCardFromStack(Card chosenCard){
@@ -27,7 +25,7 @@ public class Stack {
     public boolean changeCardStatus(Card chosenCard, boolean isPaused){
         int index = allPlayerCards.indexOf(chosenCard);
         if(index != -1){
-            allPlayerCards.get(index).setIsPaused(isPaused);
+            allPlayerCards.get(index).setPaused(isPaused);
             return true;
         }
         return false;

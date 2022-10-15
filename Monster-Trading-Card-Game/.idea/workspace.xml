@@ -5,13 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
+      <change afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/card/Deck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/card/ENUM/ELEMENT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/card/ENUM/TYPE.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/card/Stack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/card/CardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/card/StackTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Monster-Trading-Card-Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Monster-Trading-Card-Game.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Package.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Package.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cardrelated/Stack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/userrelated/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/userrelated/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classdiagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/classdiagram.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/battlerelated/ScoreBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/battle/ScoreBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Card.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Deck.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Package.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cardrelated/Stack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/userrelated/User.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +36,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -47,17 +62,108 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/MARLIS/Fh_Technikum/Semester 3/Software/gitchamp&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber/Monster-Trading-Card-Game"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
+  </component>
+  <component name="RunManager" selected="JUnit.StackTest.testAddingCardsToList_expectNoException">
+    <configuration name="CardTest.testBooleanPausedForNewObject_expectFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CardTest" />
+      <option name="METHOD_NAME" value="testBooleanPausedForNewObject_expectFalse" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CollectionOfCardsTest.testAddingNull_expectNullPointerException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CollectionOfCardsTest" />
+      <option name="METHOD_NAME" value="testAddingNull_expectNullPointerException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StackTest.testAddingCardsToList_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.StackTest" />
+      <option name="METHOD_NAME" value="testAddingCardsToList_expectNoException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StackTest.testChangingStatusOfCardInList_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.StackTest" />
+      <option name="METHOD_NAME" value="testChangingStatusOfCardInList_expectNoException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StackTest.testChangingStatusOfCardNotInList_expectIndexOutOfBoundsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.StackTest" />
+      <option name="METHOD_NAME" value="testChangingStatusOfCardNotInList_expectIndexOutOfBoundsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.StackTest.testAddingCardsToList_expectNoException" />
+        <item itemvalue="JUnit.StackTest.testChangingStatusOfCardInList_expectNoException" />
+        <item itemvalue="JUnit.StackTest.testChangingStatusOfCardNotInList_expectIndexOutOfBoundsException" />
+        <item itemvalue="JUnit.CollectionOfCardsTest.testAddingNull_expectNullPointerException" />
+        <item itemvalue="JUnit.CardTest.testBooleanPausedForNewObject_expectFalse" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

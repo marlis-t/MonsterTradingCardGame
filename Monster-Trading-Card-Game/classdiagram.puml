@@ -1,120 +1,104 @@
 @startuml
-class user{
+class User{
     -String username
-    -String password
     -int coins
     -int score
     -Stack myStack
     -Deck myDeck
-    ..Getter..
-    ..Setter..
     --Constructor--
     +user(username, password, token)
     --Methods--
-    +void changeCoins(int difference)
-    +void changeScore(int difference)
     +void selectDeck()
 }
 
-class userRegistration{
+class Server{
 }
 
-class card{
-    -String type {spell or monster}
+enum TYPE{
+    SPELL,
+    MONSTER
+}
+
+enum ELEMENT{
+    WATER,
+    FIRE,
+    NORMAL
+}
+
+class Card{
     -String name
     -int damage
-    -String element
-    -bool isPaused
-    ..Getter..
-    ..Setter..
+    -bool paused
+    -ELEMENT element;
+    -TYPE type;
     --Constructor--
-  +card(String name, int damage, bool isPaused)
+  +Card(String name, int damage)
 }
 
-class deck{
-    -List<Card> deckOfCards {4}
-    ..Getter..
+class Deck extends CollectionOfCards{
     --Constructor--
-    +deck()
     --Method--
-    +void addCardToDeck(card chosenCard)
-    +bool removeCardFromDeck(card chosenCard)
     +void emptyDeck()
 }
 
-class package{
-    -List<card> packOfCards {5}
-    ..Getter..
+class Stack extends CollectionOfCards{
     --Constructor--
-    +package(List<card> Cards)
-}
-
-class stack{
-    -List<card> allPlayerCards {25}
-    ..Getter..
-    --Constructor--
-    +stack()
     --Methods--
-    +void addCardToStack(card newCard)
+    +void addCards(ArrayList<Cards> cards)
+}
+class CollectionOfCards{
+    -List<Card> myCards;
+    --Constructor--
+    --Method--
+    +void addCard(card chosenCard)
     +bool removeCard(card chosenCard)
-    +bool changeCardStatus(card chosenCard)
 }
 
-class scoreBoard{
+class ScoreBoard{
     -List<String> winners
     -List<String> losers
-    ..Getter..
     --Constructor--
-    +scoreBoard()
     --Methods--
     +void addWinnerAndLoser(String winnerName, String loserName)
 }
 
-class battle{
+class Battle{
     -int round
-    ..Getter..
     --Constructor--
-    battle()
     --Methods--
     +void chooseDeck(user currentUser)
-    +void increaseRound()
     +card chooseAttackingCard(user currentUser)
     +bool isCardStronger(card card1, card card2)
     +void gainCard(user cardLosingUser, user cardGainingUser, card changingCard)
     +bool isUserOutOfCards(user user1, user user2)
 }
 
-class monsterBattle extends battle{
+class MonsterBattle extends Battle{
 
 }
 
-class mixBattle extends battle{
+class MixBattle extends Battle{
     +bool isCardStrongerWithElements(card card1, card* card2)
 }
 
-class dialogue{
+class Dialogue{
 }
 
-class demand{
+class Demand{
     -int demandMinDamage
     -String demandType
     -String demandElement
-    ..Getter..
-    ..Setter..
     --Constructor--
     +demand(minDamage, type, element)
 }
 
-class gameControl{
+class GameControl{
  -user User1
  -user User2
  -battle currentBattle
  -dialogue gameDialogue
  -scoreboard gameScoreboard
- ..Getter..
- ..Setter..
  --Constructor--
- +gameControl()
  --Methods--
  +void playGame()
  +void signInUsers()
@@ -131,19 +115,19 @@ class gameControl{
 }
 
 
-gameControl --> user
-gameControl --> package
-gameControl --> scoreBoard
-gameControl --> battle
-gameControl --> demand
-gameControl --> dialogue
+GameControl --> User
+GameControl --> ScoreBoard
+GameControl --> Battle
+GameControl --> Dialogue
 
-user --> deck
-user --> stack
-user --> demand
+User --> Deck
+User --> Stack
 
-deck --> card
+Deck --> Card
 
-stack --> card
+Stack --> Card
+
+Card --> TYPE
+Card --> ELEMENT
 
 @enduml

@@ -1,4 +1,4 @@
-package battlerelated;
+package battle;
 import java.util.*;
 
 public class ScoreBoard {

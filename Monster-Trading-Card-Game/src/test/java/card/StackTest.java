@@ -15,6 +15,7 @@ public class StackTest {
         Exception thrownException = assertThrows(NullPointerException.class, () -> {
             stack.addCards(null);
         });
+        //System.out.println(thrownException.getMessage());
     }
     @Test
     @DisplayName("Test: stack.addCards(testCard); no Exception thrown")

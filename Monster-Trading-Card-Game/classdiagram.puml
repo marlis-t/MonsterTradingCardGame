@@ -34,26 +34,23 @@ class Card{
     --Constructor--
   +Card(String name, int damage)
 }
-
-class Deck extends CollectionOfCards{
-    --Constructor--
-    --Method--
-    +void emptyDeck()
-}
-
-class Stack extends CollectionOfCards{
-    --Constructor--
-    --Methods--
-    +void addCards(ArrayList<Cards> cards)
-}
 class CollectionOfCards{
     -List<Card> myCards;
     --Constructor--
     --Method--
     +void addCard(card chosenCard)
-    +bool removeCard(card chosenCard)
+    +void removeCard(card chosenCard)
 }
-
+class Deck extends CollectionOfCards{
+    --Constructor--
+    --Method--
+    +void emptyDeck()
+}
+class Stack extends CollectionOfCards{
+    --Constructor--
+    --Methods--
+    +void addCards(ArrayList<Cards> cards)
+}
 class ScoreBoard{
     -List<String> winners
     -List<String> losers
@@ -83,15 +80,6 @@ class MixBattle extends Battle{
 
 class Dialogue{
 }
-
-class Demand{
-    -int demandMinDamage
-    -String demandType
-    -String demandElement
-    --Constructor--
-    +demand(minDamage, type, element)
-}
-
 class GameControl{
  -user User1
  -user User2

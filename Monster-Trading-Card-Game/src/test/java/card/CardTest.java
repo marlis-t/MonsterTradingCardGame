@@ -5,8 +5,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CardTest {
     @Test
+    @DisplayName("Test: new Card(TestSpell, 0); IllegalArgumentException thrown")
+    public void testNameWithoutElement_expectIllegalArgumentException(){
+        Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
+            Card card = new Card("TestSpell", 0);
+        });
+        //System.out.println(thrownException.getMessage());
+    }
+    @Test
+    @DisplayName("Test: new Card(NormalTest, 0); IllegalArgumentException thrown")
+    public void testNameWithoutType_expectIllegalArgumentException(){
+        Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
+            Card card = new Card("NormalTest", 0);
+        });
+        //System.out.println(thrownException.getMessage());
+    }
+    @Test
+    @DisplayName("Test: new Card(NormalSpell, 0); no Exception thrown")
+    public void testNameWithElementAndType_exceptNoException(){
+        assertDoesNotThrow(() -> {
+            Card card = new Card("NormalSpell",0);
+        });
+    }
+    @Test
     @DisplayName("card.isPaused(); == false")
-    public void testBooleanPausedForNewObject_expectFalse(){
+    public void testBooleanPausedForNewCard_expectFalse(){
         Card card = new Card("NormalSpell", 0);
         boolean expectedBoolean = false;
 

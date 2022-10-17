@@ -14,7 +14,7 @@ public class Card {
 
     private String name;
     private int damage;
-    @Setter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PUBLIC)
     private boolean paused;
     private ELEMENT element;
     private TYPE type;
@@ -36,6 +36,8 @@ public class Card {
             element = ELEMENT.FIRE;
         }else if(name.contains("Normal")){
             element = ELEMENT.NORMAL;
+        }else{
+            throw new IllegalArgumentException("Name does not contain element.");
         }
     }
     private void setType(String name){
@@ -43,6 +45,8 @@ public class Card {
             type = TYPE.SPELL;
         }else if(name.contains("Monster")){
             type = TYPE.MONSTER;
+        }else{
+            throw new IllegalArgumentException("Name does not contain type.");
         }
     }
 

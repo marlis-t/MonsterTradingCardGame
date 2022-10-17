@@ -12,6 +12,7 @@ public class CollectionOfCardsTest {
         Exception thrownException = assertThrows(NullPointerException.class, () -> {
             collection.addCard(null);
         });
+        //System.out.println(thrownException.getMessage());
     }
     @Test
     @DisplayName("Test: collection.addCard(testCard); no Exception thrown")
@@ -33,6 +34,7 @@ public class CollectionOfCardsTest {
         Exception thrownException = assertThrows(IndexOutOfBoundsException.class, () -> {
             collection.removeCard(cardNotInList);
         });
+        //System.out.println(thrownException.getMessage());
     }
     @Test
     @DisplayName("Test: collection.removeCard(cardInList); no Exception thrown")

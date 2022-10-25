@@ -3,6 +3,8 @@ class User{
     -String username
     -int coins
     -int score
+    -int gamesPlayed
+    -String securityToken
     -Stack myStack
     -Deck myDeck
     --Constructor--
@@ -52,18 +54,17 @@ class Stack extends CollectionOfCards{
     +void addCards(ArrayList<Cards> cards)
 }
 class ScoreBoard{
-    -List<String> winners
-    -List<String> losers
-    --Constructor--
-    --Methods--
-    +void addWinnerAndLoser(String winnerName, String loserName)
+    -String winnerName
+    -String loserName
+    -int scorePlayer1
+    -int scorePlayer2
+    -int roundsPlayed
 }
 
 class Battle{
     -int round
     --Constructor--
     --Methods--
-    +void chooseDeck(user currentUser)
     +card chooseAttackingCard(user currentUser)
     +bool isCardStronger(card card1, card card2)
     +void gainCard(user cardLosingUser, user cardGainingUser, card changingCard)
@@ -79,6 +80,7 @@ class MixBattle extends Battle{
 }
 
 class Dialogue{
+    +void printBattleLog
 }
 class GameControl{
  -user User1
@@ -96,6 +98,7 @@ class GameControl{
  +void changeProfile(user currentUser)
  +void buyPackages(user currentUser)
   +package generatePackage(String type)
+ +void chooseDeck(user currentUser)
  +void chooseBattle()
  +void startBattle()
   +void updateScores(user* winner, user* loser)

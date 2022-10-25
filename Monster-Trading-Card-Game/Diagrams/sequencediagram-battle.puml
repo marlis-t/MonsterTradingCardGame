@@ -1,0 +1,113 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+Activate GameControl #pink
+GameControl-[#pink]>Battle
+Activate Battle #purple
+loop 100 times
+
+    ==Getting Cards==
+
+    Battle-[#purple]>User1: choose random Card1
+    Activate User1 #lightgreen
+    User1-[#lightgreen]>Deck1:choose random Card1
+    Activate Deck1 #darkgreen
+    return Card1
+    return Card1
+    Battle-[#purple]>User2: choose random Card2
+    Activate User2 #lightblue
+    User2-[#lightblue]>Deck2:choose random Card2
+    Activate Deck2 #blue
+    return Card2
+    return Card2
+
+    ==Finding WinningCard==
+
+    Battle-[#purple]>Battle:calculate damage Card1, Card2
+    group if mixed Battle
+        Battle-[#purple]>Battle:check for SpellCard
+        group if SpellCard
+            Battle-[#purple]>Battle: add Elements to damage
+        end
+    end
+    Battle-[#purple]>Battle: compare damage
+    group if Card1 wins
+        Battle-[#purple]>User2: remove Card2
+        Activate User2 #lightblue
+        User2-[#lightblue]>Deck2: remove Card2
+        Activate Deck2 #blue
+        Deck2-[#blue]>Server: remove Card2
+        Activate Server #gold
+        return Card2
+        return Card2
+        return Card2
+        Battle-[#purple]>User1: add Card2 to Deck
+        Activate User1 #lightgreen
+        User1-[#lightgreen]>Deck1: add Card2
+        Activate Deck1 #darkgreen
+        Deck1-[#darkgreen]>Server: add Card2
+        Activate Server#gold
+        return SuccessMsg
+        return SuccessMsg
+        return SuccessMsg
+    end
+    group if Card2 wins
+        Battle-[#purple]>User1: remove Card1
+        Activate User1 #lightgreen
+        User1-[#lightgreen]>Deck1: remove Card1
+        Activate Deck1 #darkgreen
+        Deck1-[#darkgreen]>Server: remove Card1
+        Activate Server #gold
+        return Card1
+        return Card1
+        return Card1
+        Battle-[#purple]>User2: add Card1 to Deck
+        Activate User2 #lightblue
+        User2-[#lightblue]>Deck2: add Card1
+        Activate Deck2 #blue
+        Deck2-[#blue]>Server: add Card1
+        Activate Server #gold
+        return SuccessMsg
+        return SuccessMsg
+        return SuccessMsg
+    end
+
+    ==Ending Round==
+
+    Battle-[#purple]>Battle: add Info about conclusion to Log
+    Battle-[#purple]>User1: check if out of Cards
+    Activate User1 #lightgreen
+    User1-[#lightgreen]>Deck1: check if empty
+    Activate Deck1 #darkgreen
+    return true/false
+    return true/false
+    Battle-[#purple]>User2: check if out of Cards
+    Activate User2 #lightblue
+    User2-[#lightblue]>Deck2: check if empty
+    Activate Deck2 #blue
+    return true/false
+    return true/false
+
+    group if User NOT out of Cards
+        Battle-[#purple]>Battle:increase round
+        else
+        Battle-[#purple]>Battle: add Info to Log
+        Battle-[#purple]>Battle: break
+    end
+end
+
+Battle-[#purple]>User1:update Score + PlayedGames
+Activate User1 #lightgreen
+User1-[#green]>Server: update Score + PlayedGames
+Activate Server #gold
+return SuccessMsg
+return SuccessMsg
+
+Battle-[#purple]>User2:update Score + PlayedGames
+Activate User2 #turquoise
+User2-[#darkturquoise]>Server: update Score + PlayedGames
+Activate Server #gold
+return SuccessMsg
+return SuccessMsg
+
+return
+@enduml

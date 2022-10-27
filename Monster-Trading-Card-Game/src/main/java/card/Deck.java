@@ -1,7 +1,5 @@
 package card;
 
-import java.util.ArrayList;
-
 public class Deck extends CollectionOfCards {
    public Deck(){
        super();

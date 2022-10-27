@@ -3,11 +3,21 @@ package card;
 import java.util.ArrayList;
 
 public class Deck extends CollectionOfCards {
-   Deck(){
+   public Deck(){
        super();
    }
     public void emptyDeck(){
         myCards.clear();
+    }
+
+    public boolean isDeckEmpty(){
+       if(myCards == null){
+           throw new NullPointerException("Deck does not exist!");
+       }
+       if(myCards.size() == 0){
+           return true;
+       }
+       return false;
     }
 
 }

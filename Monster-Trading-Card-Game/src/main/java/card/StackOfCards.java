@@ -2,8 +2,8 @@ package card;
 
 import java.util.ArrayList;
 
-public class Stack extends CollectionOfCards{
-    Stack(){
+public class StackOfCards extends CollectionOfCards{
+    public StackOfCards(){
         super();
     }
 

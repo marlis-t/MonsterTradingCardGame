@@ -6,19 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../anfangsgedanken.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/StackOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/StackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
         <option value="UML Sequence" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -50,8 +58,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber",
-    "settings.editor.selected.configurable": "preferences.editor"
+    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber/Monster-Trading-Card-Game",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -59,7 +67,11 @@
       <recent name="C:\MARLIS\Fh_Technikum\Semester 3\Software\MonsterTradingCardGame-Tiefengraber\Monster-Trading-Card-Game\Diagrams" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="user" />
       <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="card" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.CardTest.testBooleanPausedForNewCard_expectFalse">
@@ -67,7 +79,7 @@
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="card.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -82,7 +94,7 @@
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="card.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -98,7 +110,7 @@
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="card.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -114,7 +126,7 @@
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="card.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -125,16 +137,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StackTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StackOfCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="card.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.StackTest" />
+      <option name="MAIN_CLASS_NAME" value="card.StackOfCardsTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -144,7 +156,7 @@
       <list>
         <item itemvalue="JUnit.CardTest.testBooleanPausedForNewCard_expectFalse" />
         <item itemvalue="JUnit.CardTest" />
-        <item itemvalue="JUnit.StackTest" />
+        <item itemvalue="JUnit.StackOfCardsTest" />
         <item itemvalue="JUnit.CollectionOfCardsTest" />
         <item itemvalue="JUnit.CardTest.testNameWithElementAndType_exceptNoException" />
       </list>

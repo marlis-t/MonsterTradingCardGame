@@ -4,9 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import card.ENUM.ELEMENT;
-import card.ENUM.TYPE;
-
 @Getter
 @Setter(AccessLevel.PRIVATE)
 
@@ -50,5 +47,8 @@ public class Card {
         }
     }
 
+    public void showCard(){
+        System.out.println("Name: " + getName()  + "\n" + "Damage: " + getDamage() + "\n" );
+    }
 
 }

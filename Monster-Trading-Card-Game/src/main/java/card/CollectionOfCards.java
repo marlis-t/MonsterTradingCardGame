@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CollectionOfCards {
     @Getter
     @Setter(AccessLevel.PRIVATE)
-    protected ArrayList<Card> myCards;
+    public ArrayList<Card> myCards;
 
     CollectionOfCards(){
         setMyCards(new ArrayList<Card>());
@@ -28,5 +28,17 @@ public class CollectionOfCards {
             throw new IndexOutOfBoundsException("Tried to remove Card that is not in list.");
         }
         myCards.remove(index);
+    }
+
+    public void showCards(){
+        if(myCards.size() == 0){
+            System.out.println("No Cards to show!\n");
+            return;
+        }
+        int size = myCards.size();
+        for(int i = 0; i < size; i++){
+            System.out.println(i + ": ");
+            myCards.get(i).showCard();
+        }
     }
 }

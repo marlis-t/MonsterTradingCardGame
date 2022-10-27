@@ -7,11 +7,12 @@
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/StackOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/ELEMENT.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/ENUM/ELEMENT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Enum/ELEMENT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/ENUM/TYPE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Enum/TYPE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/TYPE.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/StackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

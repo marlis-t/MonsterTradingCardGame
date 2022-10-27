@@ -1,4 +1,4 @@
-package card;
+package card.Enum;
 
 public enum TYPE {
     SPELL,

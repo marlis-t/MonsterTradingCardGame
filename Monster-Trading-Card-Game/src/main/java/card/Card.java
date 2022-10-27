@@ -4,6 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import card.Enum.ELEMENT;
+import card.Enum.TYPE;
+
 @Getter
 @Setter(AccessLevel.PRIVATE)
 

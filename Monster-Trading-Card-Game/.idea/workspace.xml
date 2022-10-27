@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
+      <change afterPath="$PROJECT_DIR$/src/test/java/card/CardGeneratorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/Package.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Package.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +71,38 @@
       <recent name="card" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CardTest.testBooleanPausedForNewCard_expectFalse">
+  <component name="RunManager" selected="JUnit.CardGeneratorTest.testChooseElementWithValidRandomizer_expectNoException">
+    <configuration name="CardGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CardGeneratorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardGeneratorTest.testChooseElementWithValidRandomizer_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CardGeneratorTest" />
+      <option name="METHOD_NAME" value="testChooseElementWithValidRandomizer_expectNoException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
@@ -102,37 +134,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardTest.testNameWithElementAndType_exceptNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Monster-Trading-Card-Game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.CardTest" />
-      <option name="METHOD_NAME" value="testNameWithElementAndType_exceptNoException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CollectionOfCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Monster-Trading-Card-Game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.CollectionOfCardsTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="StackOfCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
@@ -150,11 +151,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CardGeneratorTest.testChooseElementWithValidRandomizer_expectNoException" />
+        <item itemvalue="JUnit.CardGeneratorTest" />
         <item itemvalue="JUnit.CardTest.testBooleanPausedForNewCard_expectFalse" />
         <item itemvalue="JUnit.CardTest" />
         <item itemvalue="JUnit.StackOfCardsTest" />
-        <item itemvalue="JUnit.CollectionOfCardsTest" />
-        <item itemvalue="JUnit.CardTest.testNameWithElementAndType_exceptNoException" />
       </list>
     </recent_temporary>
   </component>

@@ -2,17 +2,24 @@ package card;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 @Getter(AccessLevel.PRIVATE)
+@Setter(AccessLevel.PRIVATE)
 public class CardGenerator {
     private ArrayList<String> Elements;
     private ArrayList<String> Types;
     private ArrayList<String> Specifications;
     private ArrayList<Integer> Damages;
     public CardGenerator(){
+        setElements(new ArrayList<String>());
+        setTypes(new ArrayList<String>());
+        setSpecifications(new ArrayList<String>());
+        setDamages(new ArrayList<Integer>());
+
         Elements.add("Fire");
         Elements.add("Water");
         Elements.add("Normal");

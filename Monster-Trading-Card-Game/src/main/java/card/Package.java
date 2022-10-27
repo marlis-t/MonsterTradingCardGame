@@ -1,7 +1,6 @@
 package card;
 
 public class Package extends CollectionOfCards{
-
     public Package(){
         super();
         CardGenerator generator = new CardGenerator();

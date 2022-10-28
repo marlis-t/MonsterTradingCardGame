@@ -5,12 +5,13 @@ import card.StackOfCards;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 @Getter
 @Setter
 public class User {
+    private int userID;
     private String username;
     private int coins;
     private int score;
@@ -20,9 +21,16 @@ public class User {
     Deck myDeck;
     StackOfCards myStack;
 
-    User(String username) {
+    User(int userID, String username, int coins, int score, int gamesPlayed, String securityToken) {
         //User exists already, connect to DB to get Information
+        setUserID(userID);
         setUsername(username);
+        setCoins(coins);
+        setScore(score);
+        setGamesPlayed(gamesPlayed);
+        setSecurityToken(securityToken);
+        setMyDeck(new Deck());
+        setMyStack(new StackOfCards());
     }
 
     public void showUserData(){

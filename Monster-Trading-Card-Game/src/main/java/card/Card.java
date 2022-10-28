@@ -12,6 +12,7 @@ import card.Enum.TYPE;
 
 public class Card {
 
+    private int cardID;
     private String name;
     private int damage;
     @Setter(AccessLevel.PUBLIC)
@@ -20,13 +21,20 @@ public class Card {
     private TYPE type;
 
 
-    Card(String name, int damage){
+    public Card(String name, int damage){
         setName(name);
         setDamage(damage);
         setPaused(false);
         setElement(name);
         setType(name);
-
+    }
+    public Card(String name, int damage, int ID){
+        setName(name);
+        setDamage(damage);
+        setPaused(false);
+        setElement(name);
+        setType(name);
+        setCardID(ID);
     }
 
     private void setElement(String name){

@@ -50,14 +50,14 @@ public class CardController extends Controller{
                 return new Response(
                         HttpStatus.NOT_FOUND,
                         ContentType.JSON,
-                        "{ \"error\": \"No City with this ID\", \"data\": null }"
+                        "{ \"error\": \"No Card with this ID\", \"data\": null }"
                 );
             }
-            String cityDataJSON = getObjectMapper().writeValueAsString(card);
+            String cardDataJSON = getObjectMapper().writeValueAsString(card);
             return new Response(
                     HttpStatus.OK,
                     ContentType.JSON,
-                    "{ \"data\": " + cityDataJSON + ", \"error\": null }"
+                    "{ \"data\": " + cardDataJSON + ", \"error\": null }"
             );
         }catch(JsonProcessingException e){
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class CardController extends Controller{
             CardModel card = getObjectMapper().readValue(body, CardModel.class);
             getCardService().addCard(card);
             return new Response(
-                    HttpStatus.OK,
+                    HttpStatus.CREATED,
                     ContentType.JSON,
                     "{ \"data\": " + card + ", \"error\": null }"
             );
@@ -96,7 +96,7 @@ public class CardController extends Controller{
             return new Response(
                     HttpStatus.NOT_FOUND,
                     ContentType.JSON,
-                    "{ \"error\": \"No City with this ID\", \"data\": null }"
+                    "{ \"error\": \"No Card with this ID\", \"data\": null }"
             );
         }
         String cardName = card.getName();
@@ -106,5 +106,33 @@ public class CardController extends Controller{
                 ContentType.JSON,
                 "{ \"data\": " + cardName + " deleted" + ", \"error\": null }"
         );
+    }
+    //PUT /card/id
+    public Response updateCard(int id, String body){
+        CardModel oldCard = getCardService().getCardByID(id);
+        if(oldCard == null){
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"error\": \"No Card with this ID\", \"data\": null }"
+            );
+        }
+        try{
+            CardModel card = getObjectMapper().readValue(body, CardModel.class);
+            getCardService().updateCard(id, card);
+            return new Response(
+                    HttpStatus.CREATED,
+                    ContentType.JSON,
+                    "{ \"data\": " + card + ", \"error\": null }"
+            );
+        }catch(JsonProcessingException e){
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+
     }
 }

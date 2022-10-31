@@ -41,4 +41,8 @@ public class CardService {
     public void deleteCard(int id){
         cardData.removeIf(cardModel -> id == cardModel.getCardID());
     }
+    public void updateCard(int id, CardModel card){
+        cardData.removeIf(cardModel -> id == cardModel.getCardID());
+        cardData.add(card);
+    }
 }

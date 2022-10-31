@@ -13,6 +13,8 @@ public class UserModel {
     private int userID;
     @JsonAlias({"username"})
     private String username;
+    @JsonAlias({"password"})
+    private String password;
     @JsonAlias({"coins"})
     private int coins;
     @JsonAlias({"score"})

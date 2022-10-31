@@ -42,7 +42,7 @@ public class App implements ServerApp {
                 else if(request.getPathname().contains("/users/")){
                     return this.userController.getAllUsersExceptSelf(parseId(split));
                 }//getUserByCredentials
-                else if(request.getPathname().contains("/user/login/")){
+                else if(request.getPathname().contains("/user-login/")){
                     String[] creds = parseUserNamePW(split);
                     return this.userController.getUserByCredentials(creds[0], creds[1]);
                 }
@@ -91,7 +91,7 @@ public class App implements ServerApp {
         int leng = (int) length;
         String[] creds = new String[2];
         creds[0] = split[leng-2];
-        creds[1] = split[leng-1];
+        creds[1] = new String(split[leng-1]);
         return creds;
     }
 }

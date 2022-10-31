@@ -12,7 +12,6 @@ import java.net.Socket;
 @Setter(AccessLevel.PRIVATE)
 public class Server {
     private ServerSocket serverSocket;//
-    private Socket clientSocket;
     private App app;//
     private int port;//
 

@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserService {
     @Setter(AccessLevel.PRIVATE)
@@ -34,12 +35,13 @@ public class UserService {
         return foundUsers;
     }
     public UserModel checkIfUserExists(String username, String password){
-        for(UserModel user : userData){
-            if(user.getUsername() == username && user.getPassword() == password){
-                return user;
+        UserModel user = null;
+        for(UserModel usr : userData){
+            if((Objects.equals(usr.getUsername(), username))&&(Objects.equals(usr.getPassword(), password))){
+                user = usr;
             }
         }
-        return null;
+        return user;
     }
     public void registerUser(UserModel user){
         userData.add(user);

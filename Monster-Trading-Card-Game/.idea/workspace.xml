@@ -8,8 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/models/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/UserModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/CardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/services/CardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,91 +75,94 @@
       <recent name="card" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CardGeneratorTest">
-    <configuration name="CardGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="CardControllerTest.testCreateCardWithBodyInvalid_expect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="card.*" />
+          <option name="PATTERN" value="app.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.CardGeneratorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CardGeneratorTest.testChooseElementWithValidRandomizer_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Monster-Trading-Card-Game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="card.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.CardGeneratorTest" />
-      <option name="METHOD_NAME" value="testChooseElementWithValidRandomizer_expectNoException" />
+      <option name="PACKAGE_NAME" value="app.controllers" />
+      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
+      <option name="METHOD_NAME" value="testCreateCardWithBodyInvalid_expect" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardControllerTest.testCreateCardWithBodyNull_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="app.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.CardTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CardTest.testBooleanPausedForNewCard_expectFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Monster-Trading-Card-Game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.CardTest" />
-      <option name="METHOD_NAME" value="testBooleanPausedForNewCard_expectFalse" />
+      <option name="PACKAGE_NAME" value="app.controllers" />
+      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
+      <option name="METHOD_NAME" value="testCreateCardWithBodyNull_expectIllegalArgumentException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StackOfCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardControllerTest.testDeleteCardWithNonexistentID_expectNotFoundResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="app.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="card" />
-      <option name="MAIN_CLASS_NAME" value="card.StackOfCardsTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="app.controllers" />
+      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
+      <option name="METHOD_NAME" value="testDeleteCardWithNonexistentID_expectNotFoundResponse" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardControllerTest.testUpdateCardWithBodyNull_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.controllers" />
+      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
+      <option name="METHOD_NAME" value="testUpdateCardWithBodyNull_expectIllegalArgumentException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardControllerTest.testUpdateCardWithNonexistentID_expectNotFoundResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.controllers" />
+      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
+      <option name="METHOD_NAME" value="testUpdateCardWithNonexistentID_expectNotFoundResponse" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CardGeneratorTest.testChooseElementWithValidRandomizer_expectNoException" />
-        <item itemvalue="JUnit.CardGeneratorTest" />
-        <item itemvalue="JUnit.CardTest.testBooleanPausedForNewCard_expectFalse" />
-        <item itemvalue="JUnit.CardTest" />
-        <item itemvalue="JUnit.StackOfCardsTest" />
+        <item itemvalue="JUnit.CardControllerTest.testUpdateCardWithBodyNull_expectIllegalArgumentException" />
+        <item itemvalue="JUnit.CardControllerTest.testUpdateCardWithNonexistentID_expectNotFoundResponse" />
+        <item itemvalue="JUnit.CardControllerTest.testDeleteCardWithNonexistentID_expectNotFoundResponse" />
+        <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyInvalid_expect" />
+        <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyNull_expectIllegalArgumentException" />
       </list>
     </recent_temporary>
   </component>

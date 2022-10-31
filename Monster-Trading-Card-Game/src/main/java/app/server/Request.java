@@ -32,11 +32,10 @@ public class Request {
     private void buildRequest(BufferedReader inputStream) {
         try {
             String line = inputStream.readLine();
-
+            //what if line == null
             if (line != null) {
                 String[] splitFirstLine = line.split(" ");
                 Boolean hasParams = splitFirstLine[1].contains("?");
-
 
                 setMethod(getMethodFromInputLine(splitFirstLine));
                 setPathname(getPathnameFromInputLine(splitFirstLine, hasParams));

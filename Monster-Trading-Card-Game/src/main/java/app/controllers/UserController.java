@@ -71,17 +71,17 @@ public class UserController extends Controller{
         try{
             UserModel userExists = getUserService().checkIfUserExists(username, password);
             String userDataJSON = getObjectMapper().writeValueAsString(userExists);
-            if(userExists != null){
+            if(userExists == null){
                 return new Response(
                         HttpStatus.OK,
                         ContentType.JSON,
-                        "{ \"data\": " + userDataJSON + " , \"error\": null }"
+                        "{ \"data\": User does not exist , \"error\": null }"
                 );
             }else{
                 return new Response(
                         HttpStatus.OK,
                         ContentType.JSON,
-                        "{ \"data\": User does not exist , \"error\": null }"
+                        "{ \"data\": " + userDataJSON + " , \"error\": null }"
                 );
             }
         }catch (JsonProcessingException e){

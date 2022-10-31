@@ -10,7 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class CardController extends Controller{
     @Getter(AccessLevel.PRIVATE)
@@ -24,7 +24,15 @@ public class CardController extends Controller{
     //GET /cards/Uid
     public Response getCardsFromUserID(int Uid) {
         try {
-            List cardData = getCardService().getCardsFromUserID(Uid);
+            //what if cardData empty? JsonE thrown
+            ArrayList<CardModel> cardData = getCardService().getCardsFromUserID(Uid);
+            if(cardData.size()==0){
+                return new Response(
+                        HttpStatus.OK,
+                        ContentType.JSON,
+                        "{\"data\": User #" + Uid + " has no Cards, \"error\": null }"
+                );
+            }
             String cityDataJSON = getObjectMapper().writeValueAsString(cardData);
 
             return new Response(

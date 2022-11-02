@@ -1,8 +1,6 @@
 package app.services;
 
 import app.models.CardModel;
-import card.Enum.ELEMENT;
-import card.Enum.TYPE;
 import lombok.AccessLevel;
 import lombok.Setter;
 
@@ -14,9 +12,9 @@ public class CardService {
 
     public CardService(){
         setCardData(new ArrayList<CardModel>());
-        cardData.add(new CardModel(1, 1, "WaterSpell", 10, ELEMENT.WATER, TYPE.SPELL));
-        cardData.add(new CardModel(2, 1, "FireGoblinMonster", 25, ELEMENT.FIRE, TYPE.MONSTER));
-        cardData.add(new CardModel(3, 2, "NormalSpell", 15, ELEMENT.NORMAL, TYPE.SPELL));
+        cardData.add(new CardModel(1, 1, "WaterSpell", 10, true));
+        cardData.add(new CardModel(2, 1, "FireGoblinMonster", 25, false));
+        cardData.add(new CardModel(3, 2, "NormalSpell", 15, true));
     }
     public CardModel getCardByID(int id){
         CardModel foundCardModel = cardData.stream()
@@ -30,6 +28,15 @@ public class CardService {
         ArrayList<CardModel> foundCards = new ArrayList<CardModel>();
         for(CardModel card : cardData){
             if(card.getUserID() == Uid){
+                foundCards.add(card);
+            }
+        }
+        return foundCards;
+    }
+    public ArrayList<CardModel> getAllOfferedCards(int UId){
+        ArrayList<CardModel> foundCards = new ArrayList<CardModel>();
+        for(CardModel card: cardData){
+            if(card.isPaused() && card.getUserID() != UId){
                 foundCards.add(card);
             }
         }

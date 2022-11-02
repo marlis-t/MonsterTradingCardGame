@@ -1,12 +1,11 @@
 package user;
 
+import card.Card;
 import card.Deck;
+import card.Package;
 import card.StackOfCards;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Arrays;
-import java.util.Scanner;
 
 @Getter
 @Setter
@@ -16,21 +15,36 @@ public class User {
     private int coins;
     private int score;
     private int gamesPlayed;
-    private String securityToken;
+    //private String securityToken;
 
     Deck myDeck;
     StackOfCards myStack;
+    Card myOffer;
+    Demand myDemand;
+    User(int userID, String username){
+        setUserID(userID);
+        setUsername(username);
+        setCoins(20);
+        setScore(100);
+        setGamesPlayed(0);
+        setMyStack(new StackOfCards());
+        setMyDeck(new Deck());
+        setMyOffer(null);
+        setMyDemand(null);
+    }
 
-    User(int userID, String username, int coins, int score, int gamesPlayed, String securityToken) {
+    User(int userID, String username, int coins, int score, int gamesPlayed, StackOfCards myStack, Card myOffer, Demand myDemand) {
         //User exists already, connect to DB to get Information
         setUserID(userID);
         setUsername(username);
         setCoins(coins);
         setScore(score);
         setGamesPlayed(gamesPlayed);
-        setSecurityToken(securityToken);
+        //setSecurityToken(securityToken);
         setMyDeck(new Deck());
         setMyStack(new StackOfCards());
+        setMyOffer(myOffer);
+        setMyDemand(myDemand);
     }
 
     public void showUserData(){
@@ -41,7 +55,22 @@ public class User {
                 "Games played: " + getGamesPlayed() + "\n"
         );
     }
-
+    public void buyPackage(Package pack){
+        for(Card card: pack.getMyCards()){
+            card.setUserID(getUserID());
+        }
+        myStack.addCards(pack.getMyCards());
+    }
+    public void makeOffer(Card offerCard, Demand demand){
+        int index = myStack.getMyCards().indexOf(offerCard);
+        myStack.getMyCards().get(index).setPaused(true);
+        setMyOffer(offerCard);
+        makeDemand(demand);
+    }
+    private void makeDemand(Demand demand) {
+        setMyDemand(demand);
+    }
+    /*
     public void selectDeck(){
         Scanner scanner = new Scanner(System.in);
         //only ask if new deck should be created if deck is filled
@@ -73,5 +102,5 @@ public class User {
             list[myDeck.getMyCards().size()] = nr;
             myDeck.addCard(myStack.getMyCards().get(nr));
         }
-    }
+    }*/
 }

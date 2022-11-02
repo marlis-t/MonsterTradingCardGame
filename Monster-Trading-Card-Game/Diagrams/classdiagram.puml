@@ -72,11 +72,13 @@ class Battle{
 }
 
 class MonsterBattle extends Battle{
-
 }
 
 class MixBattle extends Battle{
     +bool isCardStrongerWithElements(card card1, card* card2)
+}
+
+class SpellBattle extends Battle{
 }
 
 class Dialogue{

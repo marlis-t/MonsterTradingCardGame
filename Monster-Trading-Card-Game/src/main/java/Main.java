@@ -13,5 +13,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //spellfight also
+        //curl, demand, offercard for users
     }
 } 

@@ -13,6 +13,8 @@ import card.Enum.TYPE;
 public class Card {
 
     private int cardID;
+    @Setter(AccessLevel.PUBLIC)
+    private int UserID;
     private String name;
     private int damage;
     @Setter(AccessLevel.PUBLIC)
@@ -27,14 +29,16 @@ public class Card {
         setPaused(false);
         setElement(name);
         setType(name);
+        //get biggest ID from DB and +1 for ID
     }
-    public Card(String name, int damage, int ID){
+    public Card(String name, int damage, int ID, int UserID, boolean paused){
         setName(name);
         setDamage(damage);
-        setPaused(false);
         setElement(name);
         setType(name);
         setCardID(ID);
+        setUserID(UserID);
+        setPaused(paused);
     }
 
     private void setElement(String name){

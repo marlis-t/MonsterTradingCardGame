@@ -39,6 +39,10 @@ public class CardGenerator {
         Damages.add(20);
         Damages.add(25);
         Damages.add(30);
+        Damages.add(35);
+        Damages.add(40);
+        Damages.add(45);
+        Damages.add(50);
     }
     public Card generateCard(){
         Random randomizer = new Random();
@@ -59,8 +63,7 @@ public class CardGenerator {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        Card generatedCard = new Card(cardName, randDamage);
-        return generatedCard;
+        return new Card(cardName, randDamage);
     }
 
     public String chooseElement(Random randomizer){

@@ -1,7 +1,5 @@
 package app.models;
 
-import card.Enum.ELEMENT;
-import card.Enum.TYPE;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +17,8 @@ public class CardModel {
     private String name;
     @JsonAlias({"damage"})
     private int damage;
-    @JsonAlias({"element"})
-    private ELEMENT element;
-    @JsonAlias({"type"})
-    private TYPE type;
+    @JsonAlias({"paused"})
+    private boolean paused;
 
     public CardModel(){}
 }

@@ -21,7 +21,12 @@ public class CollectionOfCards {
         }
         myCards.add(chosenCard);
     }
-
+    public void addCards(ArrayList<Card> cards){
+        if(cards == null){
+            throw new NullPointerException("Tried to add Null to List.");
+        }
+        myCards.addAll(cards);
+    }
     public void removeCard(Card chosenCard){
         int index = myCards.indexOf(chosenCard);
         if(index == -1){

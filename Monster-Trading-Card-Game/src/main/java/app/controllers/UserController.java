@@ -49,7 +49,7 @@ public class UserController extends Controller{
     //GET /users/id
     public Response getAllUsersExceptSelf(int Uid) {
         try {
-            List userData = getUserService().getAllUsersExceptSelf(Uid);
+            List<UserModel> userData = getUserService().getAllUsersExceptSelf(Uid);
             String userDataJSON = getObjectMapper().writeValueAsString(userData);
 
             return new Response(
@@ -67,9 +67,11 @@ public class UserController extends Controller{
         }
     }
     //GET /user/username/password/
-    public Response getUserByCredentials(String username, String password){
+    public Response getUserByCredentials(String body){
         try{
-            UserModel userExists = getUserService().checkIfUserExists(username, password);
+            String[] split = body.split("\"");
+            //UNPW userCreds = getObjectMapper().readValue(body, UNPW.class);
+            UserModel userExists = getUserService().checkIfUserExists(split[3], split[7]);
             String userDataJSON = getObjectMapper().writeValueAsString(userExists);
             if(userExists == null){
                 return new Response(

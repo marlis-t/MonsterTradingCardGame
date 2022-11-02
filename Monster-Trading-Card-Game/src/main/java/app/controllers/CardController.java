@@ -49,6 +49,31 @@ public class CardController extends Controller{
             );
         }
     }
+    public Response getAllOfferedCards(int Uid){
+        try {
+            ArrayList<CardModel> cardData = getCardService().getAllOfferedCards(Uid);
+            if(cardData.size()==0){
+                return new Response(
+                        HttpStatus.OK,
+                        ContentType.JSON,
+                        "{\"data\": No Cards offered, \"error\": null }"
+                );
+            }
+            String cityDataJSON = getObjectMapper().writeValueAsString(cardData);
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    "{ \"data\": " + cityDataJSON + ", \"error\": null }"
+            );
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+    }
 
     // GET /card/id
     public Response getCardById(int id) {

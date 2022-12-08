@@ -5,21 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/DemandModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/battle/Battle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagrams/classdiagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrams/classdiagram.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/DemandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/models/CardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/CardModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/CardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/services/CardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/RequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/DemandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/services/TradingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/battle/ScoreBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/battle/ScoreBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/StackOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/StackOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/Demand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/TradingDeal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/app/server/ServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/server/ServerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +34,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="UML Sequence" />
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -44,7 +44,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Main.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/App.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/models/DemandModel.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/services/CardService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/services/TradingService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/user/TradingDeal.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/user/User.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -68,7 +78,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/threads",
+    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber/Monster-Trading-Card-Game",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
@@ -84,7 +94,7 @@
       <recent name="card" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.CardControllerTest.testCreateCardWithBodyInvalid_expect">
     <configuration name="CardControllerTest.testCreateCardWithBodyInvalid_expect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
@@ -167,10 +177,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyInvalid_expect" />
         <item itemvalue="JUnit.CardControllerTest.testUpdateCardWithBodyNull_expectIllegalArgumentException" />
         <item itemvalue="JUnit.CardControllerTest.testUpdateCardWithNonexistentID_expectNotFoundResponse" />
         <item itemvalue="JUnit.CardControllerTest.testDeleteCardWithNonexistentID_expectNotFoundResponse" />
-        <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyInvalid_expect" />
         <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyNull_expectIllegalArgumentException" />
       </list>
     </recent_temporary>

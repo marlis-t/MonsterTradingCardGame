@@ -2,10 +2,14 @@ package user;
 
 import card.Card;
 import card.Deck;
+import card.Enum.ELEMENT;
+import card.Enum.TYPE;
 import card.Package;
 import card.StackOfCards;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.*;
 
 @Getter
 @Setter
@@ -15,36 +19,39 @@ public class User {
     private int coins;
     private int score;
     private int gamesPlayed;
-    //private String securityToken;
+    private int gamesWon;
+    private int gamesLost;
+    private String securityToken;
 
     Deck myDeck;
     StackOfCards myStack;
-    Card myOffer;
-    Demand myDemand;
+    TradingDeal myTradingDeal;
     User(int userID, String username){
+        //for registration and pushing to db
         setUserID(userID);
         setUsername(username);
         setCoins(20);
         setScore(100);
         setGamesPlayed(0);
+        setGamesWon(0);
+        setGamesLost(0);
+        setSecurityToken("");
         setMyStack(new StackOfCards());
         setMyDeck(new Deck());
-        setMyOffer(null);
-        setMyDemand(null);
+        setMyTradingDeal(null);
     }
 
-    User(int userID, String username, int coins, int score, int gamesPlayed, StackOfCards myStack, Card myOffer, Demand myDemand) {
+    User(int userID, String username, int coins, int score, int gamesPlayed, StackOfCards myStack, TradingDeal myTradingDeal) {
         //User exists already, connect to DB to get Information
         setUserID(userID);
         setUsername(username);
         setCoins(coins);
         setScore(score);
         setGamesPlayed(gamesPlayed);
-        //setSecurityToken(securityToken);
+        setSecurityToken(securityToken);
         setMyDeck(new Deck());
-        setMyStack(new StackOfCards());
-        setMyOffer(myOffer);
-        setMyDemand(myDemand);
+        setMyStack(myStack);
+        setMyTradingDeal(myTradingDeal);
     }
 
     public void showUserData(){
@@ -61,46 +68,27 @@ public class User {
         }
         myStack.addCards(pack.getMyCards());
     }
-    public void makeOffer(Card offerCard, Demand demand){
-        int index = myStack.getMyCards().indexOf(offerCard);
-        myStack.getMyCards().get(index).setPaused(true);
-        setMyOffer(offerCard);
-        makeDemand(demand);
-    }
-    private void makeDemand(Demand demand) {
-        setMyDemand(demand);
-    }
-    /*
-    public void selectDeck(){
-        Scanner scanner = new Scanner(System.in);
-        //only ask if new deck should be created if deck is filled
-        if(!myDeck.isDeckEmpty()) {
-            System.out.println("Create new Deck? y/n: ");
-            String answer = scanner.nextLine();
-            if (answer == "n") {
-                return;
-            } else if (answer == "y") {
-                myDeck.emptyDeck();
-            }else {
-                throw new IllegalArgumentException("Only [y]es or [n]o are possible options");
+   public void setUpTradingDeal(int cardID, int minDamage, ELEMENT element, TYPE type){
+        Card offerCard = null;
+        for(Card card: myStack.getMyCards()){
+            if(cardID == card.getCardID()){
+                offerCard = card;
+                break;
             }
         }
-        myStack.showCards();
-        System.out.println("\nType in the numbers of the Cards you want to select.\nYou can choose 4 Cards.");
-        int[] list = new int[4];
-        int nr;
-        while(myDeck.getMyCards().size() < 4){
-            //scan input
-            // throws InputMismatchException if wrong input
-            nr = scanner.nextInt();
-            //check if input already in list
-            if(Arrays.asList(list).contains(nr)){
-                System.out.println("This card is already in the deck");
-                continue;
-            }
-            //add scanned index to list
-            list[myDeck.getMyCards().size()] = nr;
-            myDeck.addCard(myStack.getMyCards().get(nr));
+        if(offerCard != null){
+            myTradingDeal = new TradingDeal(cardID, offerCard.getName(), offerCard.getDamage(), getUserID(), minDamage, element, type);
         }
-    }*/
+   }
+   public void assembleDeck(){
+        //make sure deck is empty before assembling it
+        myDeck.emptyDeck();
+        ArrayList<Card> allCards = getMyStack().getMyCards();
+        //sorts all Cards in Stack by damage, method in Card
+        Collections.sort(allCards);
+        //creates a sublist of Cards 0 (inc) to 5 (exc)
+        ArrayList<Card> strongest5 = (ArrayList<Card>) allCards.subList(0, 5);
+        myDeck.addCards(strongest5);
+   }
+
 }

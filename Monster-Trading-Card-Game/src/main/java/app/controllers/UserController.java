@@ -75,9 +75,9 @@ public class UserController extends Controller{
             String userDataJSON = getObjectMapper().writeValueAsString(userExists);
             if(userExists == null){
                 return new Response(
-                        HttpStatus.OK,
+                        HttpStatus.UNAUTHORIZED,
                         ContentType.JSON,
-                        "{ \"data\": User does not exist , \"error\": null }"
+                        "{ \"error\": Invalid username/password , \"data\": null }"
                 );
             }else{
                 return new Response(
@@ -147,7 +147,7 @@ public class UserController extends Controller{
             UserModel user = getObjectMapper().readValue(body, UserModel.class);
             getUserService().updateUser(id, user);
             return new Response(
-                    HttpStatus.CREATED,
+                    HttpStatus.OK,
                     ContentType.JSON,
                     "{ \"data\": " + user + ", \"error\": null }"
             );

@@ -14,6 +14,8 @@ public class CardGenerator {
     private ArrayList<String> Types;
     private ArrayList<String> Specifications;
     private ArrayList<Integer> Damages;
+
+    private Random randomizer = new Random();
     public CardGenerator(){
         setElements(new ArrayList<String>());
         setTypes(new ArrayList<String>());
@@ -32,10 +34,9 @@ public class CardGenerator {
         Specifications.add("Knight");
         Specifications.add("Elf");
         Specifications.add("Wizard");
-        Specifications.add("Ogre");
+        Specifications.add("Ork");
+        Specifications.add("Kraken");
 
-        Damages.add(10);
-        Damages.add(15);
         Damages.add(20);
         Damages.add(25);
         Damages.add(30);
@@ -45,7 +46,6 @@ public class CardGenerator {
         Damages.add(50);
     }
     public Card generateCard(){
-        Random randomizer = new Random();
         int randDamage = 0;
         String cardName = null;
         try{

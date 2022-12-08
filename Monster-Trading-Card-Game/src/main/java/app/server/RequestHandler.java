@@ -39,8 +39,9 @@ public class RequestHandler implements Runnable{
 
         }catch (IOException e){
             e.printStackTrace();
+        }finally{
+            closeRequest();
         }
-        closeRequest();
     }
     public void sendResponse(Request request){
         Response response;

@@ -10,7 +10,7 @@ import card.Enum.TYPE;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 
-public class Card {
+public class Card implements Comparable<Card>{
 
     private int cardID;
     @Setter(AccessLevel.PUBLIC)
@@ -29,17 +29,9 @@ public class Card {
         setPaused(false);
         setElement(name);
         setType(name);
-        //get biggest ID from DB and +1 for ID
+        setUserID(0);
     }
-    public Card(String name, int damage, int ID, int UserID, boolean paused){
-        setName(name);
-        setDamage(damage);
-        setElement(name);
-        setType(name);
-        setCardID(ID);
-        setUserID(UserID);
-        setPaused(paused);
-    }
+    public Card(){}
 
     private void setElement(String name){
         if(name.contains("Water")){
@@ -66,4 +58,11 @@ public class Card {
         System.out.println("Name: " + getName()  + "\n" + "Damage: " + getDamage() + "\n" );
     }
 
+
+    @Override
+    public int compareTo(Card card) {
+        int compareDamage = ((Card)card).getDamage();
+
+        return compareDamage - this.damage;
+    }
 }

@@ -28,9 +28,9 @@ public class CardController extends Controller{
             ArrayList<CardModel> cardData = getCardService().getCardsFromUserID(Uid);
             if(cardData.size()==0){
                 return new Response(
-                        HttpStatus.OK,
+                        HttpStatus.NOT_FOUND,
                         ContentType.JSON,
-                        "{\"data\": User #" + Uid + " has no Cards, \"error\": null }"
+                        "{\"error\": User #\" + Uid + \" has no Cards , \"data\": null}"
                 );
             }
             String cityDataJSON = getObjectMapper().writeValueAsString(cardData);
@@ -54,16 +54,16 @@ public class CardController extends Controller{
             ArrayList<CardModel> cardData = getCardService().getAllOfferedCards(Uid);
             if(cardData.size()==0){
                 return new Response(
-                        HttpStatus.OK,
+                        HttpStatus.NO_CONTENT,
                         ContentType.JSON,
-                        "{\"data\": No Cards offered, \"error\": null }"
+                        "{}"
                 );
             }
-            String cityDataJSON = getObjectMapper().writeValueAsString(cardData);
+            String cardDataJSON = getObjectMapper().writeValueAsString(cardData);
             return new Response(
                     HttpStatus.OK,
                     ContentType.JSON,
-                    "{ \"data\": " + cityDataJSON + ", \"error\": null }"
+                    "{ \"data\": " + cardDataJSON + ", \"error\": null }"
             );
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -106,11 +106,33 @@ public class CardController extends Controller{
     public Response createCard(String body) {
         try{
             CardModel card = getObjectMapper().readValue(body, CardModel.class);
+            //get highest Card ID
             getCardService().addCard(card);
             return new Response(
                     HttpStatus.CREATED,
                     ContentType.JSON,
                     "{ \"data\": " + card + ", \"error\": null }"
+            );
+
+        }catch(JsonProcessingException e){
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+    }
+    public Response createPackage(String body){
+        try{
+            ArrayList<CardModel> cards = new ArrayList<CardModel>();
+            //this is wrong
+            getCardService().addCard(getObjectMapper().readValue(body, CardModel.class));
+
+            return new Response(
+                    HttpStatus.CREATED,
+                    ContentType.JSON,
+                    "{\"data\": " + cards + ", \"error\": null }"
             );
 
         }catch(JsonProcessingException e){

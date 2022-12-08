@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import user.User;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -178,58 +181,70 @@ public class Battle {
 
     }
 
-    private void writeToLogfile(String content){
-
+    private void writeToLogfile(String content) throws IOException {
+        FileWriter writer = new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt");
+        writer.write(content);
+        writer.close();
     }
 
     private void updatePlayerStats(){
-        if(getUser1().getMyDeck().isDeckEmpty()){
-            //User1 lost
-            getUser1().setScore(getUser1().getScore()-5);
-            getUser2().setScore(getUser1().getScore()+3);
-            writeToLogfile("User '" + getUser2().getUsername() + "' won the battle\n");
-        }else if(getUser2().getMyDeck().isDeckEmpty()){
-            //User2 lost
-            getUser2().setScore(getUser2().getScore()-5);
-            getUser1().setScore(getUser1().getScore()+3);
-            writeToLogfile("User '" + getUser1().getUsername() + "' won the battle\n");
-        }else{
-            writeToLogfile("The battle ended in a draw\n");
-        }
-        getUser1().setGamesPlayed(getUser1().getGamesPlayed()+1);
-        getUser2().setGamesPlayed(getUser2().getGamesPlayed()+1);
+        try {
+            if (getUser1().getMyDeck().isDeckEmpty()) {
+                //User1 lost
+                getUser1().setScore(getUser1().getScore() - 5);
+                getUser2().setScore(getUser1().getScore() + 3);
+                writeToLogfile("User '" + getUser2().getUsername() + "' won the battle\n");
+            } else if (getUser2().getMyDeck().isDeckEmpty()) {
+                //User2 lost
+                getUser2().setScore(getUser2().getScore() - 5);
+                getUser1().setScore(getUser1().getScore() + 3);
+                writeToLogfile("User '" + getUser1().getUsername() + "' won the battle\n");
+            } else {
+                writeToLogfile("The battle ended in a draw\n");
+            }
+            getUser1().setGamesPlayed(getUser1().getGamesPlayed() + 1);
+            getUser2().setGamesPlayed(getUser2().getGamesPlayed() + 1);
 
-        //update users in database
+            //update users in database
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void doBattle(){
-        writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
-        while(shouldBattleContinue()){
-            Card cardUser1 = getRandomCardFromUser(getUser1());
-            Card cardUser2 = getRandomCardFromUser(getUser2());
+        try {
+            File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt");
+            writeToLogfile("\nNEW BATTLE\n\n");
+            writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
+            while (shouldBattleContinue()) {
+                Card cardUser1 = getRandomCardFromUser(getUser1());
+                Card cardUser2 = getRandomCardFromUser(getUser2());
 
-            switch (whichCardStronger(cardUser1, cardUser2)) {
-                case 1 -> {
-                    changeCardOwner(cardUser2, getUser1(), getUser2());
-                    writeToLogfile(
-                            "Round: " + getRound() + "\n" +
-                                    "Card '" + cardUser1.getName() +
-                                    "' of User '" + getUser1().getUsername() + "' won\n"
-                    );
+                switch (whichCardStronger(cardUser1, cardUser2)) {
+                    case 1 -> {
+                        changeCardOwner(cardUser2, getUser1(), getUser2());
+                        writeToLogfile(
+                                "Round: " + getRound() + "\n" +
+                                        "Card '" + cardUser1.getName() +
+                                        "' of User '" + getUser1().getUsername() + "' won\n"
+                        );
+                    }
+                    case 2 -> {
+                        changeCardOwner(cardUser1, getUser2(), getUser1());
+                        writeToLogfile(
+                                "Round: " + getRound() + "\n" +
+                                        "Card '" + cardUser2.getName() +
+                                        "' of User '" + getUser2().getUsername() + "' won\n"
+                        );
+                    }
+                    case 3 -> writeToLogfile("Round: " + getRound() + " ended in a draw\n");
+                    default -> throw new IllegalArgumentException("WhichCardStronger() returned illegal argument");
                 }
-                case 2 -> {
-                    changeCardOwner(cardUser1, getUser2(), getUser1());
-                    writeToLogfile(
-                            "Round: " + getRound() + "\n" +
-                                    "Card '" + cardUser2.getName() +
-                                    "' of User '" + getUser2().getUsername() + "' won\n"
-                    );
-                }
-                case 3 -> writeToLogfile("Round: " + getRound() + " ended in a draw\n");
-                default -> throw new IllegalArgumentException("WhichCardStronger() returned illegal argument");
+
+                setRound(getRound() + 1);
             }
-
-            setRound(getRound()+1);
+        }catch(IOException e){
+            e.printStackTrace();
         }
         updatePlayerStats();
     }

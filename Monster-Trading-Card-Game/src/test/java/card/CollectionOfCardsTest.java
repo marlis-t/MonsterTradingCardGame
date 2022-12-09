@@ -18,7 +18,7 @@ public class CollectionOfCardsTest {
     @DisplayName("Test: collection.addCard(testCard); no Exception thrown")
     public void testAddingCardToList_expectNoException(){
         CollectionOfCards collection = new CollectionOfCards();
-        Card testCard = new Card("NormalSpell", 0);
+        Card testCard = new Card("NormalSpell", 0, 1);
 
         assertDoesNotThrow(() -> {
             collection.addCard(testCard);
@@ -29,7 +29,7 @@ public class CollectionOfCardsTest {
     @DisplayName("Test: collection.removeCard(cardNotInList); IndexOutOfBoundsException thrown")
     public void testRemovingCardNotInList_expectIndexOutOfBoundsException(){
         CollectionOfCards collection = new CollectionOfCards();
-        Card cardNotInList = new Card("NormalSpell", 0);
+        Card cardNotInList = new Card("NormalSpell", 0, 1);
 
         Exception thrownException = assertThrows(IndexOutOfBoundsException.class, () -> {
             collection.removeCard(cardNotInList);
@@ -40,7 +40,7 @@ public class CollectionOfCardsTest {
     @DisplayName("Test: collection.removeCard(cardInList); no Exception thrown")
     public void testRemovingCardInList_expectNoException(){
         CollectionOfCards collection = new CollectionOfCards();
-        Card cardInList = new Card("NormalSpell", 0);
+        Card cardInList = new Card("NormalSpell", 0, 1);
         collection.addCard(cardInList);
 
         assertDoesNotThrow(() -> {

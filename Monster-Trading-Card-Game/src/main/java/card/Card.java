@@ -23,13 +23,14 @@ public class Card implements Comparable<Card>{
     private TYPE type;
 
 
-    public Card(String name, int damage){
+    public Card(String name, int damage, int cardID){
         setName(name);
         setDamage(damage);
         setPaused(false);
         setElement(name);
         setType(name);
         setUserID(0);
+        setCardID(cardID);
     }
     public Card(){}
 

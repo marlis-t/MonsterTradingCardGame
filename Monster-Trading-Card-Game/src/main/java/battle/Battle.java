@@ -10,6 +10,7 @@ import user.User;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,7 +34,7 @@ public class Battle {
         setCard1Damage(0);
         setCard2Damage(0);
     }
-    private Boolean shouldBattleContinue(){
+    public Boolean shouldBattleContinue(){
         if(getUser1().getMyDeck().isDeckEmpty()){
             return false;
         }else if(getUser2().getMyDeck().isDeckEmpty()){
@@ -43,14 +44,19 @@ public class Battle {
         }
         return true;
     }
-    private Card getRandomCardFromUser(User user){
+    public Card getRandomCardFromUser(User user){
         ArrayList<Card> userCards = user.getMyDeck().getMyCards();
         //chooses random int in range of 0 to size of deck -1
+        //throws IllegalArgumentException if deck is empty
         int randNr = getRandomizer().nextInt(userCards.size());
-        return userCards.get(randNr);
+        Card chosenCard = userCards.get(randNr);
+        if(chosenCard == null){
+            throw new IndexOutOfBoundsException("Chosen Card is not in Stack");
+        }
+        return chosenCard;
     }
 
-    private void addElementalDamage(Card card1, Card card2){
+    public void addElementalDamage(Card card1, Card card2){
         if(card1.getElement() == ELEMENT.WATER){
             if(card2.getElement() == ELEMENT.FIRE){
                 //super effective
@@ -83,7 +89,7 @@ public class Battle {
             }
         }
     }
-    private void addMonsterSpecialities(Card card1, Card card2){
+    public void addMonsterSpecialities(Card card1, Card card2){
         if(card1.getName().contains("Goblin")){
             if(card2.getName().contains("Dragon")){
                 //Goblin does not attack Dragon
@@ -135,23 +141,25 @@ public class Battle {
         }
     }
 
-    private int whichCardStronger(Card card1, Card card2) {
+    public int whichCardStronger(Card card1, Card card2) {
         setCard1Damage(card1.getDamage());
         setCard2Damage(card2.getDamage());
+        try {
+            writeToLogfile("damage before type and specification includes: You: " + card1.getName() + ": " + getCard1Damage() + ", other: " + card2.getName() + ": " + getCard2Damage() + "\n");
 
-        System.out.println("damage before: " + card1.getName() + ": " + getCard1Damage() + " " + card2.getName() + ": " + getCard2Damage());
-
-        if (card1.getType() == TYPE.SPELL || card2.getType() == TYPE.SPELL) {
-            //does not happen with 2 monster cards
-            addElementalDamage(card1, card2);
+            if (card1.getType() == TYPE.SPELL || card2.getType() == TYPE.SPELL) {
+                //does not happen with 2 monster cards
+                addElementalDamage(card1, card2);
+            }
+            if (card1.getType() == TYPE.MONSTER || card2.getType() == TYPE.MONSTER) {
+                //does not happen with 2 spell cards
+                addMonsterSpecialities(card1, card2);
+            }
+            writeToLogfile("damage after: You: " + card1.getName() + ": " + getCard1Damage() + ", other: " + card2.getName() + ": " + getCard2Damage() + "\n");
+        }catch(IOException e){
+            e.printStackTrace();
         }
-        if(card1.getType() == TYPE.MONSTER || card2.getType() == TYPE.MONSTER){
-            //does not happen with 2 spell cards
-            addMonsterSpecialities(card1, card2);
-        }
-        System.out.println("damage after: " + card1.getName() + ": " + getCard1Damage() + " " + card2.getName() + ": " + getCard2Damage());
-
-        int strongerCard = 0;
+        int strongerCard;
 
         if(getCard1Damage() > getCard2Damage()){
             strongerCard = 1;
@@ -160,16 +168,16 @@ public class Battle {
         }else {
             strongerCard = 3;
         }
-        System.out.println("result: " + strongerCard);
+        //System.out.println("result: " + strongerCard);
         return strongerCard;
     }
 
-    private void changeCardOwner(Card card, User newOwner, User oldOwner) {
+    public void changeCardOwner(Card card, User newOwner, User oldOwner) {
         if(!oldOwner.getMyDeck().getMyCards().remove(card)){
             //remove returns false if card not in deck
             throw new IllegalArgumentException("Deck does not contain Card, unable to remove");
         }
-        if(oldOwner.getMyStack().getMyCards().remove(card)){
+        if(!oldOwner.getMyStack().getMyCards().remove(card)){
             //remove returns false if card not in stack
             throw new IllegalArgumentException("Stack does not contain Card, unable to remove");
         }
@@ -177,22 +185,23 @@ public class Battle {
         newOwner.getMyStack().addCard(card);
 
         //call database to update UID of card
-        System.out.println("User " + newOwner.getUsername() + " got Card " + card.getName() + " from User " + oldOwner.getUsername());
+        //System.out.println("User " + newOwner.getUsername() + " got Card " + card.getName() + " from User " + oldOwner.getUsername());
 
     }
 
-    private void writeToLogfile(String content) throws IOException {
-        FileWriter writer = new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt");
+    public void writeToLogfile(String content) throws IOException {
+        PrintWriter writer = new PrintWriter(new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt", true));
+        //FileWriter writer = new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt");
         writer.write(content);
         writer.close();
     }
 
-    private void updatePlayerStats(){
+    public void updatePlayerStats(){
         try {
             if (getUser1().getMyDeck().isDeckEmpty()) {
                 //User1 lost
                 getUser1().setScore(getUser1().getScore() - 5);
-                getUser2().setScore(getUser1().getScore() + 3);
+                getUser2().setScore(getUser2().getScore() + 3);
                 writeToLogfile("User '" + getUser2().getUsername() + "' won the battle\n");
             } else if (getUser2().getMyDeck().isDeckEmpty()) {
                 //User2 lost
@@ -219,34 +228,32 @@ public class Battle {
             while (shouldBattleContinue()) {
                 Card cardUser1 = getRandomCardFromUser(getUser1());
                 Card cardUser2 = getRandomCardFromUser(getUser2());
-
+                writeToLogfile("Round: " + getRound() + "\n");
                 switch (whichCardStronger(cardUser1, cardUser2)) {
                     case 1 -> {
                         changeCardOwner(cardUser2, getUser1(), getUser2());
                         writeToLogfile(
-                                "Round: " + getRound() + "\n" +
-                                        "Card '" + cardUser1.getName() +
+                                "Card '" + cardUser1.getName() +
                                         "' of User '" + getUser1().getUsername() + "' won\n"
                         );
                     }
                     case 2 -> {
                         changeCardOwner(cardUser1, getUser2(), getUser1());
                         writeToLogfile(
-                                "Round: " + getRound() + "\n" +
-                                        "Card '" + cardUser2.getName() +
+                                "Card '" + cardUser2.getName() +
                                         "' of User '" + getUser2().getUsername() + "' won\n"
                         );
                     }
-                    case 3 -> writeToLogfile("Round: " + getRound() + " ended in a draw\n");
+                    case 3 -> writeToLogfile("The round ended in a draw\n");
                     default -> throw new IllegalArgumentException("WhichCardStronger() returned illegal argument");
                 }
 
                 setRound(getRound() + 1);
             }
+            updatePlayerStats();
         }catch(IOException e){
             e.printStackTrace();
         }
-        updatePlayerStats();
     }
 
 

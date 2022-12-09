@@ -7,6 +7,15 @@
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/battle/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/battle/Battle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/StackOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/StackOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,16 +67,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultPlantUmlFileTemplate": "UML Sequence",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber/Monster-Trading-Card-Game",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber/Monster-Trading-Card-Game&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\MARLIS\Fh_Technikum\Semester 3\Software\MonsterTradingCardGame-Tiefengraber\Monster-Trading-Card-Game\Diagrams" />
@@ -80,82 +89,82 @@
       <recent name="card" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="CardControllerTest.testCreateCardWithBodyInvalid_expect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException">
+    <configuration name="BattleTest.testChangeCardOwnerOfOwnedCard_expectChangedDeckSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.controllers.*" />
+          <option name="PATTERN" value="battle.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="app.controllers" />
-      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
-      <option name="METHOD_NAME" value="testCreateCardWithBodyInvalid_expect" />
+      <option name="PACKAGE_NAME" value="battle" />
+      <option name="MAIN_CLASS_NAME" value="battle.BattleTest" />
+      <option name="METHOD_NAME" value="testChangeCardOwnerOfOwnedCard_expectChangedDeckSize" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardControllerTest.testCreateCardWithBodyNull_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BattleTest.testWriteToLogfile_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.controllers.*" />
+          <option name="PATTERN" value="battle.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="app.controllers" />
-      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
-      <option name="METHOD_NAME" value="testCreateCardWithBodyNull_expectIllegalArgumentException" />
+      <option name="PACKAGE_NAME" value="battle" />
+      <option name="MAIN_CLASS_NAME" value="battle.BattleTest" />
+      <option name="METHOD_NAME" value="testWriteToLogfile_expectNoException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardControllerTest.testDeleteCardWithNonexistentID_expectNotFoundResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest.testBuyInvalidPackage_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.controllers.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="app.controllers" />
-      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
-      <option name="METHOD_NAME" value="testDeleteCardWithNonexistentID_expectNotFoundResponse" />
+      <option name="PACKAGE_NAME" value="user" />
+      <option name="MAIN_CLASS_NAME" value="user.UserTest" />
+      <option name="METHOD_NAME" value="testBuyInvalidPackage_expectIllegalArgumentException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardControllerTest.testUpdateCardWithBodyNull_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.controllers.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="app.controllers" />
-      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
-      <option name="METHOD_NAME" value="testUpdateCardWithBodyNull_expectIllegalArgumentException" />
+      <option name="PACKAGE_NAME" value="user" />
+      <option name="MAIN_CLASS_NAME" value="user.UserTest" />
+      <option name="METHOD_NAME" value="testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardControllerTest.testUpdateCardWithNonexistentID_expectNotFoundResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest.testSetUpTradingDealWithValidCard_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.controllers.*" />
+          <option name="PATTERN" value="user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="app.controllers" />
-      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
-      <option name="METHOD_NAME" value="testUpdateCardWithNonexistentID_expectNotFoundResponse" />
+      <option name="PACKAGE_NAME" value="user" />
+      <option name="MAIN_CLASS_NAME" value="user.UserTest" />
+      <option name="METHOD_NAME" value="testSetUpTradingDealWithValidCard_expectNoException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -163,11 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyInvalid_expect" />
-        <item itemvalue="JUnit.CardControllerTest.testUpdateCardWithBodyNull_expectIllegalArgumentException" />
-        <item itemvalue="JUnit.CardControllerTest.testUpdateCardWithNonexistentID_expectNotFoundResponse" />
-        <item itemvalue="JUnit.CardControllerTest.testDeleteCardWithNonexistentID_expectNotFoundResponse" />
-        <item itemvalue="JUnit.CardControllerTest.testCreateCardWithBodyNull_expectIllegalArgumentException" />
+        <item itemvalue="JUnit.UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" />
+        <item itemvalue="JUnit.UserTest.testSetUpTradingDealWithValidCard_expectNoException" />
+        <item itemvalue="JUnit.UserTest.testBuyInvalidPackage_expectIllegalArgumentException" />
+        <item itemvalue="JUnit.BattleTest.testWriteToLogfile_expectNoException" />
+        <item itemvalue="JUnit.BattleTest.testChangeCardOwnerOfOwnedCard_expectChangedDeckSize" />
       </list>
     </recent_temporary>
   </component>

@@ -17,8 +17,8 @@ public class User {
     private int coins;
     private int score;
     private int gamesPlayed;
-    private int gamesWon;
-    private int gamesLost;
+    //private int gamesWon;
+    //private int gamesLost;
     private String securityToken;
 
     Deck myDeck;
@@ -31,8 +31,8 @@ public class User {
         setCoins(20);
         setScore(100);
         setGamesPlayed(0);
-        setGamesWon(0);
-        setGamesLost(0);
+        //setGamesWon(0);
+        //setGamesLost(0);
         setSecurityToken("");
         setMyStack(new StackOfCards());
         setMyDeck(new Deck());
@@ -81,8 +81,9 @@ public class User {
             }
         }
         if(offerCard != null){
-            myTradingDeal = new TradingDeal(cardID, offerCard.getName(), offerCard.getDamage(), getUserID(), minDamage, element, type);
+            myTradingDeal = new TradingDeal(0,cardID, getUserID(), offerCard.getName(), offerCard.getDamage(), minDamage, element, type);
             //push to db
+            //id von trading deal, der zurückkommt
         }else{
             throw new IllegalArgumentException("Card to trade not found in stack");
         }

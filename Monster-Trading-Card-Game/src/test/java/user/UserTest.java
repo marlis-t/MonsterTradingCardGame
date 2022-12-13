@@ -37,7 +37,7 @@ public class UserTest {
     @DisplayName("Test: setUpTradingDeal(); expect no Exception")
     public void testSetUpTradingDealWithValidCard_expectNoException(){
         User user = new User(1, "user");
-        Card card = new Card("NormalSpell", 20, 1);
+        Card card = new Card("NormalSpell", 20, 1, 1);
         user.getMyStack().addCard(card);
 
         assertDoesNotThrow(() -> {

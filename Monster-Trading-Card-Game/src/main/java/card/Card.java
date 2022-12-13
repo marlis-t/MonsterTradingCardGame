@@ -10,7 +10,7 @@ import card.Enum.TYPE;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 
-public class Card implements Comparable<Card>{
+public class Card{
 
     private int cardID;
     @Setter(AccessLevel.PUBLIC)
@@ -23,13 +23,22 @@ public class Card implements Comparable<Card>{
     private TYPE type;
 
 
-    public Card(String name, int damage, int cardID){
+    public Card(String name, int damage, int cardID, int userID){
         setName(name);
         setDamage(damage);
         setPaused(false);
         setElement(name);
         setType(name);
-        setUserID(0);
+        setUserID(userID);
+        setCardID(cardID);
+    }
+    public Card(String name, int damage, int cardID, int userID, Boolean paused){
+        setName(name);
+        setDamage(damage);
+        setPaused(paused);
+        setElement(name);
+        setType(name);
+        setUserID(userID);
         setCardID(cardID);
     }
     public Card(){}
@@ -60,10 +69,5 @@ public class Card implements Comparable<Card>{
     }
 
 
-    @Override
-    public int compareTo(Card card) {
-        int compareDamage = ((Card)card).getDamage();
 
-        return compareDamage - this.damage;
-    }
 }

@@ -11,13 +11,14 @@ import lombok.Setter;
 @Setter(AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class TradingDeal {
+    private int tradingDealID;
+    private int userID;
     private int offerCardID;
     private String offerCardName;
     private int offerCardDamage;
-    private int userID;
-    private int minDamage;
-    private ELEMENT element;
-    private TYPE type;
+    private int demandMinDamage;
+    private ELEMENT demandElement;
+    private TYPE demandType;
 
     public TradingDeal() {
 

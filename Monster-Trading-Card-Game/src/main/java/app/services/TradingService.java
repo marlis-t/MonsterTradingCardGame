@@ -14,7 +14,7 @@ public class TradingService {
 
     public TradingService(){
         setTradingData(new ArrayList<TradingDeal>());
-        tradingData.add(new TradingDeal(1, "Waterspell", 10, 1, 20, ELEMENT.FIRE, TYPE.SPELL));
+        tradingData.add(new TradingDeal(1, 1, 1, "Waterspell", 10, 10,  ELEMENT.FIRE, TYPE.SPELL));
     }
     public TradingDeal getTradingDealByUid(int Uid){
         for(TradingDeal atrade : tradingData){

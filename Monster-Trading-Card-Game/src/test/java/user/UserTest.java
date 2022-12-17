@@ -17,7 +17,7 @@ public class UserTest {
     @Test
     @DisplayName("Test: buyPackage(pack); expect no Exception")
     public void testBuyValidPackage_expectNoException(){
-        User user = new User(1, "user");
+        User user = new User("username", "user");
         Package pack = new Package();
 
         assertDoesNotThrow(() -> {
@@ -27,7 +27,7 @@ public class UserTest {
     @Test
     @DisplayName("Test: buyPackage(null); expect IllegalArgumentException")
     public void testBuyInvalidPackage_expectIllegalArgumentException(){
-        User user = new User(1, "user");
+        User user = new User("username", "user");
 
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
             user.buyPackage(null);
@@ -36,7 +36,7 @@ public class UserTest {
     @Test
     @DisplayName("Test: setUpTradingDeal(); expect no Exception")
     public void testSetUpTradingDealWithValidCard_expectNoException(){
-        User user = new User(1, "user");
+        User user = new User("username", "user");
         Card card = new Card("NormalSpell", 20, 1, 1);
         user.getMyStack().addCard(card);
 
@@ -47,7 +47,7 @@ public class UserTest {
     @Test
     @DisplayName("Test: setUpTradingDeal(); expect no Exception")
     public void testSetUpTradingDealWithCardNotInStack_expectIllegalArgumentException(){
-        User user = new User(1, "user");
+        User user = new User("username", "user");
 
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
             user.setUpTradingDeal(1, 10, null, null);

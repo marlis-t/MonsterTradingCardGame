@@ -1,63 +1,37 @@
 package app.controllers;
 
+import app.daos.UserDao;
 import app.http.ContentType;
 import app.http.HttpStatus;
-import app.models.UserModel;
 import app.server.Response;
 import app.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import user.User;
 
-import java.util.List;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
+@Getter(AccessLevel.PRIVATE)
+@Setter(AccessLevel.PRIVATE)
 public class UserController extends Controller{
-    @Getter(AccessLevel.PRIVATE)
-    @Setter(AccessLevel.PRIVATE)
+
     private UserService userService;
+    private UserDao userDao;
 
-    public UserController(UserService userService) {
-        setUserService(userService);
+    public UserController(UserDao userDao) {
+        setUserDao(userDao);
     }
-    //GET /user/id
-    public Response getUserById(int id) {
-        try{
-            UserModel user = getUserService().getUserByID(id);
-            if(user == null){
-                return new Response(
-                        HttpStatus.NOT_FOUND,
-                        ContentType.JSON,
-                        "{ \"error\": \"No User with this ID\", \"data\": null }"
-                );
-            }
-            String userDataJSON = getObjectMapper().writeValueAsString(user);
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
-            );
-        }catch(JsonProcessingException e){
-            e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
-        }
-    }
-    //GET /users/id
-    public Response getAllUsersExceptSelf(int Uid) {
+    //GET /users/username
+    public Response getUserByName(String username) {
+        User user = null;
         try {
-            List<UserModel> userData = getUserService().getAllUsersExceptSelf(Uid);
-            String userDataJSON = getObjectMapper().writeValueAsString(userData);
-
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
-            );
-        } catch (JsonProcessingException e) {
+            user = getUserDao().read(username);
+        } catch (SQLException e) {
             e.printStackTrace();
             return new Response(
                     HttpStatus.INTERNAL_SERVER_ERROR,
@@ -65,59 +39,6 @@ public class UserController extends Controller{
                     "{ \"error\": \"Internal Server Error\", \"data\": null }"
             );
         }
-    }
-    //GET /user/username/password/
-    public Response getUserByCredentials(String body){
-        try{
-            String[] split = body.split("\"");
-            //UNPW userCreds = getObjectMapper().readValue(body, UNPW.class);
-            UserModel userExists = getUserService().checkIfUserExists(split[3], split[7]);
-            String userDataJSON = getObjectMapper().writeValueAsString(userExists);
-            if(userExists == null){
-                return new Response(
-                        HttpStatus.UNAUTHORIZED,
-                        ContentType.JSON,
-                        "{ \"error\": Invalid username/password , \"data\": null }"
-                );
-            }else{
-                return new Response(
-                        HttpStatus.OK,
-                        ContentType.JSON,
-                        "{ \"data\": " + userDataJSON + " , \"error\": null }"
-                );
-            }
-        }catch (JsonProcessingException e){
-            e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
-        }
-    }
-    //POST /user
-    public Response createUser(String body) {
-        try{
-            UserModel user = getObjectMapper().readValue(body, UserModel.class);
-            getUserService().registerUser(user);
-            return new Response(
-                    HttpStatus.CREATED,
-                    ContentType.JSON,
-                    "{ \"data\": " + user + ", \"error\": null }"
-            );
-
-        }catch(JsonProcessingException e){
-            e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
-        }
-    }
-    //DELETE /user/id
-    public Response deleteUser(int id) {
-        UserModel user = getUserService().getUserByID(id);
         if(user == null){
             return new Response(
                     HttpStatus.NOT_FOUND,
@@ -125,33 +46,18 @@ public class UserController extends Controller{
                     "{ \"error\": \"No User with this ID\", \"data\": null }"
             );
         }
-        String userName = user.getUsername();
-        getUserService().deleteUser(id);
         return new Response(
                 HttpStatus.OK,
                 ContentType.JSON,
-                "{ \"data\": " + userName + " deleted" + ", \"error\": null }"
+                "{ \"data\": " + user.showUserData() + ", \"error\": null }"
         );
     }
-    //PUT /user/id
-    public Response updateUser(int id, String body){
-        UserModel oldUser = getUserService().getUserByID(id);
-        if(oldUser == null){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No User with this ID\", \"data\": null }"
-            );
-        }
-        try{
-            UserModel user = getObjectMapper().readValue(body, UserModel.class);
-            getUserService().updateUser(id, user);
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + user + ", \"error\": null }"
-            );
-        }catch(JsonProcessingException e){
+    //GET /users
+    public Response getAllUsers() {
+        ArrayList<User> users;
+        try {
+            users = getUserDao().readAll();
+        } catch (SQLException e) {
             e.printStackTrace();
             return new Response(
                     HttpStatus.INTERNAL_SERVER_ERROR,
@@ -159,6 +65,200 @@ public class UserController extends Controller{
                     "{ \"error\": \"Internal Server Error\", \"data\": null }"
             );
         }
+        if(users.isEmpty()){
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"error\": \"No Users found\", \"data\": null }"
+            );
+        }
+        StringBuilder userData = new StringBuilder();
+        for(User user : users){
+            userData.append(user.showUserData());
+        }
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + userData + ", \"error\": null }"
+        );
+    }
+
+    //POST /users
+    public Response createUser(String body) {
+        String[] split = body.split("\"");
+        String username = "";
+        String password = "";
+        //find username + pw if set in body
+        int length = (int) Arrays.stream(split).count();
+        for(int i = 0; i < length; i++){
+            if(Objects.equals(split[i], "Username")){
+                username = split[i+2];
+            }else if(Objects.equals(split[i], "Password")){
+                password = split[i+2];
+            }
+        }
+        if(username.equals("") || password.equals("")){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.JSON,
+                    "{ \"error\": \"Username or password not set\", \"data\": null }"
+            );
+        }
+
+        try{
+            User user = new User(username, password);
+            User createdUser = getUserDao().create(user);
+            String userDataJSON = getObjectMapper().writeValueAsString(createdUser);
+            return new Response(
+                    HttpStatus.CREATED,
+                    ContentType.JSON,
+                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
+            );
+
+        }catch(JsonProcessingException | SQLException e){
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+    }
+
+    //POST /sessions
+    public Response loginUser(String body){
+        String[] split = body.split("\"");
+        String username = "";
+        String password = "";
+        int length = (int) Arrays.stream(split).count();
+        for(int i = 0; i < length; i++){
+            if(Objects.equals(split[i], "Username")){
+                username = split[i+2];
+            }else if(Objects.equals(split[i], "Password")){
+                password = split[i+2];
+            }
+        }
+        if(username.equals("") || password.equals("")){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.JSON,
+                    "{ \"error\": \"Username or password not set\", \"data\": null }"
+            );
+        }
+
+        User user = null;
+        try {
+            user = getUserDao().read(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+        if (user == null) {
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"error\": \"No User with this name\", \"data\": null }"
+            );
+        }
+        if(!Objects.equals(user.getPassword(), password)) {
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"error\": \"Incorrect password\", \"data\": null }"
+            );
+        }
+        String token = user.getUsername() + "-mtcgToken";
+        //push token to db?
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + user.getUsername() + " logged in" + ", \"error\": null }"
+        );
+    }
+
+    //DELETE /users/username
+    public Response deleteUser(String username) {
+        User userToDelete = null;
+        try {
+            userToDelete = getUserDao().read(username);
+            if (userToDelete == null) {
+                return new Response(
+                        HttpStatus.NOT_FOUND,
+                        ContentType.JSON,
+                        "{ \"error\": \"No User with this name\", \"data\": null }"
+                );
+            }
+            getUserDao().delete(userToDelete);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + userToDelete.getUsername() + " deleted" + ", \"error\": null }"
+        );
+    }
+    //PUT /users/username
+    public Response updateUser(String username, String body) {
+        String[] split = body.split("\"");
+        String newUsername = "";
+        String newBio = "";
+        String newImage = "";
+
+        int length = (int) Arrays.stream(split).count();
+        for(int i = 0; i < length; i++){
+            if(Objects.equals(split[i], "Username")){
+                newUsername = split[i+2];
+            }else if(Objects.equals(split[i], "Bio")){
+                newBio = split[i+2];
+            }else if(Objects.equals(split[i], "Image")){
+                newImage = split[i+2];
+            }
+        }
+        User oldUser;
+        User newUser;
+        //beg. bei 1 und dann +4 sind die deskriptoren
+        try {
+            oldUser = getUserDao().read(username);
+
+            //serModel oldUser = getUserService().getUserByID(id);
+            if (oldUser == null) {
+                return new Response(
+                        HttpStatus.NOT_FOUND,
+                        ContentType.JSON,
+                        "{ \"error\": \"No User with this name\", \"data\": null }"
+                );
+            }
+            newUser = oldUser;
+            if (!Objects.equals(newBio, "")) {
+                newUser.setBio(newBio);
+            }
+            if (!Objects.equals(newImage, "")) {
+                newUser.setImage(newImage);
+            }
+            getUserDao().update(newUser);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + newUser.getUsername() + "was updated \", \"error\": null }"
+        );
 
     }
 }

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.daos.CardDao;
 import app.http.ContentType;
 import app.http.HttpStatus;
 import app.models.CardModel;
@@ -11,14 +12,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-
+@Getter(AccessLevel.PRIVATE)
+@Setter(AccessLevel.PRIVATE)
 public class CardController extends Controller{
-    @Getter(AccessLevel.PRIVATE)
-    @Setter(AccessLevel.PRIVATE)
     private CardService cardService;
+    private CardDao cardDao;
 
-    public CardController(CardService cardservice) {
+    public CardController(CardService cardservice, CardDao cardDao) {
         setCardService(cardservice);
+        setCardDao(cardDao);
     }
 
     //GET /cards/Uid

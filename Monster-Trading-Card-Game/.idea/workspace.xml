@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SPLITTER_PROPORTION" value="0.49364945" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/DatabaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/TradingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/services/TradingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/user/TradingDeal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/TradingDeal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/app/controllers/CardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/controllers/CardControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/user/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MonsterTradingCards.exercise.curl.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +48,14 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/app/App.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/daos/Dao.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/models/DemandModel.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/services/CardService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/services/TradingService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/card/Card.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/user/TradingDeal.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/user/User.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -68,17 +75,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultPlantUmlFileTemplate": "UML Sequence",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/http-server-single-thread",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/MARLIS/Fh_Technikum/Semester 3/Software/MonsterTradingCardGame-Tiefengraber/Monster-Trading-Card-Game&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\MARLIS\Fh_Technikum\Semester 3\Software\MonsterTradingCardGame-Tiefengraber\Monster-Trading-Card-Game\Diagrams" />

@@ -39,7 +39,7 @@ public class CardDao implements Dao<Card>{
     }
 
     @Override
-    public ArrayList<Card> read() throws SQLException {return null;}
+    public Card read(int id) throws SQLException {return null;}
 
     public ArrayList<Card> readAllCardsFromUser(int uid) throws SQLException{
         ArrayList<Card> userCards = new ArrayList<Card>();

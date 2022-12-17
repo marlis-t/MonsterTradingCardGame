@@ -6,34 +6,47 @@ import card.Enum.ELEMENT;
 import card.Enum.TYPE;
 import card.Package;
 import card.StackOfCards;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class User {
+    @JsonAlias({"userID"})
     private int userID;
+    @JsonAlias({"username"})
     private String username;
+    @JsonAlias({"password"})
+    private String password;
+    @JsonAlias({"coins"})
     private int coins;
+    @JsonAlias({"score"})
     private int score;
+    @JsonAlias({"gamesPlayed"})
     private int gamesPlayed;
-    //private int gamesWon;
-    //private int gamesLost;
-    private String securityToken;
-
+    @JsonAlias({"bio"})
+    private String bio;
+    @JsonAlias({"image"})
+    private String image;
+    //private String securityToken;
+    @JsonAlias({"deck"})
     Deck myDeck;
+    @JsonAlias({"stack"})
     StackOfCards myStack;
+    @JsonAlias({"tradingDeal"})
     TradingDeal myTradingDeal;
-    User(int userID, String username){
+    public User(String username, String password){
         //for registration and pushing to db
-        setUserID(userID);
         setUsername(username);
+        setPassword(password);
         setCoins(20);
         setScore(100);
         setGamesPlayed(0);
-        //setGamesWon(0);
-        //setGamesLost(0);
-        setSecurityToken("");
+        setBio("");
+        setImage("");
         setMyStack(new StackOfCards());
         setMyDeck(new Deck());
         setMyTradingDeal(null);
@@ -46,19 +59,19 @@ public class User {
         setCoins(coins);
         setScore(score);
         setGamesPlayed(gamesPlayed);
-        //setSecurityToken(securityToken);
         setMyDeck(new Deck());
         setMyStack(myStack);
         setMyTradingDeal(myTradingDeal);
     }
 
-    public void showUserData(){
-        System.out.println(
-                "Username: " + getUsername() + "\n" +
-                "Coins: " + getCoins() + "\n" +
-                "Score: " + getScore() + "\n" +
-                "Games played: " + getGamesPlayed() + "\n"
-        );
+    public User(){}
+
+    public String showUserData(){
+        return "Username: " + getUsername() + "\n" + "Bio: " + getBio() + "\n" + "Image: " + getImage() + "\n";
+    }
+
+    public String showUserStats(){
+        return "Score: " + getScore() + "\n" + "Games played: " + getGamesPlayed() + "\n";
     }
     public void buyPackage(Package pack){
         if(pack == null){

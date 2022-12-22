@@ -31,13 +31,15 @@ public class User {
     private String bio;
     @JsonAlias({"image"})
     private String image;
-    //private String securityToken;
+    @JsonAlias({"authToken"})
+    private String authToken;
     @JsonAlias({"deck"})
     Deck myDeck;
     @JsonAlias({"stack"})
     StackOfCards myStack;
     @JsonAlias({"tradingDeal"})
     TradingDeal myTradingDeal;
+
     public User(String username, String password){
         //for registration and pushing to db
         setUsername(username);
@@ -47,6 +49,7 @@ public class User {
         setGamesPlayed(0);
         setBio("");
         setImage("");
+        setAuthToken("");
         setMyStack(new StackOfCards());
         setMyDeck(new Deck());
         setMyTradingDeal(null);
@@ -67,7 +70,14 @@ public class User {
     public User(){}
 
     public String showUserData(){
-        return "Username: " + getUsername() + "\n" + "Bio: " + getBio() + "\n" + "Image: " + getImage() + "\n";
+        return "{ \"Username\": \"" + getUsername() + "\"," +
+                " \"Bio\": \"" + getBio() + "\"," +
+                " \"Image\": \"" + getImage() + "\" }";
+    }
+
+    public String showScore(){
+        return "{ \"Username\": \"" + getUsername() + "\", " +
+                "\"Score\": \"" + getScore() + "\" }";
     }
 
     public String showUserStats(){

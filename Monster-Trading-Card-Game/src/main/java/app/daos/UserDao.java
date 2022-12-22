@@ -20,7 +20,7 @@ public class UserDao implements Dao<User>{
 
     @Override
     public User create(User user) throws SQLException {
-        String query = "INSERT INTO users(Username, Password, Coins, Score, GamesPlayed, Bio, Image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users(Username, Password, Coins, Score, GamesPlayed, Bio, Image, AuthToken) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, user.getUsername());
         statement.setString(2, user.getPassword());
@@ -29,6 +29,7 @@ public class UserDao implements Dao<User>{
         statement.setInt(5, user.getGamesPlayed());
         statement.setString(6, user.getBio());
         statement.setString(7, user.getImage());
+        statement.setString(8, user.getAuthToken());
 
         ResultSet res = statement.executeQuery();
         User createdUser = new User (
@@ -40,6 +41,7 @@ public class UserDao implements Dao<User>{
                 res.getInt(6), //GamesPlayed
                 res.getString(7), //Bio
                 res.getString(8), //Image
+                res.getString(9), //authToken
                 null, //stack
                 null, //deck
                 null //tradingDeal
@@ -66,6 +68,7 @@ public class UserDao implements Dao<User>{
                     res.getInt(6), //GamesPlayed
                     res.getString(7), //Bio
                     res.getString(8), //Image
+                    res.getString(9), //authToken
                     null, //stack
                     null, //deck
                     null //tradingDeal
@@ -91,6 +94,7 @@ public class UserDao implements Dao<User>{
                 res.getInt(6), //GamesPlayed
                 res.getString(7), //Bio
                 res.getString(8), //Image
+                res.getString(9), //authToken
                 null, //stack
                 null, //deck
                 null //tradingDeal
@@ -98,6 +102,20 @@ public class UserDao implements Dao<User>{
         statement.close();
         return foundUser;
         //add cards + tradingDeal afterwards
+    }
+
+    public ArrayList<String> readAuthToken() throws SQLException{
+        ArrayList<String> authTokenList = new ArrayList<String>();
+        String query = "SELECT AuthToken FROM users";
+        PreparedStatement statement = getConnection().prepareStatement(query);
+
+        ResultSet res = statement.executeQuery();
+        String temp;
+        while(res.next()){
+            temp = res.getString(1);
+            authTokenList.add(temp);
+        }
+        return authTokenList;
     }
     @Override
     public void update(User user) throws SQLException{

@@ -14,6 +14,7 @@ import user.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 
 @Getter(AccessLevel.PRIVATE)
@@ -43,15 +44,100 @@ public class UserController extends Controller{
             return new Response(
                     HttpStatus.NOT_FOUND,
                     ContentType.JSON,
-                    "{ \"error\": \"No User with this ID\", \"data\": null }"
+                    "{ \"error\": \"No User with this Name\", \"data\": null }"
             );
         }
+        try {
+            String userDataJSON = getObjectMapper().writeValueAsString(user);
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
+            );
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+    }
+
+    //GET /stats
+    public Response getStats(String auth){
+        String username = auth.split("-")[0];
+        User user = null;
+        try {
+            user = getUserDao().read(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+        if(user == null){
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"error\": \"No User with this Name\", \"data\": null }"
+            );
+        }
+        String stats =
+                "{ \"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\" }";
+
         return new Response(
                 HttpStatus.OK,
                 ContentType.JSON,
-                "{ \"data\": " + user.showUserData() + ", \"error\": null }"
+                "{ \"data\": " + stats + ", \"error\": null }"
         );
     }
+
+    //GET /scores
+    public Response getScoreboard(String auth){
+        ArrayList<String> auths = new ArrayList<>();
+        ArrayList<User> users;
+        try {
+            auths = getUserDao().readAuthToken();
+            users = getUserDao().readAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
+        }
+        if(users.isEmpty()){
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"error\": \"No Users found\", \"data\": null }"
+            );
+        }
+        if(!auths.contains(auth)){
+            return new Response(
+                    HttpStatus.UNAUTHORIZED,
+                    ContentType.JSON,
+                    "{ \"error\": \"Incorrect Token\", \"data\": null }"
+            );
+        }
+        users.sort(Comparator.comparing(User::getScore).reversed());
+        StringBuilder scoreData = new StringBuilder();
+        scoreData.append("[");
+        for(User user : users){
+            scoreData.append(user.showScore()).append(", ");
+        }
+        scoreData.append("]");
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + scoreData + ", \"error\": null }"
+        );
+    }
+
     //GET /users
     public Response getAllUsers() {
         ArrayList<User> users;
@@ -72,15 +158,25 @@ public class UserController extends Controller{
                     "{ \"error\": \"No Users found\", \"data\": null }"
             );
         }
-        StringBuilder userData = new StringBuilder();
+        /*StringBuilder userData = new StringBuilder();
         for(User user : users){
             userData.append(user.showUserData());
+        }*/
+        try {
+            String userDataJSON = getObjectMapper().writeValueAsString(users);
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
+            );
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
+            );
         }
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + userData + ", \"error\": null }"
-        );
     }
 
     //POST /users

@@ -20,6 +20,8 @@ import lombok.Setter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Objects;
+
 @Setter(AccessLevel.PRIVATE)
 @Getter(AccessLevel.PRIVATE)
 public class App implements ServerApp {
@@ -42,7 +44,7 @@ public class App implements ServerApp {
     public Response handleRequest(Request request) {
         System.out.println(request.getPathname());
         System.out.println(request.getMethod());
-        System.out.println(request.getParameters());
+        System.out.println(request.getAuthToken());
         switch (request.getMethod()) {
             case GET -> {
                 String[] split = request.getPathname().split("/");
@@ -53,14 +55,23 @@ public class App implements ServerApp {
                 else if (request.getPathname().contains("/tradings/")) {
                     return this.tradingController.getAllTradingDeals(parseId(split));
                 }//getAllUsers ******
-                else if (request.getPathname().equals("/users")) {//
+                else if (request.getPathname().equals("/users")) {
                     return getUserController().getAllUsers();
                 }//getCardByID
                 else if (request.getPathname().contains("/cards/IDs/")) {
                     return this.cardController.getCardById(parseId(split));
                 }//getUserByName *****
                 else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
-                    return getUserController().getUserByName(parseUsername(split));
+                    if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
+                        return getUserController().getUserByName(parseUsername(split));
+                    }
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
+                }//getUserStats *****
+                else if (request.getPathname().equals("/stats")){
+                    return getUserController().getStats(request.getAuthToken());
+                }//getScores *****
+                else if(request.getPathname().equals("/scores")){
+                    return getUserController().getScoreboard(request.getAuthToken());
                 }
             }
             case POST -> {
@@ -88,7 +99,10 @@ public class App implements ServerApp {
                     return this.cardController.updateCard(parseId(split), request.getBody());
                 }//updateUser by name *****
                 else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
-                    return getUserController().updateUser(parseUsername(split), request.getBody());
+                    if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
+                        return getUserController().updateUser(parseUsername(split), request.getBody());
+                    }
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
                 }//create + updateCard userID
                 else if(request.getPathname().contains("/packages/buy/")){
                     //create package
@@ -126,6 +140,11 @@ public class App implements ServerApp {
     public String parseUsername(String[] split){
         int length = (int) Arrays.stream(split).count();
         return split[length-1];
+    }
+    public boolean isAuthTokenCorrect(String auth, String username){
+        //auth == username-mtcgToken
+        String[] splitAuth = auth.split("-");
+        return Objects.equals(splitAuth[0], username);
     }
 
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Locale;
 
 @Getter
@@ -18,6 +19,7 @@ public class Request {
     private String contentType;
     private Integer contentLength;
     private String body = "";
+    private String AuthToken;
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
@@ -31,23 +33,33 @@ public class Request {
     }
     private void buildRequest(BufferedReader inputStream) {
         try {
-            String line = inputStream.readLine();
+            StringBuilder line = new StringBuilder();
+            String temp;
+
+            do{
+                temp = inputStream.readLine();
+                line.append(temp).append(" ");
+
+            }while(!temp.contains("Authorization") && temp != null);
+
             //what if line == null
-            if (line != null) {
-                String[] splitFirstLine = line.split(" ");
-                Boolean hasParams = splitFirstLine[1].contains("?");
+            //if content added
+            if (line.toString().length() > 1) {
+                String[] splitLine = line.toString().split(" ");
+                Boolean hasParams = splitLine[1].contains("?");
 
-                setMethod(getMethodFromInputLine(splitFirstLine));
-                setPathname(getPathnameFromInputLine(splitFirstLine, hasParams));
-                setParameters(getParamsFromInputLine(splitFirstLine, hasParams));
+                setMethod(getMethodFromInputLine(splitLine));
+                setPathname(getPathnameFromInputLine(splitLine, hasParams));
+                setParameters(getParamsFromInputLine(splitLine, hasParams));
+                setAuthToken(getAuthorizationFromInputLine(splitLine));
 
-                while (!line.isEmpty()) {
-                    line = inputStream.readLine();
-                    if (line.startsWith(CONTENT_LENGTH)) {
-                        setContentLength(getContentLengthFromInputLine(line));
+                while (line.length() > 0) {
+                    line = new StringBuilder(inputStream.readLine());
+                    if (line.toString().startsWith(CONTENT_LENGTH)) {
+                        setContentLength(getContentLengthFromInputLine(line.toString()));
                     }
-                    if (line.startsWith(CONTENT_TYPE)) {
-                        setContentType(getContentTypeFromInputLine(line));
+                    if (line.toString().startsWith(CONTENT_TYPE)) {
+                        setContentType(getContentTypeFromInputLine(line.toString()));
                     }
                 }
 
@@ -91,6 +103,16 @@ public class Request {
 
     private String getContentTypeFromInputLine(String line) {
         return line.substring(CONTENT_TYPE.length());
+    }
+
+    private String getAuthorizationFromInputLine(String[] splittedLine){
+        String auth = "";
+        for(int i = 0; i < Arrays.stream(splittedLine).count(); i++){
+            if(splittedLine[i].equals("Bearer")){
+                auth = splittedLine[i+1];
+            }
+        }
+        return auth;
     }
 }
 

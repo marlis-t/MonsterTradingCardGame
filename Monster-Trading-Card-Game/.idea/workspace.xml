@@ -8,12 +8,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Monster-Trading-Card-Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Monster-Trading-Card-Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/TradingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/services/TradingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/TradingDeal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/TradingDeal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/app/controllers/CardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/controllers/CardControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,17 +84,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultPlantUmlFileTemplate": "UML Sequence",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/MARLIS/Fh_Technikum/Semester 3/Software/TestServer_nothreading/http-server-single-thread",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/MARLIS/Fh_Technikum/Semester 3/Software/TestServer_nothreading/http-server-single-thread&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\MARLIS\Fh_Technikum\Semester 3\Software\MonsterTradingCardGame-Tiefengraber\Monster-Trading-Card-Game\Diagrams" />
@@ -92,8 +107,8 @@
       <recent name="card" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException">
-    <configuration name="BattleTest.testChangeCardOwnerOfOwnedCard_expectChangedDeckSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CardControllerTest.testSendResponse_expectMatchingResponse">
+    <configuration name="BattleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
@@ -103,23 +118,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="battle" />
       <option name="MAIN_CLASS_NAME" value="battle.BattleTest" />
-      <option name="METHOD_NAME" value="testChangeCardOwnerOfOwnedCard_expectChangedDeckSize" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BattleTest.testWriteToLogfile_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardControllerTest.testSendResponse_expectMatchingResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="battle.*" />
+          <option name="PATTERN" value="app.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="battle" />
-      <option name="MAIN_CLASS_NAME" value="battle.BattleTest" />
-      <option name="METHOD_NAME" value="testWriteToLogfile_expectNoException" />
+      <option name="PACKAGE_NAME" value="app.controllers" />
+      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
+      <option name="METHOD_NAME" value="testSendResponse_expectMatchingResponse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -175,11 +189,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CardControllerTest.testSendResponse_expectMatchingResponse" />
+        <item itemvalue="JUnit.BattleTest" />
         <item itemvalue="JUnit.UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" />
         <item itemvalue="JUnit.UserTest.testSetUpTradingDealWithValidCard_expectNoException" />
         <item itemvalue="JUnit.UserTest.testBuyInvalidPackage_expectIllegalArgumentException" />
-        <item itemvalue="JUnit.BattleTest.testWriteToLogfile_expectNoException" />
-        <item itemvalue="JUnit.BattleTest.testChangeCardOwnerOfOwnedCard_expectChangedDeckSize" />
       </list>
     </recent_temporary>
   </component>

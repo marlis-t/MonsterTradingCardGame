@@ -13,7 +13,7 @@ import lombok.Setter;
 public class TradingDeal {
     private int tradingDealID;
     private int userID;
-    private int offerCardID;
+    private String offerCardID;
     private String offerCardName;
     private int offerCardDamage;
     private int demandMinDamage;

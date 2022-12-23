@@ -119,13 +119,14 @@ public class UserDao implements Dao<User>{
     }
     @Override
     public void update(User user) throws SQLException{
-        String query = "UPDATE users SET Coins = ?, Score = ?, GamesPlayed = ?, Bio = ?, Image = ? WHERE UserID = ?";
+        String query = "UPDATE users SET Coins = ?, Score = ?, GamesPlayed = ?, Bio = ?, Image = ?, AuthToken = ? WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setInt(1, user.getCoins());
         statement.setInt(2, user.getScore());
         statement.setInt(3, user.getGamesPlayed());
         statement.setString(4, user.getBio());
         statement.setString(5, user.getImage());
+        statement.setString(6, user.getAuthToken());
 
         statement.setInt(6, user.getUserID());
 

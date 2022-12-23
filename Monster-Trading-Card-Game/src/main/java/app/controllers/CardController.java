@@ -1,56 +1,57 @@
 package app.controllers;
 
 import app.daos.CardDao;
+import app.daos.PackageDao;
+import app.daos.UserDao;
 import app.http.ContentType;
 import app.http.HttpStatus;
-import app.models.CardModel;
 import app.server.Response;
-import app.services.CardService;
+import card.Card;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import user.User;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
 public class CardController extends Controller{
-    private CardService cardService;
+    //private CardService cardService;
     private CardDao cardDao;
+    private UserDao userDao;
+    private PackageDao packageDao;
 
-    public CardController(CardService cardservice, CardDao cardDao) {
-        setCardService(cardservice);
+    public CardController(CardDao cardDao, UserDao userDao, PackageDao packageDao) {
         setCardDao(cardDao);
+        setUserDao(userDao);
+        setPackageDao(packageDao);
     }
 
-    //GET /cards/Uid
-    public Response getCardsFromUserID(int Uid) {
+    //GET /cards *****
+    public Response getCardsFromUser(String username) {
         try {
-            //what if cardData empty? JsonE thrown
-            ArrayList<CardModel> cardData = getCardService().getCardsFromUserID(Uid);
-            if(cardData.size()==0){
-                return new Response(
-                        HttpStatus.NOT_FOUND,
-                        ContentType.JSON,
-                        "{\"error\": User #\" + Uid + \" has no Cards , \"data\": null}"
-                );
+            User user = getUserDao().read(username);
+            if(user == null){
+                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
             }
-            String cityDataJSON = getObjectMapper().writeValueAsString(cardData);
-
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + cityDataJSON + ", \"error\": null }"
-            );
-        } catch (JsonProcessingException e) {
+            ArrayList<Card> cardData = getCardDao().readAllCardsFromUser(user.getUserID());
+            if(cardData.size()==0){
+                return sendResponse("null", "No Cards for this User", HttpStatus.NOT_FOUND);
+            }
+            String cardDataJSON = getObjectMapper().writeValueAsString(cardData);
+            return sendResponse(cardDataJSON, "null", HttpStatus.OK);
+        } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    //----
+    /*
     public Response getAllOfferedCards(int Uid){
         try {
             ArrayList<CardModel> cardData = getCardService().getAllOfferedCards(Uid);
@@ -77,7 +78,8 @@ public class CardController extends Controller{
         }
     }
 
-    // GET /card/id
+    // GET /cards/id not needed
+    /*
     public Response getCardById(int id) {
         try{
             CardModel card = getCardService().getCardByID(id);
@@ -103,93 +105,94 @@ public class CardController extends Controller{
             );
         }
     }
-
-    // POST /card
-    public Response createCard(String body) {
+    */
+    // POST /packages
+    public Response createPackage(String body) {
         try{
-            CardModel card = getObjectMapper().readValue(body, CardModel.class);
-            //get highest Card ID
-            getCardService().addCard(card);
-            return new Response(
-                    HttpStatus.CREATED,
-                    ContentType.JSON,
-                    "{ \"data\": " + card + ", \"error\": null }"
-            );
+            String[] splitCards = body.split("\\{");
+            ArrayList<Card> packCards = new ArrayList<Card>();
+            for(String cardSplit : splitCards){
+                String[] splitParams = body.split("\"");
+                String ID = "";
+                String name = "";
+                int damage = 0;
+                //find ID + name + damage if set in body
+                int length = (int) Arrays.stream(splitParams).count();
+                for(int i = 0; i < length; i++){
+                    if(Objects.equals(splitParams[i], "Id")){
+                        ID = splitParams[i+2];
+                    }else if(Objects.equals(splitParams[i], "Name")){
+                        name = splitParams[i+2];
+                    }else if(Objects.equals(splitParams[i], "Damage")){
+                        damage = (int) Float.parseFloat(splitParams[i+2]);
+                    }
+                }
+                if(ID.equals("") || name.equals("") || damage == 0){
+                    return sendResponse("null", "Invalid Information for Card declaration", HttpStatus.BAD_REQUEST);
 
-        }catch(JsonProcessingException e){
+                }
+                Card card = new Card(ID, 0, name, damage, false);
+                packCards.add(card);
+            }
+            if(packCards.size() < 5){
+                return sendResponse("null", "Invalid Information for Card declaration", HttpStatus.BAD_REQUEST);
+            }
+
+            ArrayList<Card> createdCards = getPackageDao().create(packCards);
+            String cardDataJSON = getObjectMapper().writeValueAsString(createdCards);
+
+            return sendResponse(cardDataJSON, "null", HttpStatus.OK);
+
+        }catch(JsonProcessingException | SQLException e){
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    public Response createPackage(String body){
-        try{
-            ArrayList<CardModel> cards = new ArrayList<CardModel>();
-            //this is wrong
-            getCardService().addCard(getObjectMapper().readValue(body, CardModel.class));
 
-            return new Response(
-                    HttpStatus.CREATED,
-                    ContentType.JSON,
-                    "{\"data\": " + cards + ", \"error\": null }"
-            );
+    //POST /packages/transactions
+    public Response acquirePackage(String username){
+        try {
+            //check if Token ok
+            if(!isAuthorized(username + "-mtcgToken")){
+                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+            }
+            //check if enough coins
+            User user = getUserDao().read(username);
+            if(user.getCoins() < 5){
+                return sendResponse("null", "Not enough coins", HttpStatus.BAD_REQUEST);
+            }
+            //get one package
+            ArrayList<Card> packCards = getPackageDao().readPackage();
+            if(packCards.size() < 5){
+                return sendResponse("null", "No package found", HttpStatus.NOT_FOUND);
+            }
+            //change UID of Cards and put into Card table
+            for(Card card : packCards){
+                card.setUserID(user.getUserID());
+                getCardDao().create(card);
+            }
+            //remove bought package
+            getPackageDao().delete();
+            //deduct user money
+            user.setCoins(user.getCoins() - 5);
+            getUserDao().update(user);
 
-        }catch(JsonProcessingException e){
+        }catch(SQLException e){
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return sendResponse("Bought package", "null", HttpStatus.OK);
     }
-    // DELETE /cities/:id
-    public Response deleteCard(int id) {
-        CardModel card = getCardService().getCardByID(id);
-        if(card == null){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No Card with this ID\", \"data\": null }"
-            );
-        }
-        String cardName = card.getName();
-        getCardService().deleteCard(id);
+    public Boolean isAuthorized(String authToken) throws SQLException {
+        ArrayList<String> auths;
+        auths = getUserDao().readAuthToken();
+        return auths.contains(authToken);
+    }
+    public Response sendResponse(String data, String error, HttpStatus status){
         return new Response(
-                HttpStatus.OK,
+                status,
                 ContentType.JSON,
-                "{ \"data\": " + cardName + " deleted" + ", \"error\": null }"
+                "{ \"data\": \"" + data + "\", \"error\": " + error + " }"
         );
-    }
-    //PUT /card/id
-    public Response updateCard(int id, String body){
-        CardModel oldCard = getCardService().getCardByID(id);
-        if(oldCard == null){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No Card with this ID\", \"data\": null }"
-            );
-        }
-        try{
-            CardModel card = getObjectMapper().readValue(body, CardModel.class);
-            getCardService().updateCard(id, card);
-            return new Response(
-                    HttpStatus.CREATED,
-                    ContentType.JSON,
-                    "{ \"data\": " + card + ", \"error\": null }"
-            );
-        }catch(JsonProcessingException e){
-            e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
-        }
-
     }
 }

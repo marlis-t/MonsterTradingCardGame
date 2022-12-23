@@ -1,71 +1,77 @@
 package card;
 
-import lombok.AccessLevel;
+import card.Enum.ELEMENT;
+import card.Enum.TYPE;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import card.Enum.ELEMENT;
-import card.Enum.TYPE;
-
 @Getter
-@Setter(AccessLevel.PRIVATE)
-
+@Setter
+@AllArgsConstructor
 public class Card{
-
-    private int cardID;
-    @Setter(AccessLevel.PUBLIC)
-    private int UserID;
+    @JsonAlias({"cardID"})
+    private String cardID;
+    @JsonAlias({"userID"})
+    private int userID;
+    @JsonAlias({"name"})
     private String name;
+    @JsonAlias({"damage"})
     private int damage;
-    @Setter(AccessLevel.PUBLIC)
+    @JsonAlias({"paused"})
     private boolean paused;
+    @JsonAlias({"element"})
     private ELEMENT element;
+    @JsonAlias({"type"})
     private TYPE type;
 
 
-    public Card(String name, int damage, int cardID, int userID){
+    public Card(String name, int damage, String cardID, int userID){
         setName(name);
         setDamage(damage);
         setPaused(false);
-        setElement(name);
-        setType(name);
+        setElement(readElement(name));
+        setType(readType(name));
         setUserID(userID);
         setCardID(cardID);
     }
-    public Card(String name, int damage, int cardID, int userID, Boolean paused){
+    public Card(String cardID, int userID, String name, int damage, Boolean paused){
         setName(name);
         setDamage(damage);
         setPaused(paused);
-        setElement(name);
-        setType(name);
+        setElement(readElement(name));
+        setType(readType(name));
         setUserID(userID);
         setCardID(cardID);
     }
     public Card(){}
 
-    private void setElement(String name){
+    private ELEMENT readElement(String name){
         if(name.contains("Water")){
-            element = ELEMENT.WATER;
+            return ELEMENT.WATER;
         } else if(name.contains("Fire")){
-            element = ELEMENT.FIRE;
+            return ELEMENT.FIRE;
         }else if(name.contains("Normal")){
-            element = ELEMENT.NORMAL;
+            return ELEMENT.NORMAL;
         }else{
             throw new IllegalArgumentException("Name does not contain element.");
         }
     }
-    private void setType(String name){
+    private TYPE readType(String name){
         if(name.contains("Spell")){
-            type = TYPE.SPELL;
+            return TYPE.SPELL;
         }else if(name.contains("Monster")){
-            type = TYPE.MONSTER;
+            return TYPE.MONSTER;
         }else{
             throw new IllegalArgumentException("Name does not contain type.");
         }
     }
 
-    public void showCard(){
-        System.out.println("Name: " + getName()  + "\n" + "Damage: " + getDamage() + "\n" );
+    public String showCard(){
+        return "{ \"ID\": \"" + getCardID() + "\"," +
+                " \"Name\": \"" + getName() + "\"," +
+                " \"Damage\": \"" + getDamage() + "\" }";
     }
 
 

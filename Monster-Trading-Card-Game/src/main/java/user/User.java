@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -94,17 +96,17 @@ public class User {
         setCoins(getCoins()-5);
         //push changes to db
     }
-   public void setUpTradingDeal(int cardID, int minDamage, ELEMENT element, TYPE type){
+   public void setUpTradingDeal(String cardID, int minDamage, ELEMENT element, TYPE type){
         Card offerCard = null;
         for(Card card: getMyStack().getMyCards()){
-            if(cardID == card.getCardID()){
+            if(Objects.equals(cardID, card.getCardID())){
                 offerCard = card;
                 card.setPaused(true);
                 break;
             }
         }
         if(offerCard != null){
-            myTradingDeal = new TradingDeal(0,cardID, getUserID(), offerCard.getName(), offerCard.getDamage(), minDamage, element, type);
+            myTradingDeal = new TradingDeal(0,getUserID(), cardID, offerCard.getName(), offerCard.getDamage(), minDamage, element, type);
             //push to db
             //id von trading deal, der zurückkommt
         }else{

@@ -87,8 +87,8 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         Battle testBattle = new Battle(user1, user2);
-        Card card1 = new Card("WaterMagicSpell", 20, 1, 1);
-        Card card2 = new Card("FireWizardMonster", 20, 2, 1);
+        Card card1 = new Card("WaterMagicSpell", 20, "1", 1);
+        Card card2 = new Card("FireWizardMonster", 20, "2", 1);
         int expectedDamageCard1 = 40;
         int expectedDamageCard2 = 10;
         int realDamageCard1;
@@ -110,8 +110,8 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         Battle testBattle = new Battle(user1, user2);
-        Card card1 = new Card("WaterMagicSpell", 20, 1, 1);
-        Card card2 = new Card("WaterWizardMonster", 10, 2, 1);
+        Card card1 = new Card("WaterMagicSpell", 20, "1", 1);
+        Card card2 = new Card("WaterWizardMonster", 10, "2", 1);
         int expectedDamageCard1 = 20;
         int expectedDamageCard2 = 10;
         int realDamageCard1;
@@ -133,8 +133,8 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         Battle testBattle = new Battle(user1, user2);
-        Card card1 = new Card("WaterGoblinMonster", 20, 1, 1);
-        Card card2 = new Card("WaterDragonMonster", 10, 2, 1);
+        Card card1 = new Card("WaterGoblinMonster", 20, "1", 1);
+        Card card2 = new Card("WaterDragonMonster", 10, "2", 1);
         int expectedDamageCard1 = 0;
         int realDamageCard1;
 
@@ -151,8 +151,8 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         Battle testBattle = new Battle(user1, user2);
-        Card card1 = new Card("WaterMagicSpell", 20, 1, 1);
-        Card card2 = new Card("FireDragonMonster", 20, 2, 1);
+        Card card1 = new Card("WaterMagicSpell", 20, "1", 1);
+        Card card2 = new Card("FireDragonMonster", 20, "2", 1);
         int expectedStrongerCard = 1;
         int realStrongerCard;
 
@@ -166,8 +166,8 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         Battle testBattle = new Battle(user1, user2);
-        Card card1 = new Card("WaterMagicSpell", 10, 1, 1);
-        Card card2 = new Card("FireDragonMonster", 40, 2, 1);
+        Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
+        Card card2 = new Card("FireDragonMonster", 40, "2", 1);
         int expectedResult = 3;
         int realResult;
 
@@ -179,7 +179,7 @@ public class BattleTest {
     @DisplayName("Test: changeCardOwner(); expect no Exception")
     public void testChangeCardOwnerOfOwnedCard_expectNoException(){
         User user1 = prepUser();
-        Card card1 = new Card("WaterMagicSpell", 10, 1, 1);
+        Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
         user1.getMyDeck().addCard(card1);
         user1.getMyStack().addCard(card1);
         User user2 = prepUser();
@@ -193,7 +193,7 @@ public class BattleTest {
     @DisplayName("Test: changeCardOwner(); expect no Exception")
     public void testChangeCardOwnerOfOwnedCard_expectChangedDeckSize(){
         User user1 = prepUser();
-        Card card1 = new Card("WaterMagicSpell", 10, 1, 1);
+        Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
         user1.getMyDeck().addCard(card1);
         user1.getMyStack().addCard(card1);
         User user2 = prepUser();
@@ -215,7 +215,7 @@ public class BattleTest {
     @DisplayName("Test: changeCardOwner(); expect IllegalArgumentException")
     public void testChangeCardOwnerOfUnOwnedCard_expectIllegalArgumentException(){
         User user1 = prepUser();
-        Card card1 = new Card("WaterMagicSpell", 10, 1, 1);
+        Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
         User user2 = prepUser();
         Battle testBattle = new Battle(user1, user2);
 

@@ -8,7 +8,7 @@ public class CardTest {
     @DisplayName("Test: new Card(TestSpell, 0); IllegalArgumentException thrown")
     public void testNameWithoutElement_expectIllegalArgumentException(){
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
-            Card card = new Card("TestSpell", 0, 1, 0);
+            Card card = new Card("TestSpell", 0, "1", 0);
         });
         //System.out.println(thrownException.getMessage());
     }
@@ -16,7 +16,7 @@ public class CardTest {
     @DisplayName("Test: new Card(NormalTest, 0); IllegalArgumentException thrown")
     public void testNameWithoutType_expectIllegalArgumentException(){
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
-            Card card = new Card("NormalTest", 0, 1, 0);
+            Card card = new Card("NormalTest", 0, "1", 0);
         });
         //System.out.println(thrownException.getMessage());
     }
@@ -24,13 +24,13 @@ public class CardTest {
     @DisplayName("Test: new Card(NormalSpell, 0); no Exception thrown")
     public void testNameWithElementAndType_exceptNoException(){
         assertDoesNotThrow(() -> {
-            Card card = new Card("NormalSpell",0, 1, 0);
+            Card card = new Card("NormalSpell",0, "1", 0);
         });
     }
     @Test
     @DisplayName("card.isPaused(); == false")
     public void testBooleanPausedForNewCard_expectFalse(){
-        Card card = new Card("NormalSpell", 0, 1, 0);
+        Card card = new Card("NormalSpell", 0, "1", 0);
         boolean expectedBoolean = false;
 
         boolean actualBoolean = card.isPaused();

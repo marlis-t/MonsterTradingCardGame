@@ -29,38 +29,22 @@ public class UserController extends Controller{
     }
     //GET /users/username
     public Response getUserByName(String username) {
-        User user = null;
+        User user;
         try {
             user = getUserDao().read(username);
         } catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if(user == null){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No User with this Name\", \"data\": null }"
-            );
+            return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
         }
         try {
             String userDataJSON = getObjectMapper().writeValueAsString(user);
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
-            );
+            return sendResponse(userDataJSON, "null", HttpStatus.OK);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -72,57 +56,32 @@ public class UserController extends Controller{
             user = getUserDao().read(username);
         } catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if(user == null){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No User with this Name\", \"data\": null }"
-            );
+            return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
         }
-        String stats =
-                "{ \"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\" }";
-
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + stats + ", \"error\": null }"
-        );
+        String stats = "{ \"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\" }";
+        return sendResponse(stats, "null", HttpStatus.OK);
     }
 
     //GET /scores
     public Response getScoreboard(String auth){
-        ArrayList<String> auths = new ArrayList<>();
+        ArrayList<String> auths;
         ArrayList<User> users;
         try {
-            auths = getUserDao().readAuthToken();
             users = getUserDao().readAll();
+            auths = getUserDao().readAuthToken();
         } catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
         if(users.isEmpty()){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No Users found\", \"data\": null }"
-            );
+            return sendResponse("null", "No Users found", HttpStatus.NOT_FOUND);
         }
         if(!auths.contains(auth)){
-            return new Response(
-                    HttpStatus.UNAUTHORIZED,
-                    ContentType.JSON,
-                    "{ \"error\": \"Incorrect Token\", \"data\": null }"
-            );
+            return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
         }
         users.sort(Comparator.comparing(User::getScore).reversed());
         StringBuilder scoreData = new StringBuilder();
@@ -131,11 +90,7 @@ public class UserController extends Controller{
             scoreData.append(user.showScore()).append(", ");
         }
         scoreData.append("]");
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + scoreData + ", \"error\": null }"
-        );
+        return sendResponse(scoreData.toString(), "null", HttpStatus.OK);
     }
 
     //GET /users
@@ -145,18 +100,12 @@ public class UserController extends Controller{
             users = getUserDao().readAll();
         } catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
         if(users.isEmpty()){
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No Users found\", \"data\": null }"
-            );
+            return sendResponse("null", "No Users found", HttpStatus.NOT_FOUND);
+
         }
         /*StringBuilder userData = new StringBuilder();
         for(User user : users){
@@ -164,18 +113,10 @@ public class UserController extends Controller{
         }*/
         try {
             String userDataJSON = getObjectMapper().writeValueAsString(users);
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
-            );
+            return sendResponse(userDataJSON, "null", HttpStatus.OK);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -194,30 +135,18 @@ public class UserController extends Controller{
             }
         }
         if(username.equals("") || password.equals("")){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.JSON,
-                    "{ \"error\": \"Username or password not set\", \"data\": null }"
-            );
+            return sendResponse("null", "Username or password not set", HttpStatus.BAD_REQUEST);
         }
-
         try{
+            //push user to db
             User user = new User(username, password);
             User createdUser = getUserDao().create(user);
             String userDataJSON = getObjectMapper().writeValueAsString(createdUser);
-            return new Response(
-                    HttpStatus.CREATED,
-                    ContentType.JSON,
-                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
-            );
+            return sendResponse(userDataJSON, "null", HttpStatus.CREATED);
 
         }catch(JsonProcessingException | SQLException e){
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -235,45 +164,25 @@ public class UserController extends Controller{
             }
         }
         if(username.equals("") || password.equals("")){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.JSON,
-                    "{ \"error\": \"Username or password not set\", \"data\": null }"
-            );
+            return sendResponse("null", "Username or password not set", HttpStatus.BAD_REQUEST);
         }
-
-        User user = null;
         try {
-            user = getUserDao().read(username);
+            User user = getUserDao().read(username);
+            if (user == null) {
+                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+            }
+            if(!Objects.equals(user.getPassword(), password)) {
+                return sendResponse("null", "Incorrect password", HttpStatus.BAD_REQUEST);
+            }
+            String token = user.getUsername() + "-mtcgToken";
+            user.setAuthToken(token);
+            //push token to db
+            getUserDao().update(user);
+            return sendResponse("User logged in", "null", HttpStatus.OK);
         } catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (user == null) {
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"No User with this name\", \"data\": null }"
-            );
-        }
-        if(!Objects.equals(user.getPassword(), password)) {
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"error\": \"Incorrect password\", \"data\": null }"
-            );
-        }
-        String token = user.getUsername() + "-mtcgToken";
-        //push token to db?
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + user.getUsername() + " logged in" + ", \"error\": null }"
-        );
     }
 
     //DELETE /users/username
@@ -282,28 +191,16 @@ public class UserController extends Controller{
         try {
             userToDelete = getUserDao().read(username);
             if (userToDelete == null) {
-                return new Response(
-                        HttpStatus.NOT_FOUND,
-                        ContentType.JSON,
-                        "{ \"error\": \"No User with this name\", \"data\": null }"
-                );
+                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
             }
             getUserDao().delete(userToDelete);
         }catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + userToDelete.getUsername() + " deleted" + ", \"error\": null }"
-        );
+        return sendResponse("User deleted", "null", HttpStatus.OK);
     }
-    //PUT /users/username
+    //PUT /users/username *****
     public Response updateUser(String username, String body) {
         String[] split = body.split("\"");
         String newUsername = "";
@@ -325,14 +222,8 @@ public class UserController extends Controller{
         //beg. bei 1 und dann +4 sind die deskriptoren
         try {
             oldUser = getUserDao().read(username);
-
-            //serModel oldUser = getUserService().getUserByID(id);
             if (oldUser == null) {
-                return new Response(
-                        HttpStatus.NOT_FOUND,
-                        ContentType.JSON,
-                        "{ \"error\": \"No User with this name\", \"data\": null }"
-                );
+                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
             }
             newUser = oldUser;
             if (!Objects.equals(newBio, "")) {
@@ -344,17 +235,15 @@ public class UserController extends Controller{
             getUserDao().update(newUser);
         }catch (SQLException e) {
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return sendResponse("User was updated", "null", HttpStatus.OK);
+    }
+    public Response sendResponse(String data, String error, HttpStatus status){
         return new Response(
-                HttpStatus.OK,
+                status,
                 ContentType.JSON,
-                "{ \"data\": " + newUser.getUsername() + "was updated \", \"error\": null }"
+                "{ \"data\": \"" + data + "\", \"error\": " + error + " }"
         );
-
     }
 }

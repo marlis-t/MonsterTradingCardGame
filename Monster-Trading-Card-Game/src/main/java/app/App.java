@@ -4,13 +4,13 @@ import app.controllers.CardController;
 import app.controllers.TradingController;
 import app.controllers.UserController;
 import app.daos.CardDao;
+import app.daos.PackageDao;
 import app.daos.UserDao;
 import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Request;
 import app.server.Response;
 import app.server.ServerApp;
-import app.services.CardService;
 import app.services.DatabaseService;
 import app.services.TradingService;
 import lombok.AccessLevel;
@@ -36,7 +36,7 @@ public class App implements ServerApp {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        setCardController(new CardController(new CardService(), new CardDao(getConnection())));
+        setCardController(new CardController(new CardDao(getConnection()), new UserDao(getConnection()), new PackageDao(getConnection())));
         setUserController(new UserController(new UserDao(getConnection())));
         setTradingController(new TradingController(new TradingService()));
     }
@@ -48,18 +48,15 @@ public class App implements ServerApp {
         switch (request.getMethod()) {
             case GET -> {
                 String[] split = request.getPathname().split("/");
-                //getCardsByUID
-                if (request.getPathname().contains("/cards/users/")) {
-                    return this.cardController.getCardsFromUserID(parseId(split));
+                //getCardsFromUser *****
+                if (request.getPathname().equals("/cards")) {
+                    return getCardController().getCardsFromUser(getUsernameFromToken(request.getAuthToken()));
                 }//getAllOfferedCards
                 else if (request.getPathname().contains("/tradings/")) {
                     return this.tradingController.getAllTradingDeals(parseId(split));
                 }//getAllUsers ******
                 else if (request.getPathname().equals("/users")) {
                     return getUserController().getAllUsers();
-                }//getCardByID
-                else if (request.getPathname().contains("/cards/IDs/")) {
-                    return this.cardController.getCardById(parseId(split));
                 }//getUserByName *****
                 else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
@@ -75,48 +72,40 @@ public class App implements ServerApp {
                 }
             }
             case POST -> {
-                //createCard
-                if (request.getPathname().equals("/cards")) {
-                    return this.cardController.createCard(request.getBody());
+                //createPackage *****
+                if (request.getPathname().equals("/packages")) {
+                    if(isAuthTokenCorrect(request.getAuthToken(), "admin")){
+                        return getCardController().createPackage(request.getBody());
+                    }
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Admin Token\", \"data\": null }");
+                }//buyPackage *****
+                else if(request.getPathname().equals("/packages/transactions")){
+                    return getCardController().acquirePackage(getUsernameFromToken(request.getAuthToken()));
                 }//createUser *****
                 else if (request.getPathname().equals("/users")) {
                     return getUserController().createUser(request.getBody());
-                } //login user *****
+                }//login user *****
                 else if (request.getPathname().equals("/sessions")) {
                     return getUserController().loginUser(request.getBody());
                 }
                 else if (request.getPathname().equals("/tradings")) {
                     return this.tradingController.createTradingDeal(request.getBody());
                 }
-                else if (request.getPathname().equals("/packages")) {
-                    return this.cardController.createPackage(request.getBody());
-                }
             }
             case PUT -> {
                 String[] split = request.getPathname().split("/");
-                //updateCard cardID
-                if (request.getPathname().contains("/cards/")) {
-                    return this.cardController.updateCard(parseId(split), request.getBody());
-                }//updateUser by name *****
-                else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
+                //updateUser by name *****
+                if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
                         return getUserController().updateUser(parseUsername(split), request.getBody());
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
-                }//create + updateCard userID
-                else if(request.getPathname().contains("/packages/buy/")){
-                    //create package
-                    //get cards where UID 0
-                    //change UID for cards
                 }
             }
             case DELETE -> {
                 String[] split = request.getPathname().split("/");
-                //deleteCard cardID
-                if (request.getPathname().contains("/cards/")) {
-                    return this.cardController.deleteCard(parseId(split));
-                }//deleteUser by name *****
-                else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
+                //deleteUser by name *****
+                if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     return getUserController().deleteUser(parseUsername(split));
                 }//deleteDemand demandID
                 else if (request.getPathname().contains("/tradings/")) {
@@ -140,6 +129,10 @@ public class App implements ServerApp {
     public String parseUsername(String[] split){
         int length = (int) Arrays.stream(split).count();
         return split[length-1];
+    }
+    public String getUsernameFromToken(String auth){
+        String[] splitAuth = auth.split("-");
+        return splitAuth[0];
     }
     public boolean isAuthTokenCorrect(String auth, String username){
         //auth == username-mtcgToken

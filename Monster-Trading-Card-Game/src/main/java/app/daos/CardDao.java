@@ -20,8 +20,9 @@ public class CardDao implements Dao<Card>{
 
     @Override
     public Card create(Card card) throws SQLException {
-        String query = "INSERT INTO cards(UserID, Name, Damage, Paused) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO cards(CardID, UserID, Name, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(0, card.getCardID());
         statement.setInt(1, card.getUserID());
         statement.setString(2, card.getName());
         statement.setInt(3, card.getDamage());
@@ -29,17 +30,38 @@ public class CardDao implements Dao<Card>{
 
         ResultSet res = statement.executeQuery();
         Card createdCard = new Card (
+                res.getString(1), //CardID
+                res.getInt(2),  //UserID
                 res.getString(3), //Name
                 res.getInt(4), //Damage
-                res.getInt(1), //CardID
-                res.getInt(2)  //UserID
+                res.getBoolean(5) //paused
         );
         statement.close();
         return createdCard;
     }
 
     @Override
-    public Card read(int id) throws SQLException {return null;}
+    public Card read(String id) throws SQLException {
+        String query = "SELECT * FROM cards WHERE cardID = ?";
+        PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, id);
+
+        ResultSet res = statement.executeQuery();
+        Card foundCard = new Card (
+                res.getString(1), //CardID
+                res.getInt(2),  //UserID
+                res.getString(3), //Name
+                res.getInt(4), //Damage
+                res.getBoolean(5) //paused
+        );
+        statement.close();
+        return foundCard;
+    }
+
+    @Override
+    public ArrayList<Card> readAll() throws SQLException {
+        return null;
+    }
 
     public ArrayList<Card> readAllCardsFromUser(int uid) throws SQLException{
         ArrayList<Card> userCards = new ArrayList<Card>();
@@ -50,10 +72,10 @@ public class CardDao implements Dao<Card>{
         ResultSet res = statement.executeQuery();
         while(res.next()){
             Card tempCard = new Card(
+                    res.getString(1), //CardID
+                    res.getInt(2),  //UserID
                     res.getString(3), //Name
                     res.getInt(4), //Damage
-                    res.getInt(1), //CardID
-                    res.getInt(2),  //UserID
                     res.getBoolean(5) //paused
             );
             userCards.add(tempCard);
@@ -63,23 +85,32 @@ public class CardDao implements Dao<Card>{
     }
 
     @Override
-    public void update(Card card) throws SQLException {}
+    public void update(Card card) throws SQLException {
+        String query = "UPDATE cards SET UserID = ?, Paused = ? WHERE CardID = ?";
+        PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setInt(1, card.getUserID());
+        statement.setBoolean(2, card.isPaused());
+        statement.setString(3, card.getCardID());
 
-    public void updateCardUserID(int cid, int uid) throws SQLException{
+        statement.executeQuery();
+        statement.close();
+    }
+
+    public void updateCardUserID(String cid, int uid) throws SQLException{
         String query = "UPDATE cards SET UserID = ? WHERE CardID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setInt(1, uid);
-        statement.setInt(2, cid);
+        statement.setString(2, cid);
 
         ResultSet res = statement.executeQuery();
         statement.close();
     }
 
-    public void updateCardPaused(int cid, Boolean paused) throws SQLException{
+    public void updateCardPaused(String cid, Boolean paused) throws SQLException{
         String query = "UPDATE cards SET Paused = ? WHERE CardID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setBoolean(1, paused);
-        statement.setInt(2, cid);
+        statement.setString(2, cid);
 
         ResultSet res = statement.executeQuery();
         statement.close();
@@ -89,7 +120,7 @@ public class CardDao implements Dao<Card>{
     public void delete(Card card) throws SQLException {
         String query = "DELETE FROM cards WHERE CardID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setInt(1, card.getCardID());
+        statement.setString(1, card.getCardID());
 
         ResultSet res = statement.executeQuery();
         statement.close();

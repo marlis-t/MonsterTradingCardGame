@@ -33,35 +33,41 @@ public class Request {
     }
     private void buildRequest(BufferedReader inputStream) {
         try {
-            StringBuilder line = new StringBuilder();
-            String temp;
-
-            do{
-                temp = inputStream.readLine();
-                line.append(temp).append(" ");
-
-            }while(!temp.contains("Authorization") && temp != null);
+            String line;
+            line = inputStream.readLine();
+            System.out.println("done with reading first line input");
 
             //what if line == null
             //if content added
-            if (line.toString().length() > 1) {
-                String[] splitLine = line.toString().split(" ");
-                Boolean hasParams = splitLine[1].contains("?");
+            if (line != null) {
+                System.out.println("get content");
+                String[] splitFirstLine = line.split(" ");
+                Boolean hasParams = splitFirstLine[1].contains("?");
 
-                setMethod(getMethodFromInputLine(splitLine));
-                setPathname(getPathnameFromInputLine(splitLine, hasParams));
-                setParameters(getParamsFromInputLine(splitLine, hasParams));
-                setAuthToken(getAuthorizationFromInputLine(splitLine));
+                setMethod(getMethodFromInputLine(splitFirstLine));
+                setPathname(getPathnameFromInputLine(splitFirstLine, hasParams));
+                setParameters(getParamsFromInputLine(splitFirstLine, hasParams));
+                System.out.println("err set");
 
-                while (line.length() > 0) {
-                    line = new StringBuilder(inputStream.readLine());
-                    if (line.toString().startsWith(CONTENT_LENGTH)) {
-                        setContentLength(getContentLengthFromInputLine(line.toString()));
+                while (!line.isEmpty()) {
+                    line = inputStream.readLine();
+                    if (line.startsWith(CONTENT_LENGTH)) {
+                        setContentLength(getContentLengthFromInputLine(line));
                     }
-                    if (line.toString().startsWith(CONTENT_TYPE)) {
-                        setContentType(getContentTypeFromInputLine(line.toString()));
+                    if (line.startsWith(CONTENT_TYPE)) {
+                        setContentType(getContentTypeFromInputLine(line));
+                    }
+                    if(line.startsWith("Authorization")){
+                        setAuthToken(getAuthorizationFromInputLine(line));
                     }
                 }
+                System.out.println("really err set");
+                System.out.println(getMethod());
+                System.out.println(getPathname());
+                System.out.println(getParameters());
+                System.out.println(getContentLength());
+                System.out.println(getContentType());
+                System.out.println(getAuthToken());
 
                 if (getMethod() == Method.POST || getMethod() == Method.PUT) {
                     int asciChar;
@@ -105,11 +111,12 @@ public class Request {
         return line.substring(CONTENT_TYPE.length());
     }
 
-    private String getAuthorizationFromInputLine(String[] splittedLine){
+    private String getAuthorizationFromInputLine(String line){
+        String[] splitLine = line.split(" ");
         String auth = "";
-        for(int i = 0; i < Arrays.stream(splittedLine).count(); i++){
-            if(splittedLine[i].equals("Bearer")){
-                auth = splittedLine[i+1];
+        for(int i = 0; i < Arrays.stream(splitLine).count(); i++){
+            if(splitLine[i].equals("Bearer")){
+                auth = splitLine[i+1];
             }
         }
         return auth;

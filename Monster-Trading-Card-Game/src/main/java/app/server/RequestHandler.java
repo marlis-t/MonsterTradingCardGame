@@ -28,12 +28,16 @@ public class RequestHandler implements Runnable{
 
     public void run(){
         try{
+            System.out.println("Run Rq.Handler");
             setInputStream(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
+            System.out.println("inputstr set");
             Request request = new Request(getInputStream());
+            System.out.println("req. made");
             //this part is only here bc the first thread is always useless, should be fixed
             if(request.getPathname() == null){
                 return;
             }
+            System.out.println("outputstr set");
             setOutputStream(new PrintWriter(clientSocket.getOutputStream(), true));
             sendResponse(request);
 
@@ -45,7 +49,7 @@ public class RequestHandler implements Runnable{
     }
     public void sendResponse(Request request){
         Response response;
-
+        System.out.println("SEnd Resp. Rq.Handler");
         if (request.getPathname() == null) {
             response = new Response(
                     HttpStatus.BAD_REQUEST,

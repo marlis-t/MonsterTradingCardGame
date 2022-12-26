@@ -42,50 +42,59 @@ public class App implements ServerApp {
     }
 
     public Response handleRequest(Request request) {
-        System.out.println(request.getPathname());
-        System.out.println(request.getMethod());
-        System.out.println(request.getAuthToken());
+        System.out.println(request.getPathname() + " Pathname");
+        System.out.println(request.getMethod() + " Method");
+        System.out.println(request.getAuthToken() + " Token");
         switch (request.getMethod()) {
             case GET -> {
                 String[] split = request.getPathname().split("/");
                 //getCardsFromUser *****
                 if (request.getPathname().equals("/cards")) {
+                    System.out.println("Req.Handler get cards from user");
                     return getCardController().getCardsFromUser(getUsernameFromToken(request.getAuthToken()));
                 }//getAllOfferedCards
                 else if (request.getPathname().contains("/tradings/")) {
                     return this.tradingController.getAllTradingDeals(parseId(split));
                 }//getAllUsers ******
                 else if (request.getPathname().equals("/users")) {
+                    System.out.println("Req.Handler get users");
                     return getUserController().getAllUsers();
                 }//getUserByName *****
                 else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
+                    System.out.println("Req.Handler get one user");
                     if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
                         return getUserController().getUserByName(parseUsername(split));
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
                 }//getUserStats *****
                 else if (request.getPathname().equals("/stats")){
+                    System.out.println("Req.Handler get stats from user");
                     return getUserController().getStats(request.getAuthToken());
                 }//getScores *****
                 else if(request.getPathname().equals("/scores")){
+                    System.out.println("Req.Handler get scores");
                     return getUserController().getScoreboard(request.getAuthToken());
                 }
             }
             case POST -> {
                 //createPackage *****
                 if (request.getPathname().equals("/packages")) {
+                    System.out.println("Req.Handler make pck");
                     if(isAuthTokenCorrect(request.getAuthToken(), "admin")){
                         return getCardController().createPackage(request.getBody());
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Admin Token\", \"data\": null }");
                 }//buyPackage *****
                 else if(request.getPathname().equals("/packages/transactions")){
+                    System.out.println("Req.Handler buy pack");
                     return getCardController().acquirePackage(getUsernameFromToken(request.getAuthToken()));
                 }//createUser *****
                 else if (request.getPathname().equals("/users")) {
+                    System.out.println("Req.Handler register user");
                     return getUserController().createUser(request.getBody());
                 }//login user *****
                 else if (request.getPathname().equals("/sessions")) {
+                    System.out.println("Req.Handler login user");
                     return getUserController().loginUser(request.getBody());
                 }
                 else if (request.getPathname().equals("/tradings")) {
@@ -96,6 +105,7 @@ public class App implements ServerApp {
                 String[] split = request.getPathname().split("/");
                 //updateUser by name *****
                 if (request.getPathname().matches("/users/[a-zA-Z]+")) {
+                    System.out.println("Req.Handler update user");
                     if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
                         return getUserController().updateUser(parseUsername(split), request.getBody());
                     }
@@ -106,6 +116,7 @@ public class App implements ServerApp {
                 String[] split = request.getPathname().split("/");
                 //deleteUser by name *****
                 if (request.getPathname().matches("/users/[a-zA-Z]+")) {
+                    System.out.println("Req.Handler delete user");
                     return getUserController().deleteUser(parseUsername(split));
                 }//deleteDemand demandID
                 else if (request.getPathname().contains("/tradings/")) {

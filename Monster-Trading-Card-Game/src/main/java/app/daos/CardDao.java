@@ -20,7 +20,7 @@ public class CardDao implements Dao<Card>{
 
     @Override
     public Card create(Card card) throws SQLException {
-        String query = "INSERT INTO cards(CardID, UserID, Name, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO cards(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(0, card.getCardID());
         statement.setInt(1, card.getUserID());
@@ -28,7 +28,8 @@ public class CardDao implements Dao<Card>{
         statement.setInt(3, card.getDamage());
         statement.setBoolean(4, card.isPaused());
 
-        ResultSet res = statement.executeQuery();
+        statement.execute();
+        /*
         Card createdCard = new Card (
                 res.getString(1), //CardID
                 res.getInt(2),  //UserID
@@ -36,8 +37,9 @@ public class CardDao implements Dao<Card>{
                 res.getInt(4), //Damage
                 res.getBoolean(5) //paused
         );
+         */
         statement.close();
-        return createdCard;
+        return card;
     }
 
     @Override
@@ -47,6 +49,10 @@ public class CardDao implements Dao<Card>{
         statement.setString(1, id);
 
         ResultSet res = statement.executeQuery();
+        if(!res.next()){
+            statement.close();
+            return null;
+        }
         Card foundCard = new Card (
                 res.getString(1), //CardID
                 res.getInt(2),  //UserID
@@ -92,7 +98,7 @@ public class CardDao implements Dao<Card>{
         statement.setBoolean(2, card.isPaused());
         statement.setString(3, card.getCardID());
 
-        statement.executeQuery();
+        statement.execute();
         statement.close();
     }
 
@@ -102,7 +108,7 @@ public class CardDao implements Dao<Card>{
         statement.setInt(1, uid);
         statement.setString(2, cid);
 
-        ResultSet res = statement.executeQuery();
+        statement.execute();
         statement.close();
     }
 
@@ -112,7 +118,7 @@ public class CardDao implements Dao<Card>{
         statement.setBoolean(1, paused);
         statement.setString(2, cid);
 
-        ResultSet res = statement.executeQuery();
+        statement.execute();
         statement.close();
     }
 
@@ -122,7 +128,7 @@ public class CardDao implements Dao<Card>{
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, card.getCardID());
 
-        ResultSet res = statement.executeQuery();
+        statement.execute();
         statement.close();
     }
 }

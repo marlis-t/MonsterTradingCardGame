@@ -51,7 +51,7 @@ public class UserController extends Controller{
     //GET /stats
     public Response getStats(String auth){
         String username = auth.split("-")[0];
-        User user = null;
+        User user;
         try {
             user = getUserDao().read(username);
         } catch (SQLException e) {
@@ -140,6 +140,14 @@ public class UserController extends Controller{
         try{
             //push user to db
             User user = new User(username, password);
+            //check if username already in use
+            ArrayList<User> allUsers;
+            allUsers = getUserDao().readAll();
+            for(User temp : allUsers){
+                if(Objects.equals(user.getUsername(), temp.getUsername())){
+                    return sendResponse("null", "Username already in use", HttpStatus.BAD_REQUEST);
+                }
+            }
             User createdUser = getUserDao().create(user);
             String userDataJSON = getObjectMapper().writeValueAsString(createdUser);
             return sendResponse(userDataJSON, "null", HttpStatus.CREATED);
@@ -168,11 +176,8 @@ public class UserController extends Controller{
         }
         try {
             User user = getUserDao().read(username);
-            if (user == null) {
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
-            }
-            if(!Objects.equals(user.getPassword(), password)) {
-                return sendResponse("null", "Incorrect password", HttpStatus.BAD_REQUEST);
+            if (!getUserDao().checkCredentials(username, password)) {
+                return sendResponse("null", "Incorrect User-credentials", HttpStatus.NOT_FOUND);
             }
             String token = user.getUsername() + "-mtcgToken";
             user.setAuthToken(token);

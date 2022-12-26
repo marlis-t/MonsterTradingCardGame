@@ -31,7 +31,8 @@ public class UserDao implements Dao<User>{
         statement.setString(7, user.getImage());
         statement.setString(8, user.getAuthToken());
 
-        ResultSet res = statement.executeQuery();
+        statement.execute();
+        /*
         User createdUser = new User (
                 res.getInt(1), //Uid
                 res.getString(2), //Username
@@ -46,8 +47,10 @@ public class UserDao implements Dao<User>{
                 null, //deck
                 null //tradingDeal
         );
+        */
+
         statement.close();
-        return createdUser;
+        return user;
     }
 
 
@@ -85,6 +88,10 @@ public class UserDao implements Dao<User>{
         statement.setString(1, username);
 
         ResultSet res = statement.executeQuery();
+        if (!res.next()){
+            statement.close();
+            return null;
+        }
         User foundUser = new User (
                 res.getInt(1), //Uid
                 res.getString(2), //Username
@@ -101,7 +108,21 @@ public class UserDao implements Dao<User>{
         );
         statement.close();
         return foundUser;
-        //add cards + tradingDeal afterwards
+    }
+
+    public Boolean checkCredentials(String username, String password) throws SQLException {
+        String query = "SELECT * FROM users WHERE Username = ? AND Password = ?";
+        PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, username);
+        statement.setString(2, password);
+
+        ResultSet res = statement.executeQuery();
+        if (!res.next()){
+            statement.close();
+            return false;
+        }
+        statement.close();
+        return true;
     }
 
     public ArrayList<String> readAuthToken() throws SQLException{
@@ -115,6 +136,7 @@ public class UserDao implements Dao<User>{
             temp = res.getString(1);
             authTokenList.add(temp);
         }
+        statement.close();
         return authTokenList;
     }
     @Override
@@ -128,9 +150,9 @@ public class UserDao implements Dao<User>{
         statement.setString(5, user.getImage());
         statement.setString(6, user.getAuthToken());
 
-        statement.setInt(6, user.getUserID());
+        statement.setInt(7, user.getUserID());
 
-        statement.executeQuery();
+        statement.execute();
         statement.close();
     }
 
@@ -140,7 +162,7 @@ public class UserDao implements Dao<User>{
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setInt(1, user.getUserID());
 
-        statement.executeQuery();
+        statement.execute();
         statement.close();
     }
 }

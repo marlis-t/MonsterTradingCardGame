@@ -77,42 +77,15 @@ public class CardController extends Controller{
             );
         }
     }
-
-    // GET /cards/id not needed
-    /*
-    public Response getCardById(int id) {
-        try{
-            CardModel card = getCardService().getCardByID(id);
-            if(card == null){
-                return new Response(
-                        HttpStatus.NOT_FOUND,
-                        ContentType.JSON,
-                        "{ \"error\": \"No Card with this ID\", \"data\": null }"
-                );
-            }
-            String cardDataJSON = getObjectMapper().writeValueAsString(card);
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + cardDataJSON + ", \"error\": null }"
-            );
-        }catch(JsonProcessingException e){
-            e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
-        }
-    }
     */
     // POST /packages
     public Response createPackage(String body) {
         try{
-            String[] splitCards = body.split("\\{");
+            //separate cards
+            String[] splitByCards = body.split("\\{");
             ArrayList<Card> packCards = new ArrayList<Card>();
-            for(String cardSplit : splitCards){
-                String[] splitParams = body.split("\"");
+            for(String aSplitCard : splitByCards){
+                String[] splitParams = aSplitCard.split("\"");
                 String ID = "";
                 String name = "";
                 int damage = 0;
@@ -135,9 +108,8 @@ public class CardController extends Controller{
                 packCards.add(card);
             }
             if(packCards.size() < 5){
-                return sendResponse("null", "Invalid Information for Card declaration", HttpStatus.BAD_REQUEST);
+                return sendResponse("null", "No full package created", HttpStatus.BAD_REQUEST);
             }
-
             ArrayList<Card> createdCards = getPackageDao().create(packCards);
             String cardDataJSON = getObjectMapper().writeValueAsString(createdCards);
 
@@ -158,12 +130,15 @@ public class CardController extends Controller{
             }
             //check if enough coins
             User user = getUserDao().read(username);
+            if(user == null){
+                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+            }
             if(user.getCoins() < 5){
                 return sendResponse("null", "Not enough coins", HttpStatus.BAD_REQUEST);
             }
             //get one package
             ArrayList<Card> packCards = getPackageDao().readPackage();
-            if(packCards.size() < 5){
+            if(packCards.isEmpty()){
                 return sendResponse("null", "No package found", HttpStatus.NOT_FOUND);
             }
             //change UID of Cards and put into Card table

@@ -4,6 +4,7 @@ import app.controllers.CardController;
 import app.controllers.TradingController;
 import app.controllers.UserController;
 import app.daos.CardDao;
+import app.daos.DeckDao;
 import app.daos.PackageDao;
 import app.daos.UserDao;
 import app.http.ContentType;
@@ -34,9 +35,9 @@ public class App implements ServerApp {
         try {
             setConnection(new DatabaseService().getConnection());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        setCardController(new CardController(new CardDao(getConnection()), new UserDao(getConnection()), new PackageDao(getConnection())));
+        setCardController(new CardController(new CardDao(getConnection()), new UserDao(getConnection()), new PackageDao(getConnection()), new DeckDao(getConnection())));
         setUserController(new UserController(new UserDao(getConnection())));
         setTradingController(new TradingController(new TradingService()));
     }
@@ -47,14 +48,22 @@ public class App implements ServerApp {
         System.out.println(request.getAuthToken() + " Token");
         switch (request.getMethod()) {
             case GET -> {
+                if(request.getAuthToken() == null){
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
+                }
                 String[] split = request.getPathname().split("/");
                 //getCardsFromUser *****
                 if (request.getPathname().equals("/cards")) {
                     System.out.println("Req.Handler get cards from user");
                     return getCardController().getCardsFromUser(getUsernameFromToken(request.getAuthToken()));
-                }//getAllOfferedCards
-                else if (request.getPathname().contains("/tradings/")) {
-                    return this.tradingController.getAllTradingDeals(parseId(split));
+                }//getDeckFromUser *****
+                else if (request.getPathname().equals("/decks")) {
+                    System.out.println("Req.Handler get deck from user");
+                    return getCardController().getDeckFromUser(getUsernameFromToken(request.getAuthToken()), false);
+                }//getDeckFromUser plain *****
+                else if (request.getPathname().equals("/decks?format=plain")) {
+                    System.out.println("Req.Handler get deck from user plain");
+                    return getCardController().getDeckFromUser(getUsernameFromToken(request.getAuthToken()), true);
                 }//getAllUsers ******
                 else if (request.getPathname().equals("/users")) {
                     System.out.println("Req.Handler get users");
@@ -87,6 +96,9 @@ public class App implements ServerApp {
                 }//buyPackage *****
                 else if(request.getPathname().equals("/packages/transactions")){
                     System.out.println("Req.Handler buy pack");
+                    if(request.getAuthToken() == null){
+                        return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
+                    }
                     return getCardController().acquirePackage(getUsernameFromToken(request.getAuthToken()));
                 }//createUser *****
                 else if (request.getPathname().equals("/users")) {
@@ -109,7 +121,14 @@ public class App implements ServerApp {
                     if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
                         return getUserController().updateUser(parseUsername(split), request.getBody());
                     }
-                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect/Missing Token\", \"data\": null }");
+                } //assemble deck *****
+                else if(request.getPathname().equals("/decks")){
+                    System.out.println("Req.Handler set deck");
+                    if(request.getAuthToken() == null){
+                        return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
+                    }
+                    return getCardController().assembleDeck(request.getBody(), getUsernameFromToken(request.getAuthToken()));
                 }
             }
             case DELETE -> {
@@ -117,7 +136,10 @@ public class App implements ServerApp {
                 //deleteUser by name *****
                 if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     System.out.println("Req.Handler delete user");
-                    return getUserController().deleteUser(parseUsername(split));
+                    if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
+                        return getUserController().deleteUser(parseUsername(split));
+                    }
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect/Missing Token\", \"data\": null }");
                 }//deleteDemand demandID
                 else if (request.getPathname().contains("/tradings/")) {
                     return this.tradingController.deleteTradingDeal(parseId(split));

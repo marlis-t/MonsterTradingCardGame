@@ -11,46 +11,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PackageDao {
+public class DeckDao {
     @Getter(AccessLevel.PRIVATE)
     @Setter(AccessLevel.PRIVATE)
     private Connection connection;
 
-    public PackageDao(Connection connection){setConnection(connection);}
+    public DeckDao(Connection connection) {
+        setConnection(connection);
+    }
 
     public ArrayList<Card> create(ArrayList<Card> cards) throws SQLException {
         //ArrayList<Card> result = new ArrayList<Card>();
         for(Card card: cards){
-            String query = "INSERT INTO packages(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO decks(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = getConnection().prepareStatement(query);
-            statement.setString(1, card.getCardID());
-            statement.setInt(2, card.getUserID());
-            statement.setString(3, card.getName());
-            statement.setInt(4, card.getDamage());
-            statement.setBoolean(5, card.isPaused());
+            statement.setString(0, card.getCardID());
+            statement.setInt(1, card.getUserID());
+            statement.setString(2, card.getName());
+            statement.setInt(3, card.getDamage());
+            statement.setBoolean(4, card.isPaused());
 
             statement.execute();
-            /*
-            Card createdCard = new Card (
-                    res.getString(1), //CardID
-                    res.getInt(2),  //UserID
-                    res.getString(3), //Name
-                    res.getInt(4), //Damage
-                    res.getBoolean(5) //paused
-            );
-             */
-            //result.add(createdCard);
             statement.close();
         }
         return cards;
     }
 
-    public ArrayList<Card> readPackage() throws SQLException {
-        String query = "SELECT * FROM packages WHERE CardID IN (SELECT CardID FROM packages LIMIT 5)";
+    public ArrayList<Card> readDeck(int UserID) throws SQLException {
+        String query = "SELECT * FROM decks WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setInt(1,UserID);
         ResultSet res = statement.executeQuery();
 
-        ArrayList<Card> pack = new ArrayList<Card>();
+        ArrayList<Card> deck = new ArrayList<Card>();
         while(res.next()){
             Card tempCard = new Card(
                     res.getString(1), //CardID
@@ -59,16 +52,19 @@ public class PackageDao {
                     res.getInt(4), //Damage
                     res.getBoolean(5) //paused
             );
-            pack.add(tempCard);
+            deck.add(tempCard);
         }
         statement.close();
-        return pack;
+        return deck;
     }
 
-    public void delete() throws SQLException {
-        String query = "DELETE FROM packages WHERE CardID IN (SELECT CardID FROM packages LIMIT 5)";
+    public void delete(int UserID) throws SQLException{
+        String query = "DELETE FROM cards WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setInt(1,UserID);
         statement.execute();
         statement.close();
     }
+
+
 }

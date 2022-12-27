@@ -20,6 +20,14 @@ CREATE TABLE cards (
 
 CREATE TABLE packages (
     CardID VARCHAR(255) PRIMARY KEY,
+    UserID INT NOT NULL,
+    CardName VARCHAR(255) NOT NULL,
+    Damage INT NOT NULL,
+    Paused BOOL NOT NULL
+);
+
+CREATE TABLE decks (
+    CardID VARCHAR(255) PRIMARY KEY,
     UserID INT NOT NULL REFERENCES users (UserID),
     CardName VARCHAR(255) NOT NULL,
     Damage INT NOT NULL,

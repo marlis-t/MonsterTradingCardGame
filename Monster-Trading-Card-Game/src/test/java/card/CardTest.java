@@ -22,7 +22,7 @@ public class CardTest {
     }
     @Test
     @DisplayName("Test: new Card(NormalSpell, 0); no Exception thrown")
-    public void testNameWithElementAndType_exceptNoException(){
+    public void testNameWithElementAndType_expectNoException(){
         assertDoesNotThrow(() -> {
             Card card = new Card("NormalSpell",0, "1", 0);
         });

@@ -35,6 +35,7 @@ public class CollectionOfCards {
         myCards.remove(index);
     }
 
+    /*
     public void showCards(){
         if(myCards.size() == 0){
             System.out.println("No Cards to show!\n");
@@ -46,4 +47,5 @@ public class CollectionOfCards {
             myCards.get(i).showCard();
         }
     }
+     */
 }

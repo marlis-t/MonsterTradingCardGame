@@ -61,15 +61,14 @@ public class Card{
     private TYPE readType(String name){
         if(name.contains("Spell")){
             return TYPE.SPELL;
-        }else if(name.contains("Monster")){
-            return TYPE.MONSTER;
         }else{
-            throw new IllegalArgumentException("Name does not contain type.");
+            return TYPE.MONSTER;
         }
     }
 
     public String showCard(){
         return "{ \"ID\": \"" + getCardID() + "\"," +
+                " \"UserID\": \"" + getUserID() + "\", " +
                 " \"Name\": \"" + getName() + "\"," +
                 " \"Damage\": \"" + getDamage() + "\" }";
     }

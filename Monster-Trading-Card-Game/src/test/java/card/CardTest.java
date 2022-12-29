@@ -13,14 +13,6 @@ public class CardTest {
         //System.out.println(thrownException.getMessage());
     }
     @Test
-    @DisplayName("Test: new Card(NormalTest, 0); IllegalArgumentException thrown")
-    public void testNameWithoutType_expectIllegalArgumentException(){
-        Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
-            Card card = new Card("NormalTest", 0, "1", 0);
-        });
-        //System.out.println(thrownException.getMessage());
-    }
-    @Test
     @DisplayName("Test: new Card(NormalSpell, 0); no Exception thrown")
     public void testNameWithElementAndType_expectNoException(){
         assertDoesNotThrow(() -> {

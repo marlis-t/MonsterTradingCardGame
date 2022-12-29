@@ -8,15 +8,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/daos/DeckDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/daos/TradeDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tradingDeal/TradingDeal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/app/controllers/ControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/tradingDealTest/TradingDealTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagrams/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrams/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrams/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/db.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/DeckDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/DeckDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CollectionOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/models/DemandModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/CardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/TradingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/battle/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/battle/Battle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/battle/ScoreBoard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/TradingDeal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/app/controllers/CardControllerTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,11 +67,8 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/app/daos/Dao.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/app/models/DemandModel.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/app/services/CardService.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/app/services/TradingService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/card/Card.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/user/TradingDeal.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/tradingDeal/TradingDeal.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/user/User.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="LogFilters">
@@ -92,6 +107,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\MARLIS\Fh_Technikum\Semester 3\Software\MonsterTradingCardGame-Tiefengraber\Monster-Trading-Card-Game\DB" />
       <recent name="C:\MARLIS\Fh_Technikum\Semester 3\Software\MonsterTradingCardGame-Tiefengraber\Monster-Trading-Card-Game\Diagrams" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -118,79 +134,73 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardControllerTest.testSendResponse_expectMatchingResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.controllers.*" />
+          <option name="PATTERN" value="card.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="app.controllers" />
-      <option name="MAIN_CLASS_NAME" value="app.controllers.CardControllerTest" />
-      <option name="METHOD_NAME" value="testSendResponse_expectMatchingResponse" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CardGeneratorTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="card.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserTest" />
-      <option name="METHOD_NAME" value="testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CardTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserTest.testSetUpTradingDealWithValidCard_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CollectionOfCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="card.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserTest" />
-      <option name="METHOD_NAME" value="testSetUpTradingDealWithValidCard_expectNoException" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.CollectionOfCardsTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="postgresql-Container" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
-      <deployment type="docker-image">
-        <settings>
-          <option name="imageTag" value="postgres:latest" />
-          <option name="containerName" value="DB" />
-          <option name="envVars">
-            <list>
-              <DockerEnvVarImpl>
-                <option name="name" value="POSTGRES_HOST_AUTH_METHOD" />
-                <option name="value" value="trust" />
-              </DockerEnvVarImpl>
-            </list>
-          </option>
-          <option name="publishAllPorts" value="true" />
-        </settings>
-      </deployment>
-      <method v="2" />
+    <configuration name="StackOfCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="card" />
+      <option name="MAIN_CLASS_NAME" value="card.StackOfCardsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.postgresql-Container" />
-        <item itemvalue="JUnit.CardControllerTest.testSendResponse_expectMatchingResponse" />
         <item itemvalue="JUnit.BattleTest" />
-        <item itemvalue="JUnit.UserTest.testSetUpTradingDealWithInValidCard_expectIllegalArgumentException" />
-        <item itemvalue="JUnit.UserTest.testSetUpTradingDealWithValidCard_expectNoException" />
+        <item itemvalue="JUnit.CardGeneratorTest" />
+        <item itemvalue="JUnit.StackOfCardsTest" />
+        <item itemvalue="JUnit.CollectionOfCardsTest" />
+        <item itemvalue="JUnit.CardTest" />
       </list>
     </recent_temporary>
   </component>

@@ -33,3 +33,17 @@ CREATE TABLE decks (
     Damage INT NOT NULL,
     Paused BOOL NOT NULL
 );
+
+CREATE TABLE tradingDeals (
+    TradeID VARCHAR(255) PRIMARY KEY,
+    UserID INT NOT NULL REFERENCES users (UserID),
+    CardToTradeID VARCHAR(255) NOT NULL REFERENCES cards (CardID),
+    MinDamage INT,
+    Type VARCHAR(40)
+);
+
+CREATE TABLE battles (
+    BattleID serial PRIMARY KEY ,
+    Requester VARCHAR(255) NOT NULL REFERENCES users (Username),
+    Accepter VARCHAR(255) REFERENCES users (Username)
+);

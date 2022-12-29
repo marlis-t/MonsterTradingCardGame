@@ -65,7 +65,7 @@ public class UserDao implements Dao<User>{
             User tempUser = new User(
                     res.getInt(1), //Uid
                     res.getString(2), //Username
-                    res.getString(3), //Password
+                    "", //Password
                     res.getInt(4), //Coins
                     res.getInt(5), //Score
                     res.getInt(6), //GamesPlayed
@@ -78,6 +78,7 @@ public class UserDao implements Dao<User>{
             );
             userList.add(tempUser);
         }
+        statement.close();
         return userList;
     }
 
@@ -95,7 +96,7 @@ public class UserDao implements Dao<User>{
         User foundUser = new User (
                 res.getInt(1), //Uid
                 res.getString(2), //Username
-                res.getString(3), //Password
+                "", //Password
                 res.getInt(4), //Coins
                 res.getInt(5), //Score
                 res.getInt(6), //GamesPlayed

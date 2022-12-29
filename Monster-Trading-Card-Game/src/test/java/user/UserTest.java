@@ -1,6 +1,5 @@
 package user;
 
-import card.Card;
 import card.Package;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,25 +32,6 @@ public class UserTest {
             user.buyPackage(null);
         });
     }
-    @Test
-    @DisplayName("Test: setUpTradingDeal(); expect no Exception")
-    public void testSetUpTradingDealWithValidCard_expectNoException(){
-        User user = new User("username", "user");
-        Card card = new Card("NormalSpell", 20, "1", 1);
-        user.getMyStack().addCard(card);
 
-        assertDoesNotThrow(() -> {
-            user.setUpTradingDeal("1", 10, null, null);
-        });
-    }
-    @Test
-    @DisplayName("Test: setUpTradingDeal(); expect no Exception")
-    public void testSetUpTradingDealWithCardNotInStack_expectIllegalArgumentException(){
-        User user = new User("username", "user");
-
-        Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
-            user.setUpTradingDeal("1", 10, null, null);
-        });
-    }
 
 }

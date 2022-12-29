@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PackageDao {
+public class PackageDao{
     @Getter(AccessLevel.PRIVATE)
     @Setter(AccessLevel.PRIVATE)
     private Connection connection;
@@ -30,16 +30,6 @@ public class PackageDao {
             statement.setBoolean(5, card.isPaused());
 
             statement.execute();
-            /*
-            Card createdCard = new Card (
-                    res.getString(1), //CardID
-                    res.getInt(2),  //UserID
-                    res.getString(3), //Name
-                    res.getInt(4), //Damage
-                    res.getBoolean(5) //paused
-            );
-             */
-            //result.add(createdCard);
             statement.close();
         }
         return cards;

@@ -47,7 +47,7 @@ public class Battle {
     public Card getRandomCardFromUser(User user){
         ArrayList<Card> userCards = user.getMyDeck().getMyCards();
         //chooses random int in range of 0 to size of deck -1
-        //throws IllegalArgumentException if deck is empty
+        //throws IllegalArgumentException if deck is empty bc battle should have ended already
         int randNr = getRandomizer().nextInt(userCards.size());
         Card chosenCard = userCards.get(randNr);
         if(chosenCard == null){
@@ -119,11 +119,11 @@ public class Battle {
                 setCard1Damage(0);
             }
         }else if(card1.getName().contains("Knight")){
-            if(card2.getName().equals("WaterMagicSpell")){
+            if(card2.getName().equals("WaterSpell")){
                 //Knight does not attack WaterMagicSpell
                 setCard1Damage(0);
             }
-        }else if(card1.getName().equals("WaterMagicSpell")){
+        }else if(card1.getName().equals("WaterSpell")){
             if(card2.getName().contains("Knight")){
                 //Knight does not attack WaterMagicSpell
                 setCard2Damage(0);
@@ -145,7 +145,8 @@ public class Battle {
         setCard1Damage(card1.getDamage());
         setCard2Damage(card2.getDamage());
         try {
-            writeToLogfile("damage before type and specification includes: You: " + card1.getName() + ": " + getCard1Damage() + ", other: " + card2.getName() + ": " + getCard2Damage() + "\n");
+            writeToLogfile("Card " + card1.getName() + " and Card " + card2.getName() + " have been chosen.\n");
+            writeToLogfile("Damage (before type and specification includes) : " + card1.getName() + "-> " + getCard1Damage() + ", " + card2.getName() + "-> " + getCard2Damage() + "\n");
 
             if (card1.getType() == TYPE.SPELL || card2.getType() == TYPE.SPELL) {
                 //does not happen with 2 monster cards
@@ -155,7 +156,7 @@ public class Battle {
                 //does not happen with 2 spell cards
                 addMonsterSpecialities(card1, card2);
             }
-            writeToLogfile("damage after: You: " + card1.getName() + ": " + getCard1Damage() + ", other: " + card2.getName() + ": " + getCard2Damage() + "\n");
+            writeToLogfile("Final damage: " + card1.getName() + "-> " + getCard1Damage() + ", " + card2.getName() + "-> " + getCard2Damage() + "\n");
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -202,12 +203,12 @@ public class Battle {
                 //User1 lost
                 getUser1().setScore(getUser1().getScore() - 5);
                 getUser2().setScore(getUser2().getScore() + 3);
-                writeToLogfile("User '" + getUser2().getUsername() + "' won the battle\n");
+                writeToLogfile("User " + getUser2().getUsername() + " won the battle\n");
             } else if (getUser2().getMyDeck().isDeckEmpty()) {
                 //User2 lost
                 getUser2().setScore(getUser2().getScore() - 5);
                 getUser1().setScore(getUser1().getScore() + 3);
-                writeToLogfile("User '" + getUser1().getUsername() + "' won the battle\n");
+                writeToLogfile("User " + getUser1().getUsername() + " won the battle\n");
             } else {
                 writeToLogfile("The battle ended in a draw\n");
             }
@@ -222,33 +223,31 @@ public class Battle {
 
     public void doBattle(){
         try {
-            File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt");
+            File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt");
             writeToLogfile("\nNEW BATTLE\n\n");
             writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
             while (shouldBattleContinue()) {
                 Card cardUser1 = getRandomCardFromUser(getUser1());
                 Card cardUser2 = getRandomCardFromUser(getUser2());
-                writeToLogfile("Round: " + getRound() + "\n");
+                writeToLogfile("Round " + getRound() + ":\n");
                 switch (whichCardStronger(cardUser1, cardUser2)) {
                     case 1 -> {
                         changeCardOwner(cardUser2, getUser1(), getUser2());
-                        writeToLogfile(
-                                "Card '" + cardUser1.getName() +
-                                        "' of User '" + getUser1().getUsername() + "' won\n"
-                        );
+                        writeToLogfile("Card " + cardUser1.getName() + " of User " + getUser1().getUsername() + " won\n");
+                        writeToLogfile("User " + getUser1().getUsername() + " gains Card " + cardUser2.getName() + "\n");
                     }
                     case 2 -> {
                         changeCardOwner(cardUser1, getUser2(), getUser1());
-                        writeToLogfile(
-                                "Card '" + cardUser2.getName() +
-                                        "' of User '" + getUser2().getUsername() + "' won\n"
-                        );
+                        writeToLogfile("Card " + cardUser2.getName() + " of User " + getUser2().getUsername() + " won\n");
+                        writeToLogfile("User " + getUser2().getUsername() + " gains Card " + cardUser1.getName() + "\n");
+
                     }
                     case 3 -> writeToLogfile("The round ended in a draw\n");
                     default -> throw new IllegalArgumentException("WhichCardStronger() returned illegal argument");
                 }
 
                 setRound(getRound() + 1);
+                writeToLogfile("\n");
             }
             updatePlayerStats();
         }catch(IOException e){

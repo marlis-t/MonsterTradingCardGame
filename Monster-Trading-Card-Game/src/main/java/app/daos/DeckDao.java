@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DeckDao {
+public class DeckDao{
     @Getter(AccessLevel.PRIVATE)
     @Setter(AccessLevel.PRIVATE)
     private Connection connection;
@@ -25,11 +25,11 @@ public class DeckDao {
         for(Card card: cards){
             String query = "INSERT INTO decks(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = getConnection().prepareStatement(query);
-            statement.setString(0, card.getCardID());
-            statement.setInt(1, card.getUserID());
-            statement.setString(2, card.getName());
-            statement.setInt(3, card.getDamage());
-            statement.setBoolean(4, card.isPaused());
+            statement.setString(1, card.getCardID());
+            statement.setInt(2, card.getUserID());
+            statement.setString(3, card.getName());
+            statement.setInt(4, card.getDamage());
+            statement.setBoolean(5, card.isPaused());
 
             statement.execute();
             statement.close();
@@ -59,7 +59,7 @@ public class DeckDao {
     }
 
     public void delete(int UserID) throws SQLException{
-        String query = "DELETE FROM cards WHERE UserID = ?";
+        String query = "DELETE FROM decks WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setInt(1,UserID);
         statement.execute();

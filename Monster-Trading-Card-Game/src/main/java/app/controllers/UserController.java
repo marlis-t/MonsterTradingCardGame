@@ -1,10 +1,8 @@
 package app.controllers;
 
 import app.daos.UserDao;
-import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Response;
-import app.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,12 +18,8 @@ import java.util.Objects;
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
 public class UserController extends Controller{
-
-    private UserService userService;
-    private UserDao userDao;
-
     public UserController(UserDao userDao) {
-        setUserDao(userDao);
+        super(userDao);
     }
     //GET /users/username
     public Response getUserByName(String username) {
@@ -177,7 +171,7 @@ public class UserController extends Controller{
         try {
             User user = getUserDao().read(username);
             if (!getUserDao().checkCredentials(username, password)) {
-                return sendResponse("null", "Incorrect User-credentials", HttpStatus.NOT_FOUND);
+                return sendResponse("null", "Incorrect User-credentials", HttpStatus.UNAUTHORIZED);
             }
             String token = user.getUsername() + "-mtcgToken";
             user.setAuthToken(token);
@@ -243,12 +237,5 @@ public class UserController extends Controller{
             return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return sendResponse("User was updated", "null", HttpStatus.OK);
-    }
-    public Response sendResponse(String data, String error, HttpStatus status){
-        return new Response(
-                status,
-                ContentType.JSON,
-                "{ \"data\": \"" + data + "\", \"error\": " + error + " }"
-        );
     }
 }

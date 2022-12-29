@@ -10,7 +10,9 @@ public enum HttpStatus {
     BAD_REQUEST(400, "Bad Request"),
     NO_CONTENT(204, "No Content"),
     UNAUTHORIZED(401, "Unauthorized"),
+    FORBIDDEN(403, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
+    CONFLICT(409, "Conflict"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
     @Getter

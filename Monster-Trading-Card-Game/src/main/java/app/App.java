@@ -3,17 +3,13 @@ package app;
 import app.controllers.CardController;
 import app.controllers.TradingController;
 import app.controllers.UserController;
-import app.daos.CardDao;
-import app.daos.DeckDao;
-import app.daos.PackageDao;
-import app.daos.UserDao;
+import app.daos.*;
 import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Request;
 import app.server.Response;
 import app.server.ServerApp;
 import app.services.DatabaseService;
-import app.services.TradingService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,7 +35,7 @@ public class App implements ServerApp {
         }
         setCardController(new CardController(new CardDao(getConnection()), new UserDao(getConnection()), new PackageDao(getConnection()), new DeckDao(getConnection())));
         setUserController(new UserController(new UserDao(getConnection())));
-        setTradingController(new TradingController(new TradingService()));
+        setTradingController(new TradingController(new TradeDao(getConnection()), new UserDao(getConnection()), new CardDao(getConnection()), new DeckDao(getConnection())));
     }
 
     public Response handleRequest(Request request) {
@@ -59,11 +55,12 @@ public class App implements ServerApp {
                 }//getDeckFromUser *****
                 else if (request.getPathname().equals("/decks")) {
                     System.out.println("Req.Handler get deck from user");
-                    return getCardController().getDeckFromUser(getUsernameFromToken(request.getAuthToken()), false);
-                }//getDeckFromUser plain *****
-                else if (request.getPathname().equals("/decks?format=plain")) {
-                    System.out.println("Req.Handler get deck from user plain");
-                    return getCardController().getDeckFromUser(getUsernameFromToken(request.getAuthToken()), true);
+                    boolean plain = false;
+                    if(request.getParameters().contains("format=plain")){
+                        System.out.println("plain format");
+                        plain = true;
+                    }
+                    return getCardController().getDeckFromUser(getUsernameFromToken(request.getAuthToken()), plain);
                 }//getAllUsers ******
                 else if (request.getPathname().equals("/users")) {
                     System.out.println("Req.Handler get users");
@@ -74,7 +71,7 @@ public class App implements ServerApp {
                     if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
                         return getUserController().getUserByName(parseUsername(split));
                     }
-                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
+                    return new Response(HttpStatus.FORBIDDEN, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
                 }//getUserStats *****
                 else if (request.getPathname().equals("/stats")){
                     System.out.println("Req.Handler get stats from user");
@@ -83,6 +80,10 @@ public class App implements ServerApp {
                 else if(request.getPathname().equals("/scores")){
                     System.out.println("Req.Handler get scores");
                     return getUserController().getScoreboard(request.getAuthToken());
+                }//getTradingDeals *****
+                else if(request.getPathname().equals("/tradings")){
+                    System.out.println("Req.Handler get trades");
+                    return getTradingController().getAllTradingDeals(request.getAuthToken());
                 }
             }
             case POST -> {
@@ -94,7 +95,7 @@ public class App implements ServerApp {
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Admin Token\", \"data\": null }");
                 }//buyPackage *****
-                else if(request.getPathname().equals("/packages/transactions")){
+                else if(request.getPathname().equals("/transactions/packages")){
                     System.out.println("Req.Handler buy pack");
                     if(request.getAuthToken() == null){
                         return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
@@ -108,10 +109,22 @@ public class App implements ServerApp {
                 else if (request.getPathname().equals("/sessions")) {
                     System.out.println("Req.Handler login user");
                     return getUserController().loginUser(request.getBody());
-                }
+                }//create TradingDeal
                 else if (request.getPathname().equals("/tradings")) {
-                    return this.tradingController.createTradingDeal(request.getBody());
-                }
+                    System.out.println("Req.Handler create trade");
+                    if(request.getAuthToken() == null){
+                        return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
+                    }
+                    return getTradingController().createTradingDeal(request.getBody(),getUsernameFromToken(request.getAuthToken()));
+                }//carry out Trade
+                else if (request.getPathname().matches("/tradings/([A-Za-z0-9]+(-[A-Za-z0-9]+)+)")){
+                    String[] split = request.getPathname().split("/");
+                    System.out.println("Req.Handler do trade");
+                    if(request.getAuthToken() == null){
+                        return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
+                    }
+                    return getTradingController().carryOutTradingDeal(parseUsername(split), request.getBody(), getUsernameFromToken(request.getAuthToken()));
+                }//battle request
             }
             case PUT -> {
                 String[] split = request.getPathname().split("/");
@@ -133,6 +146,9 @@ public class App implements ServerApp {
             }
             case DELETE -> {
                 String[] split = request.getPathname().split("/");
+                if(request.getAuthToken() == null){
+                    return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
+                }
                 //deleteUser by name *****
                 if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     System.out.println("Req.Handler delete user");
@@ -140,9 +156,9 @@ public class App implements ServerApp {
                         return getUserController().deleteUser(parseUsername(split));
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect/Missing Token\", \"data\": null }");
-                }//deleteDemand demandID
-                else if (request.getPathname().contains("/tradings/")) {
-                    return this.tradingController.deleteTradingDeal(parseId(split));
+                }//delete TradingDeal
+                else if (request.getPathname().matches("/tradings/([A-Za-z0-9]+(-[A-Za-z0-9]+)+)")) {
+                    return getTradingController().deleteTradingDeal(parseUsername(split), getUsernameFromToken(request.getAuthToken()));
                 }
             }
             default -> {

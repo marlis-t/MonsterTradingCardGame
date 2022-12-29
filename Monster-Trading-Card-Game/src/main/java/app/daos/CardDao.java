@@ -22,11 +22,11 @@ public class CardDao implements Dao<Card>{
     public Card create(Card card) throws SQLException {
         String query = "INSERT INTO cards(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(0, card.getCardID());
-        statement.setInt(1, card.getUserID());
-        statement.setString(2, card.getName());
-        statement.setInt(3, card.getDamage());
-        statement.setBoolean(4, card.isPaused());
+        statement.setString(1, card.getCardID());
+        statement.setInt(2, card.getUserID());
+        statement.setString(3, card.getName());
+        statement.setInt(4, card.getDamage());
+        statement.setBoolean(5, card.isPaused());
 
         statement.execute();
         /*

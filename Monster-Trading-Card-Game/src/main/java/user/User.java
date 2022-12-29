@@ -2,16 +2,13 @@ package user;
 
 import card.Card;
 import card.Deck;
-import card.Enum.ELEMENT;
-import card.Enum.TYPE;
 import card.Package;
 import card.StackOfCards;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Objects;
+import tradingDeal.TradingDeal;
 
 @Getter
 @Setter
@@ -96,6 +93,7 @@ public class User {
         setCoins(getCoins()-5);
         //push changes to db
     }
+    /*
    public void setUpTradingDeal(String cardID, int minDamage, ELEMENT element, TYPE type){
         Card offerCard = null;
         for(Card card: getMyStack().getMyCards()){
@@ -113,6 +111,8 @@ public class User {
             throw new IllegalArgumentException("Card to trade not found in stack");
         }
    }
+   */
+
    public void assembleDeck(){
         //make sure deck is empty before assembling it
         getMyDeck().emptyDeck();

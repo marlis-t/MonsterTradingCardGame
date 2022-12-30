@@ -1,5 +1,6 @@
 package battle;
 
+import app.controllers.BattleDirectController;
 import card.Card;
 import card.Enum.ELEMENT;
 import card.Enum.TYPE;
@@ -11,12 +12,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
 @Getter
 @Setter
 public class Battle {
+    private BattleDirectController battleDirectController;
     private User User1;
     private User User2;
     private int round;
@@ -26,13 +29,14 @@ public class Battle {
     private int card1Damage;
     private int card2Damage;
 
-    public Battle(User User1, User User2){
+    public Battle(User User1, User User2, BattleDirectController battleDirectController){
         setUser1(User1);
         setUser2(User2);
         setRound(0);
         setRandomizer(new Random());
         setCard1Damage(0);
         setCard2Damage(0);
+        setBattleDirectController(battleDirectController);
     }
     public Boolean shouldBattleContinue(){
         if(getUser1().getMyDeck().isDeckEmpty()){
@@ -173,7 +177,7 @@ public class Battle {
         return strongerCard;
     }
 
-    public void changeCardOwner(Card card, User newOwner, User oldOwner) {
+    public void changeCardOwner(Card card, User newOwner, User oldOwner) throws SQLException {
         if(!oldOwner.getMyDeck().getMyCards().remove(card)){
             //remove returns false if card not in deck
             throw new IllegalArgumentException("Deck does not contain Card, unable to remove");
@@ -185,7 +189,9 @@ public class Battle {
         newOwner.getMyDeck().addCard(card);
         newOwner.getMyStack().addCard(card);
 
-        //call database to update UID of card
+        //db takes card + newowner, updates
+        getBattleDirectController().changeCardOwner(card, newOwner.getUserID());
+
         //System.out.println("User " + newOwner.getUsername() + " got Card " + card.getName() + " from User " + oldOwner.getUsername());
 
     }
@@ -197,7 +203,7 @@ public class Battle {
         writer.close();
     }
 
-    public void updatePlayerStats(){
+    public void updatePlayerStats() throws SQLException {
         try {
             if (getUser1().getMyDeck().isDeckEmpty()) {
                 //User1 lost
@@ -216,12 +222,13 @@ public class Battle {
             getUser2().setGamesPlayed(getUser2().getGamesPlayed() + 1);
 
             //update users in database
+            getBattleDirectController().updatePlayerStats(getUser1(), getUser2());
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public void doBattle(){
+    public void doBattle() throws SQLException{
         try {
             File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt");
             writeToLogfile("\nNEW BATTLE\n\n");

@@ -58,6 +58,16 @@ public class DeckDao{
         return deck;
     }
 
+    public void updateUID(Card card) throws SQLException {
+        String query = "UPDATE decks SET UserID = ? WHERE CardID = ?";
+        PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setInt(1, card.getUserID());
+        statement.setString(2, card.getCardID());
+
+        statement.execute();
+        statement.close();
+    }
+
     public void delete(int UserID) throws SQLException{
         String query = "DELETE FROM decks WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);

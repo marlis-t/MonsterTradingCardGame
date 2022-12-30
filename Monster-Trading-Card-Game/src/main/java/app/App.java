@@ -1,5 +1,6 @@
 package app;
 
+import app.controllers.BattleController;
 import app.controllers.CardController;
 import app.controllers.TradingController;
 import app.controllers.UserController;
@@ -25,6 +26,7 @@ public class App implements ServerApp {
     private CardController cardController;
     private UserController userController;
     private TradingController tradingController;
+    private BattleController battleController;
     private Connection connection;
 
     public App() {
@@ -36,6 +38,7 @@ public class App implements ServerApp {
         setCardController(new CardController(new CardDao(getConnection()), new UserDao(getConnection()), new PackageDao(getConnection()), new DeckDao(getConnection())));
         setUserController(new UserController(new UserDao(getConnection())));
         setTradingController(new TradingController(new TradeDao(getConnection()), new UserDao(getConnection()), new CardDao(getConnection()), new DeckDao(getConnection())));
+        setBattleController(new BattleController(new UserDao(getConnection()), new CardDao(getConnection()), new DeckDao(getConnection()), new BattleDao(getConnection())));
     }
 
     public Response handleRequest(Request request) {
@@ -125,6 +128,10 @@ public class App implements ServerApp {
                     }
                     return getTradingController().carryOutTradingDeal(parseUsername(split), request.getBody(), getUsernameFromToken(request.getAuthToken()));
                 }//battle request
+                else if (request.getPathname().equals("/battles")){
+                    System.out.println("Req.Handler battle");
+                    return getBattleController().haveBattle(getUsernameFromToken(request.getAuthToken()));
+                }
             }
             case PUT -> {
                 String[] split = request.getPathname().split("/");

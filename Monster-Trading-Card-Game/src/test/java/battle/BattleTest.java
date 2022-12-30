@@ -7,9 +7,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import user.User;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BattleTest {
+    //add test mode w.o. db connection
     public User prepUser(){
         StackOfCards stack = new StackOfCards();
         User user = new User(1, "user", 20, 100, 2, stack, null);
@@ -24,7 +27,8 @@ public class BattleTest {
             User user1 = prepUser();
             User user2 = prepUser();
 
-            Battle testBattle = new Battle(user1, user2);
+
+            Battle testBattle = new Battle(user1, user2, null);
             Boolean expectedResponse = true;
 
             Boolean realResponse = testBattle.shouldBattleContinue();
@@ -36,7 +40,7 @@ public class BattleTest {
     public void testShouldBattleContinue_expectFalseBecauseRound100(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Boolean expectedResponse = false;
         testBattle.setRound(100);
 
@@ -50,7 +54,7 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         user1.getMyDeck().emptyDeck();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Boolean expectedResponse = false;
 
         Boolean realResponse = testBattle.shouldBattleContinue();
@@ -62,7 +66,7 @@ public class BattleTest {
     public void testGetRandomCardFromUser_expectNoException(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         assertDoesNotThrow(() -> {
             Card realResponse = testBattle.getRandomCardFromUser(user1);
@@ -74,7 +78,7 @@ public class BattleTest {
         User user1 = prepUser();
         User user2 = prepUser();
         user1.getMyDeck().emptyDeck();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
             testBattle.getRandomCardFromUser(user1);
@@ -86,7 +90,7 @@ public class BattleTest {
     public void testAddElementalDamageWithDifferentElement_expectChangedDamage(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Card card1 = new Card("WaterMagicSpell", 20, "1", 1);
         Card card2 = new Card("FireWizardMonster", 20, "2", 1);
         int expectedDamageCard1 = 40;
@@ -109,7 +113,7 @@ public class BattleTest {
     public void testAddElementalDamageWithSameElement_expectUnChangedDamage(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Card card1 = new Card("WaterMagicSpell", 20, "1", 1);
         Card card2 = new Card("WaterWizardMonster", 10, "2", 1);
         int expectedDamageCard1 = 20;
@@ -132,7 +136,7 @@ public class BattleTest {
     public void testAddMonsterSpecialities_expectDamageTo0(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Card card1 = new Card("WaterGoblinMonster", 20, "1", 1);
         Card card2 = new Card("WaterDragonMonster", 10, "2", 1);
         int expectedDamageCard1 = 0;
@@ -150,7 +154,7 @@ public class BattleTest {
     public void testWhichCardStronger_expectCard1(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Card card1 = new Card("WaterMagicSpell", 20, "1", 1);
         Card card2 = new Card("FireDragonMonster", 20, "2", 1);
         int expectedStrongerCard = 1;
@@ -165,7 +169,7 @@ public class BattleTest {
     public void testWhichCardStronger_expectDraw(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
         Card card2 = new Card("FireDragonMonster", 40, "2", 1);
         int expectedResult = 3;
@@ -183,7 +187,7 @@ public class BattleTest {
         user1.getMyDeck().addCard(card1);
         user1.getMyStack().addCard(card1);
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         assertDoesNotThrow(() -> {
             testBattle.changeCardOwner(card1, user2, user1);
@@ -191,13 +195,13 @@ public class BattleTest {
     }
     @Test
     @DisplayName("Test: changeCardOwner(); expect no Exception")
-    public void testChangeCardOwnerOfOwnedCard_expectChangedDeckSize(){
+    public void testChangeCardOwnerOfOwnedCard_expectChangedDeckSize() throws SQLException {
         User user1 = prepUser();
         Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
         user1.getMyDeck().addCard(card1);
         user1.getMyStack().addCard(card1);
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         int expectedDeckSizeU1 = user1.getMyDeck().getMyCards().size() - 1;
         int expectedDeckSizeU2 = user2.getMyDeck().getMyCards().size() + 1;
         int realDeckSizeU1;
@@ -217,7 +221,7 @@ public class BattleTest {
         User user1 = prepUser();
         Card card1 = new Card("WaterMagicSpell", 10, "1", 1);
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
             testBattle.changeCardOwner(card1, user2, user1);
@@ -228,7 +232,7 @@ public class BattleTest {
     public void testWriteToLogfile_expectNoException(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         assertDoesNotThrow(() -> {
             testBattle.writeToLogfile("\ntest: log entry");
@@ -239,7 +243,7 @@ public class BattleTest {
     public void testWriteToLogfile_expectNullPointerException(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         Exception thrownException = assertThrows(NullPointerException.class, () -> {
             testBattle.writeToLogfile(null);
@@ -247,11 +251,11 @@ public class BattleTest {
     }
     @Test
     @DisplayName("Test: updatePlayerStats(); expect updated stats")
-    public void testUpdatePlayerStats_expectUpdatedStats(){
+    public void testUpdatePlayerStats_expectUpdatedStats() throws SQLException {
         User user1 = prepUser();
         user1.getMyDeck().emptyDeck();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         int expectedElo1 = user1.getScore() - 5;
         int expectedElo2 = user2.getScore() + 3;
         int realElo1;
@@ -265,10 +269,10 @@ public class BattleTest {
     }
     @Test
     @DisplayName("Test: updatePlayerStats(); expect unchanged stats")
-    public void testUpdatePlayerStats_expectUnchangedStats(){
+    public void testUpdatePlayerStats_expectUnchangedStats() throws SQLException {
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
         int expectedElo1 = user1.getScore();
         int expectedElo2 = user2.getScore();
         int realElo1;
@@ -285,7 +289,7 @@ public class BattleTest {
     public void testDoBattle_expectNoException(){
         User user1 = prepUser();
         User user2 = prepUser();
-        Battle testBattle = new Battle(user1, user2);
+        Battle testBattle = new Battle(user1, user2, null);
 
         assertDoesNotThrow(testBattle::doBattle);
     }

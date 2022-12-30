@@ -45,5 +45,6 @@ CREATE TABLE tradingDeals (
 CREATE TABLE battles (
     BattleID serial PRIMARY KEY ,
     Requester VARCHAR(255) NOT NULL REFERENCES users (Username),
-    Accepter VARCHAR(255) REFERENCES users (Username)
+    Acceptor VARCHAR(255) NULL REFERENCES users (Username),
+    Ended BOOLEAN DEFAULT FALSE
 );

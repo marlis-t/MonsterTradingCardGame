@@ -16,7 +16,6 @@ import java.sql.SQLException;
 public class BattleDirectController extends Controller{
     private CardDao cardDao;
     private DeckDao deckDao;
-    private UserDao userDao;
 
     public BattleDirectController(CardDao cardDao, DeckDao deckDao, UserDao userDao){
         super(userDao);

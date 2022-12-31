@@ -8,16 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/controllers/BattleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/controllers/BattleDirectController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/daos/BattleDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/BattleModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/DeckDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/DeckDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/BattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/BattleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/BattleDirectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/BattleDirectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/Request.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/battle/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/battle/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

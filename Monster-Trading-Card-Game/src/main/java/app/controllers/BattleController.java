@@ -79,8 +79,8 @@ public class BattleController extends Controller{
         BattleModel battle;
         //waits until req. has been accepted
         while((battle = getBattleDao().read(username)).getAcceptor() == null){
-            //sleep(500);
-            wait(500);
+            sleep(500);
+            //wait(500);
         }
         return startBattle(1, battle);
     }
@@ -91,8 +91,8 @@ public class BattleController extends Controller{
             BattleModel tempBattle;
             //waits until battle has ended
             while(!(tempBattle = getBattleDao().read(battle.getRequester())).isEnded()){
-                //sleep(500);
-                wait(500);
+                sleep(500);
+                //wait(500);
             }
         }else{
             //Acceptor
@@ -115,8 +115,7 @@ public class BattleController extends Controller{
             stackRequester.addCards(stackRequesterContent);
             stackAcceptor.addCards(stackAcceptorContent);
             requester.setMyStack(stackRequester);
-            requester.setMyStack(stackAcceptor);
-
+            acceptor.setMyStack(stackAcceptor);
                     //get their decks
             ArrayList<Card> deckRequesterContent = getDeckDao().readDeck(requester.getUserID());
             ArrayList<Card> deckAcceptorContent = getDeckDao().readDeck(acceptor.getUserID());
@@ -135,6 +134,7 @@ public class BattleController extends Controller{
             newBattle.doBattle();
             battle.setEnded(true);
             getBattleDao().update(battle);
+            //wait until first thread can see that battle has ended
             sleep(500);
             getBattleDao().delete(battle);
         }

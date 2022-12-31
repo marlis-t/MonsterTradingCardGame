@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 @Getter
@@ -55,8 +56,9 @@ public class Battle {
         int randNr = getRandomizer().nextInt(userCards.size());
         Card chosenCard = userCards.get(randNr);
         if(chosenCard == null){
-            throw new IndexOutOfBoundsException("Chosen Card is not in Stack");
+            throw new IndexOutOfBoundsException("Chosen Card is not in Deck");
         }
+        System.out.println(chosenCard.getCardID() + " of user " + user.getUsername());
         return chosenCard;
     }
 
@@ -182,9 +184,14 @@ public class Battle {
             //remove returns false if card not in deck
             throw new IllegalArgumentException("Deck does not contain Card, unable to remove");
         }
-        if(!oldOwner.getMyStack().getMyCards().remove(card)){
-            //remove returns false if card not in stack
-            throw new IllegalArgumentException("Stack does not contain Card, unable to remove");
+        for(Card remCard : oldOwner.getMyStack().getMyCards()){
+            if(Objects.equals(remCard.getCardID(), card.getCardID())){
+                if(!oldOwner.getMyStack().getMyCards().remove(remCard)){
+                    //remove returns false if card not in stack
+                    throw new IllegalArgumentException("Stack does not contain Card, unable to remove");
+                }
+                break;
+            }
         }
         newOwner.getMyDeck().addCard(card);
         newOwner.getMyStack().addCard(card);
@@ -230,7 +237,16 @@ public class Battle {
 
     public void doBattle() throws SQLException{
         try {
-            File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt");
+            System.out.println(getUser1().getUsername());
+            for(Card card : getUser1().getMyStack().getMyCards()){
+                System.out.println(card.getCardID());
+            }
+            System.out.println(getUser2().getUsername());
+            for(Card card : getUser2().getMyStack().getMyCards()){
+                System.out.println(card.getCardID());
+            }
+            String fileName = "battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt";
+            File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\" + fileName);
             writeToLogfile("\nNEW BATTLE\n\n");
             writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
             while (shouldBattleContinue()) {
@@ -252,7 +268,6 @@ public class Battle {
                     case 3 -> writeToLogfile("The round ended in a draw\n");
                     default -> throw new IllegalArgumentException("WhichCardStronger() returned illegal argument");
                 }
-
                 setRound(getRound() + 1);
                 writeToLogfile("\n");
             }

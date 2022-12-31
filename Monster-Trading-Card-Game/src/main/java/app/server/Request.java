@@ -70,12 +70,15 @@ public class Request {
                 System.out.println(getAuthToken());
 
                 if (getMethod() == Method.POST || getMethod() == Method.PUT) {
-                    int asciChar;
-                    for (int i = 0; i < getContentLength(); i++) {
-                        asciChar = inputStream.read();
-                        String body = getBody();
-                        setBody(body + ((char) asciChar));
+                    if(getContentLength() != null){
+                        int asciChar;
+                        for (int i = 0; i < getContentLength(); i++) {
+                            asciChar = inputStream.read();
+                            String body = getBody();
+                            setBody(body + ((char) asciChar));
+                        }
                     }
+
                 }
             }
         } catch (IOException e) {

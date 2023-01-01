@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import tradingDeal.TradingDeal;
 
 @Getter
 @Setter
@@ -36,8 +35,7 @@ public class User {
     Deck myDeck;
     @JsonAlias({"stack"})
     StackOfCards myStack;
-    @JsonAlias({"tradingDeal"})
-    TradingDeal myTradingDeal;
+
 
     public User(String username, String password){
         //for registration and pushing to db
@@ -51,10 +49,9 @@ public class User {
         setAuthToken("");
         setMyStack(new StackOfCards());
         setMyDeck(new Deck());
-        setMyTradingDeal(null);
     }
 
-    public User(int userID, String username, int coins, int score, int gamesPlayed, StackOfCards myStack, TradingDeal myTradingDeal) {
+    public User(int userID, String username, int coins, int score, int gamesPlayed, StackOfCards myStack) {
         //User exists already, connect to DB to get Information
         setUserID(userID);
         setUsername(username);
@@ -63,9 +60,8 @@ public class User {
         setGamesPlayed(gamesPlayed);
         setMyDeck(new Deck());
         setMyStack(myStack);
-        setMyTradingDeal(myTradingDeal);
-    }
 
+    }
     public User(){}
 
     public String showUserData(){
@@ -73,12 +69,10 @@ public class User {
                 " \"Bio\": \"" + getBio() + "\"," +
                 " \"Image\": \"" + getImage() + "\" }";
     }
-
     public String showScore(){
         return "{ \"Username\": \"" + getUsername() + "\", " +
                 "\"Score\": \"" + getScore() + "\" }";
     }
-
     public String showUserStats(){
         return "Score: " + getScore() + "\n" + "Games played: " + getGamesPlayed() + "\n";
     }
@@ -89,30 +83,9 @@ public class User {
         for(Card card: pack.getMyCards()){
             card.setUserID(getUserID());
         }
-        myStack.addCards(pack.getMyCards());
+        getMyStack().addCards(pack.getMyCards());
         setCoins(getCoins()-5);
-        //push changes to db
     }
-    /*
-   public void setUpTradingDeal(String cardID, int minDamage, ELEMENT element, TYPE type){
-        Card offerCard = null;
-        for(Card card: getMyStack().getMyCards()){
-            if(Objects.equals(cardID, card.getCardID())){
-                offerCard = card;
-                card.setPaused(true);
-                break;
-            }
-        }
-        if(offerCard != null){
-            myTradingDeal = new TradingDeal(0,getUserID(), cardID, offerCard.getName(), offerCard.getDamage(), minDamage, element, type);
-            //push to db
-            //id von trading deal, der zurückkommt
-        }else{
-            throw new IllegalArgumentException("Card to trade not found in stack");
-        }
-   }
-   */
-
    public void assembleDeck(){
         //make sure deck is empty before assembling it
         getMyDeck().emptyDeck();

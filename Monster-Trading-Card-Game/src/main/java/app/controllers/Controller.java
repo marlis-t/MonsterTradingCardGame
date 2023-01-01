@@ -29,9 +29,22 @@ public class Controller {
         return auths.contains(authToken);
     }
     public Response sendResponse(String data, String error, HttpStatus status){
+        if(status == null){
+            throw new IllegalArgumentException("Status cannot be null");
+        }
         return new Response(
                 status,
                 ContentType.JSON,
+                "{ \"data\": \"" + data + "\", \"error\": " + error + " }"
+        );
+    }
+    public Response sendResponseWithType(String data, String error, HttpStatus status, ContentType type){
+        if(status == null || type == null){
+            throw new IllegalArgumentException("Status and ContentType cannot be null");
+        }
+        return new Response(
+                status,
+                type,
                 "{ \"data\": \"" + data + "\", \"error\": " + error + " }"
         );
     }

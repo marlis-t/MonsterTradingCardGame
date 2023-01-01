@@ -52,13 +52,13 @@ public class Battle {
     public Card getRandomCardFromUser(User user){
         ArrayList<Card> userCards = user.getMyDeck().getMyCards();
         //chooses random int in range of 0 to size of deck -1
-        //throws IllegalArgumentException if deck is empty bc battle should have ended already
+        //throws IllegalArgumentException if deck is empty (size == 0)
+        // bc battle should have ended already
         int randNr = getRandomizer().nextInt(userCards.size());
         Card chosenCard = userCards.get(randNr);
         if(chosenCard == null){
-            throw new IndexOutOfBoundsException("Chosen Card is not in Deck");
+            throw new IndexOutOfBoundsException("Chosen Index points to Card not in Deck");
         }
-        System.out.println(chosenCard.getCardID() + " of user " + user.getUsername());
         return chosenCard;
     }
 
@@ -175,7 +175,6 @@ public class Battle {
         }else {
             strongerCard = 3;
         }
-        //System.out.println("result: " + strongerCard);
         return strongerCard;
     }
 
@@ -196,16 +195,13 @@ public class Battle {
         newOwner.getMyDeck().addCard(card);
         newOwner.getMyStack().addCard(card);
 
-        //db takes card + newowner, updates
+        //db takes card + newOwner, updates
         getBattleDirectController().changeCardOwner(card, newOwner.getUserID());
-
-        //System.out.println("User " + newOwner.getUsername() + " got Card " + card.getName() + " from User " + oldOwner.getUsername());
-
     }
 
     public void writeToLogfile(String content) throws IOException {
-        PrintWriter writer = new PrintWriter(new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt", true));
-        //FileWriter writer = new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\battle-log-" + getUser1().getUsername() + ".txt");
+        String fileName = "battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt";
+        PrintWriter writer = new PrintWriter(new FileWriter("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\" + fileName, true));
         writer.write(content);
         writer.close();
     }
@@ -237,14 +233,6 @@ public class Battle {
 
     public void doBattle() throws SQLException{
         try {
-            System.out.println(getUser1().getUsername());
-            for(Card card : getUser1().getMyStack().getMyCards()){
-                System.out.println(card.getCardID());
-            }
-            System.out.println(getUser2().getUsername());
-            for(Card card : getUser2().getMyStack().getMyCards()){
-                System.out.println(card.getCardID());
-            }
             String fileName = "battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt";
             File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\" + fileName);
             writeToLogfile("\nNEW BATTLE\n\n");

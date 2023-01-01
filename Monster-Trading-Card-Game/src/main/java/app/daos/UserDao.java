@@ -73,8 +73,7 @@ public class UserDao implements Dao<User>{
                     res.getString(8), //Image
                     res.getString(9), //authToken
                     null, //stack
-                    null, //deck
-                    null //tradingDeal
+                    null //deck
             );
             userList.add(tempUser);
         }
@@ -104,8 +103,7 @@ public class UserDao implements Dao<User>{
                 res.getString(8), //Image
                 res.getString(9), //authToken
                 null, //stack
-                null, //deck
-                null //tradingDeal
+                null //deck
         );
         statement.close();
         return foundUser;

@@ -26,16 +26,6 @@ public class Card{
     @JsonAlias({"type"})
     private TYPE type;
 
-
-    public Card(String name, int damage, String cardID, int userID){
-        setName(name);
-        setDamage(damage);
-        setPaused(false);
-        setElement(readElement(name));
-        setType(readType(name));
-        setUserID(userID);
-        setCardID(cardID);
-    }
     public Card(String cardID, int userID, String name, int damage, Boolean paused){
         setName(name);
         setDamage(damage);

@@ -63,7 +63,7 @@ public class CardGenerator {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return new Card(cardName, randDamage, "0", 0);
+        return new Card("0", 0, cardName, randDamage, false);
     }
 
     public String chooseElement(Random randomizer){

@@ -3,13 +3,11 @@ package tradingDeal;
 import card.Enum.TYPE;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter(AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class TradingDeal {
     @JsonAlias({"tradeID"})
     private String tradeID;
@@ -22,8 +20,8 @@ public class TradingDeal {
     @JsonAlias({"type"})
     private TYPE type;
 
-    public TradingDeal(String ID, int userID, String cardToTradeID, int minDamage, String type) {
-        setTradeID(ID);
+    public TradingDeal(String tradeID, int userID, String cardToTradeID, int minDamage, String type) {
+        setTradeID(tradeID);
         setUserID(userID);
         setCardToTradeID(cardToTradeID);
         setMinDamage(minDamage);

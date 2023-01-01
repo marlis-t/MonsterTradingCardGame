@@ -17,7 +17,6 @@ public class CardGeneratorTest {
         Exception thrownException = assertThrows(NullPointerException.class, () -> {
             String testString = generator.chooseElement(null);
         });
-        //System.out.println(thrownException.getMessage());
     }
     @Test
     @DisplayName("Test: chooseElement(randomizer); no Exception thrown")
@@ -28,6 +27,26 @@ public class CardGeneratorTest {
         assertDoesNotThrow(() -> {
             String testString = generator.chooseElement(randomizer);
             System.out.println(testString);
+        });
+    }
+    @Test
+    @DisplayName("Test: chooseDamage(null); NullPointerException thrown")
+    public void testChooseDamageWithRandomizerNull_expectNullPointerException(){
+        CardGenerator generator = new CardGenerator();
+
+        Exception thrownException = assertThrows(NullPointerException.class, () -> {
+            int testInt = generator.chooseDamage(null);
+        });
+    }
+    @Test
+    @DisplayName("Test: chooseElement(randomizer); no Exception thrown")
+    public void testChooseDamageWithValidRandomizer_expectNoException(){
+        CardGenerator generator = new CardGenerator();
+        Random randomizer = new Random();
+
+        assertDoesNotThrow(() -> {
+            int testInt = generator.chooseDamage(randomizer);
+            System.out.println(testInt);
         });
     }
 }

@@ -71,8 +71,8 @@ public class App implements ServerApp {
                 }//getUserByName *****
                 else if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     System.out.println("Req.Handler get one user");
-                    if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
-                        return getUserController().getUserByName(parseUsername(split));
+                    if(doesAuthTokenMatchWithUser(request.getAuthToken(), parseUsernameFromPath(split))){
+                        return getUserController().getUserByName(parseUsernameFromPath(split));
                     }
                     return new Response(HttpStatus.FORBIDDEN, ContentType.JSON, "{ \"error\": \"Incorrect Token\", \"data\": null }");
                 }//getUserStats *****
@@ -93,7 +93,7 @@ public class App implements ServerApp {
                 //createPackage *****
                 if (request.getPathname().equals("/packages")) {
                     System.out.println("Req.Handler make pck");
-                    if(isAuthTokenCorrect(request.getAuthToken(), "admin")){
+                    if(doesAuthTokenMatchWithUser(request.getAuthToken(), "admin")){
                         return getCardController().createPackage(request.getBody());
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Admin Token\", \"data\": null }");
@@ -126,7 +126,7 @@ public class App implements ServerApp {
                     if(request.getAuthToken() == null){
                         return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
                     }
-                    return getTradingController().carryOutTradingDeal(parseUsername(split), request.getBody(), getUsernameFromToken(request.getAuthToken()));
+                    return getTradingController().carryOutTradingDeal(parseUsernameFromPath(split), request.getBody(), getUsernameFromToken(request.getAuthToken()));
                 }//battle request
                 else if (request.getPathname().equals("/battles")){
                     System.out.println("Req.Handler battle");
@@ -138,8 +138,8 @@ public class App implements ServerApp {
                 //updateUser by name *****
                 if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     System.out.println("Req.Handler update user");
-                    if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
-                        return getUserController().updateUser(parseUsername(split), request.getBody());
+                    if(doesAuthTokenMatchWithUser(request.getAuthToken(), parseUsernameFromPath(split))){
+                        return getUserController().updateUser(parseUsernameFromPath(split), request.getBody());
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect/Missing Token\", \"data\": null }");
                 } //assemble deck *****
@@ -159,13 +159,13 @@ public class App implements ServerApp {
                 //deleteUser by name *****
                 if (request.getPathname().matches("/users/[a-zA-Z]+")) {
                     System.out.println("Req.Handler delete user");
-                    if(isAuthTokenCorrect(request.getAuthToken(), parseUsername(split))){
-                        return getUserController().deleteUser(parseUsername(split));
+                    if(doesAuthTokenMatchWithUser(request.getAuthToken(), parseUsernameFromPath(split))){
+                        return getUserController().deleteUser(parseUsernameFromPath(split));
                     }
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"Incorrect/Missing Token\", \"data\": null }");
                 }//delete TradingDeal
                 else if (request.getPathname().matches("/tradings/([A-Za-z0-9]+(-[A-Za-z0-9]+)+)")) {
-                    return getTradingController().deleteTradingDeal(parseUsername(split), getUsernameFromToken(request.getAuthToken()));
+                    return getTradingController().deleteTradingDeal(parseUsernameFromPath(split), getUsernameFromToken(request.getAuthToken()));
                 }
             }
             default -> {
@@ -175,14 +175,7 @@ public class App implements ServerApp {
         }
         return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, "{ \"error\": \"Method Not Found\", \"data\": null }");
     }
-
-    public int parseId(String[] split){
-        long lengthLong = Arrays.stream(split).count();
-        int lengthInt = (int) lengthLong;
-        int id = Integer.parseInt(split[lengthInt-1]);
-        return id;
-    }
-    public String parseUsername(String[] split){
+    public String parseUsernameFromPath(String[] split){
         int length = (int) Arrays.stream(split).count();
         return split[length-1];
     }
@@ -190,7 +183,7 @@ public class App implements ServerApp {
         String[] splitAuth = auth.split("-");
         return splitAuth[0];
     }
-    public boolean isAuthTokenCorrect(String auth, String username){
+    public boolean doesAuthTokenMatchWithUser(String auth, String username){
         //auth == username-mtcgToken
         String[] splitAuth = auth.split("-");
         return Objects.equals(splitAuth[0], username);

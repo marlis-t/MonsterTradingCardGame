@@ -28,17 +28,9 @@ public class RequestHandler implements Runnable{
 
     public void run(){
         try{
-            System.out.println("Run Rq.Handler");
-            setInputStream(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
-            System.out.println("inputstr set");
+            setInputStream(new BufferedReader(new InputStreamReader(getClientSocket().getInputStream())));
             Request request = new Request(getInputStream());
-            System.out.println("req. made");
-            //this part is only here bc the first thread is always useless, should be fixed
-            if(request.getPathname() == null){
-                return;
-            }
-            System.out.println("outputstr set");
-            setOutputStream(new PrintWriter(clientSocket.getOutputStream(), true));
+            setOutputStream(new PrintWriter(getClientSocket().getOutputStream(), true));
             sendResponse(request);
 
         }catch (IOException e){
@@ -49,7 +41,6 @@ public class RequestHandler implements Runnable{
     }
     public void sendResponse(Request request){
         Response response;
-        System.out.println("SEnd Resp. Rq.Handler");
         if (request.getPathname() == null) {
             response = new Response(
                     HttpStatus.BAD_REQUEST,
@@ -61,7 +52,7 @@ public class RequestHandler implements Runnable{
         }
 
         getOutputStream().write(response.build());
-        System.out.println("I am thread " + Thread.currentThread().getName() + " and my content is " + response.getContent());
+        System.out.println("Thread " + Thread.currentThread().getName() + ", Content: " + response.getContent());
     }
     public void closeRequest(){
         try{

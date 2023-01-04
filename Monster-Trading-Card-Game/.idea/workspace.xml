@@ -8,26 +8,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
-      <change beforePath="$PROJECT_DIR$/.idea/Monster-Trading-Card-Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Monster-Trading-Card-Game.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/BattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/BattleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/BattleDirectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/BattleDirectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/CardDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/models/CardModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/models/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/RequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/battle/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/battle/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/card/CardGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tradingDeal/TradingDeal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tradingDeal/TradingDeal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/app/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/app/controllers/ControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/controllers/ControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/battle/BattleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/CardGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardGeneratorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CollectionOfCardsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/StackOfCardsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/tradingDealTest/TradingDealTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tradingDealTest/TradingDealTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,9 +58,9 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/app/daos/Dao.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/daos/UserDao.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/app/http/HttpStatus.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/app/models/UserModel.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/card/Card.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/tradingDeal/TradingDeal.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/user/User.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -108,10 +106,27 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="user" />
       <recent name="card" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ControllerTest.testSendResponse_expectCorrectParams">
+  <component name="RunManager" selected="JUnit.BattleTest.testDoBattle_expectNoException">
+    <configuration name="BattleTest.testDoBattle_expectNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Monster-Trading-Card-Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="battle.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="battle" />
+      <option name="MAIN_CLASS_NAME" value="battle.BattleTest" />
+      <option name="METHOD_NAME" value="testDoBattle_expectNoException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ControllerTest.testIsAuthorizedInvalidToken_expectFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Monster-Trading-Card-Game" />
       <extension name="coverage">
@@ -176,29 +191,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserTest.testAssembleDeck_expectFullDeck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Monster-Trading-Card-Game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserTest" />
-      <option name="METHOD_NAME" value="testAssembleDeck_expectFullDeck" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BattleTest.testDoBattle_expectNoException" />
         <item itemvalue="JUnit.ControllerTest.testSendResponse_expectCorrectParams" />
         <item itemvalue="JUnit.ControllerTest.testSendResponseNull_expectIllegalArgumentException" />
         <item itemvalue="JUnit.ControllerTest.testIsAuthorizedInvalidToken_expectFalse" />
         <item itemvalue="JUnit.ControllerTest.testIsAuthorizedValidToken_expectTrue" />
-        <item itemvalue="JUnit.UserTest.testAssembleDeck_expectFullDeck" />
       </list>
     </recent_temporary>
   </component>

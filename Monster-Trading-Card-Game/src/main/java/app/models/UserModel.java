@@ -21,6 +21,50 @@ public class UserModel {
     private int score;
     @JsonAlias({"gamesPlayed"})
     private int gamesPlayed;
+    @JsonAlias({"bio"})
+    private String bio;
+    @JsonAlias({"image"})
+    private String image;
+    @JsonAlias({"authToken"})
+    private String authToken;
 
+
+
+    public UserModel(String username, String password){
+        //for registration and pushing to db
+        setUsername(username);
+        setPassword(password);
+        setCoins(20);
+        setScore(100);
+        setGamesPlayed(0);
+        setBio("");
+        setImage("");
+        setAuthToken("");
+
+    }
+
+    public UserModel(int userID, String username, int coins, int score, int gamesPlayed) {
+        //User exists already, connect to DB to get Information
+        setUserID(userID);
+        setUsername(username);
+        setCoins(coins);
+        setScore(score);
+        setGamesPlayed(gamesPlayed);
+
+    }
     public UserModel(){}
+
+    public String showUserData(){
+        return "{ \"Username\": \"" + getUsername() + "\"," +
+                " \"Bio\": \"" + getBio() + "\"," +
+                " \"Image\": \"" + getImage() + "\" }";
+    }
+    public String showScore(){
+        return "{ \"Username\": \"" + getUsername() + "\", " +
+                "\"Score\": \"" + getScore() + "\" }";
+    }
+    public String showUserStats(){
+        return "Score: " + getScore() + "\n" + "Games played: " + getGamesPlayed() + "\n";
+    }
+
 }

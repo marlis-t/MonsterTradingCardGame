@@ -4,6 +4,7 @@ import app.daos.BattleDao;
 import app.daos.CardDao;
 import app.daos.DeckDao;
 import app.daos.UserDao;
+import app.http.ContentType;
 import app.http.HttpStatus;
 import app.models.BattleModel;
 import app.server.Response;
@@ -15,9 +16,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import user.User;
+import app.models.UserModel;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
@@ -40,7 +45,7 @@ public class BattleController extends Controller{
     public Response haveBattle(String username){
         try{
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             //check if a battlereq. is in db
             ArrayList<BattleModel> battles = getBattleDao().readAll();
@@ -48,7 +53,7 @@ public class BattleController extends Controller{
                 //check if request was made by oneself
                 BattleModel battleReq = getBattleDao().read(username);
                 if(battleReq != null){
-                    return  sendResponse("null", "Request was made already", HttpStatus.BAD_REQUEST);
+                    return  sendResponseWithType("null", "Request was made already", HttpStatus.BAD_REQUEST, ContentType.TEXT);
                 }
                 //check for unaccepted battlereq.
                 for(BattleModel tempReq : battles){
@@ -71,7 +76,7 @@ public class BattleController extends Controller{
             }
         }catch(SQLException | InterruptedException e){
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
     private Response makeBattleRequest(String username) throws SQLException, InterruptedException {
@@ -86,29 +91,32 @@ public class BattleController extends Controller{
     }
     private Response startBattle(int role, BattleModel battle) throws SQLException, InterruptedException {
         //carry out fight only in role 2 (Acceptor)
+        String log;
         if(role == 1){
             //Requester
             BattleModel tempBattle;
             //waits until battle has ended
             while(!(tempBattle = getBattleDao().read(battle.getRequester())).isEnded()){
                 sleep(500);
-                //wait(500);
             }
+            log = "Battle ended successfully";
         }else{
             //Acceptor
             //prepare everything for battle
                 //check if users exist
-            User requester = getUserDao().read(battle.getRequester());
-            User acceptor = getUserDao().read(battle.getAcceptor());
-            if(requester == null || acceptor == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+            UserModel requesterModel = getUserDao().read(battle.getRequester());
+            UserModel acceptorModel = getUserDao().read(battle.getAcceptor());
+            if(requesterModel == null || acceptorModel == null){
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
+            User requester = new User (requesterModel.getUserID(), requesterModel.getUsername(), requesterModel.getCoins(), requesterModel.getScore(), requesterModel.getGamesPlayed(), requesterModel.getAuthToken(), null);
+            User acceptor = new User (acceptorModel.getUserID(), acceptorModel.getUsername(), acceptorModel.getCoins(),acceptorModel.getScore(),acceptorModel.getGamesPlayed(), acceptorModel.getAuthToken(), null);
                 //prepare Users for battle
                     //get their stacks
             ArrayList<Card> stackRequesterContent = getCardDao().readAllCardsFromUser(requester.getUserID());
             ArrayList<Card> stackAcceptorContent = getCardDao().readAllCardsFromUser(acceptor.getUserID());
             if(stackAcceptorContent.isEmpty() || stackRequesterContent.isEmpty()){
-                return sendResponse("null", "Users without Cards", HttpStatus.CONFLICT);
+                return sendResponseWithType("null", "Users without Cards", HttpStatus.CONFLICT, ContentType.TEXT);
             }
             StackOfCards stackRequester = new StackOfCards();
             StackOfCards stackAcceptor = new StackOfCards();
@@ -120,7 +128,7 @@ public class BattleController extends Controller{
             ArrayList<Card> deckRequesterContent = getDeckDao().readDeck(requester.getUserID());
             ArrayList<Card> deckAcceptorContent = getDeckDao().readDeck(acceptor.getUserID());
             if(deckRequesterContent.isEmpty() || deckAcceptorContent.isEmpty()){
-                return sendResponse("null", "Users without set Deck", HttpStatus.CONFLICT);
+                return sendResponseWithType("null", "Users without set Deck", HttpStatus.CONFLICT, ContentType.TEXT);
             }
             Deck deckRequester = new Deck();
             Deck deckAcceptor = new Deck();
@@ -137,7 +145,29 @@ public class BattleController extends Controller{
             //wait until first thread can see that battle has ended
             sleep(500);
             getBattleDao().delete(battle);
+
+            log = collectBattleLog(requester, acceptor);
         }
-        return sendResponse("Battle ended successfully", "null", HttpStatus.OK);
+
+        return sendResponseWithType(log, "null", HttpStatus.OK, ContentType.TEXT);
+    }
+
+    private String collectBattleLog(User user1, User user2){
+        String fileName = "battle-log-" + user1.getUsername() + "_" + user2.getUsername() +".txt";
+        StringBuilder log = new StringBuilder();
+        try {
+            File battleLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\" + fileName);
+            Scanner myReader = new Scanner(battleLog);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                log.append(data);
+                log.append("\n");
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return "Log not found";
+        }
+        return log.toString();
     }
 }

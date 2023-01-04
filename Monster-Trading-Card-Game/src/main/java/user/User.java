@@ -17,8 +17,6 @@ public class User {
     private int userID;
     @JsonAlias({"username"})
     private String username;
-    @JsonAlias({"password"})
-    private String password;
     @JsonAlias({"coins"})
     private int coins;
     @JsonAlias({"score"})
@@ -40,7 +38,6 @@ public class User {
     public User(String username, String password){
         //for registration and pushing to db
         setUsername(username);
-        setPassword(password);
         setCoins(20);
         setScore(100);
         setGamesPlayed(0);
@@ -51,7 +48,7 @@ public class User {
         setMyDeck(new Deck());
     }
 
-    public User(int userID, String username, int coins, int score, int gamesPlayed, StackOfCards myStack) {
+    public User(int userID, String username, int coins, int score, int gamesPlayed, String auth, StackOfCards myStack) {
         //User exists already, connect to DB to get Information
         setUserID(userID);
         setUsername(username);

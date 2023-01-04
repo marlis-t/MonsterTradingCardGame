@@ -102,26 +102,6 @@ public class CardDao implements Dao<Card>{
         statement.close();
     }
 
-    public void updateCardUserID(String cid, int uid) throws SQLException{
-        String query = "UPDATE cards SET UserID = ? WHERE CardID = ?";
-        PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setInt(1, uid);
-        statement.setString(2, cid);
-
-        statement.execute();
-        statement.close();
-    }
-
-    public void updateCardPaused(String cid, Boolean paused) throws SQLException{
-        String query = "UPDATE cards SET Paused = ? WHERE CardID = ?";
-        PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setBoolean(1, paused);
-        statement.setString(2, cid);
-
-        statement.execute();
-        statement.close();
-    }
-
     @Override
     public void delete(Card card) throws SQLException {
         String query = "DELETE FROM cards WHERE CardID = ?";

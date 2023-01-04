@@ -13,7 +13,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import tradingDeal.TradingDeal;
-import user.User;
+import app.models.UserModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,35 +37,35 @@ public class TradingController extends Controller{
     public Response getTradingDeal(String tradeID, String username){
         try {
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             TradingDeal trade = getTradeDao().read(tradeID);
             if(trade == null){
-                return sendResponse("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             String tradeDataJSON = getObjectMapper().writeValueAsString(trade);
             return sendResponse(tradeDataJSON, "null", HttpStatus.OK );
         } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
     public Response getAllTradingDeals(String authToken){
         try {
             if(!isAuthorized(authToken)){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             ArrayList<TradingDeal> trades = getTradeDao().readAll();
             if(trades.isEmpty()){
-                return sendResponse("No TradingDeals", "null", HttpStatus.NO_CONTENT);
+                return sendResponseWithType("No TradingDeals", "null", HttpStatus.NO_CONTENT, ContentType.TEXT);
             }
             String tradeDataJSON = getObjectMapper().writeValueAsString(trades);
             return sendResponse(tradeDataJSON, "null", HttpStatus.OK);
 
         } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
     public Response createTradingDeal(String body, String username){
@@ -89,22 +89,21 @@ public class TradingController extends Controller{
                 }
             }
             if(tradeID.equals("") || cardToTradeID.equals("")){
-                return sendResponse("null", "TradeID or CardToTradeID not set", HttpStatus.BAD_REQUEST);
+                return sendResponseWithType("null", "TradeID or CardToTradeID not set", HttpStatus.BAD_REQUEST, ContentType.TEXT);
             }
-            System.out.println("found all info");
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             //check if user exists
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             TradingDeal trade = new TradingDeal(tradeID, user.getUserID(), cardToTradeID, minDamage, type);
             //check if card belongs to user
             ArrayList<Card> userCards = getCardDao().readAllCardsFromUser(user.getUserID());
             if(userCards.isEmpty()){
-                return sendResponse("null", "User has no Cards", HttpStatus.CONFLICT);
+                return sendResponseWithType("null", "User has no Cards", HttpStatus.CONFLICT, ContentType.TEXT);
             }
             boolean isOwned = false;
             Card cardToTrade = null;
@@ -116,9 +115,8 @@ public class TradingController extends Controller{
                 }
             }
             if(!isOwned){
-                return sendResponse("null", "Card does not belong to User", HttpStatus.FORBIDDEN);
+                return sendResponseWithType("null", "Card does not belong to User", HttpStatus.FORBIDDEN, ContentType.TEXT);
             }
-            System.out.println("card belongs to user");
             //check if card is in deck
             ArrayList<Card> deckCards;
             deckCards = getDeckDao().readDeck(user.getUserID());
@@ -131,20 +129,18 @@ public class TradingController extends Controller{
                     }
                 }
                 if(isInDeck){
-                    return sendResponse("null", "Card is in Deck", HttpStatus.FORBIDDEN);
+                    return sendResponseWithType("null", "Card is in Deck", HttpStatus.FORBIDDEN, ContentType.TEXT);
                 }
             }
-            System.out.println("card not in deck");
             //check if trade id exists
             ArrayList<TradingDeal> trades = getTradeDao().readAll();
            if(!trades.isEmpty()){
                for(TradingDeal temp : trades){
                    if(Objects.equals(temp.getTradeID(), trade.getTradeID())){
-                       return sendResponse("null", "ID already exists", HttpStatus.CONFLICT);
+                       return sendResponseWithType("null", "ID already exists", HttpStatus.CONFLICT, ContentType.TEXT);
                    }
                }
            }
-            System.out.println("trade id does not exist");
             //change card status to paused and update
             getTradeDao().create(trade);
             cardToTrade.setPaused(true);
@@ -154,11 +150,7 @@ public class TradingController extends Controller{
 
         }catch(JsonProcessingException | SQLException e){
             e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
@@ -174,37 +166,37 @@ public class TradingController extends Controller{
                 }
             }
             if(offeredCardID.equals("")){
-                return sendResponse("null", "No Card offered", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "No Card offered", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //check if offered Card exists
             Card offeredCard = getCardDao().read(offeredCardID);
             if(offeredCard == null){
-                return sendResponse("null", "Offered Card does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "Offered Card does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //check if tradingDeal exists
             TradingDeal trade = getTradeDao().read(tradeID);
             if(trade == null){
-                return sendResponse("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //check if authToken correct
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             //check if offered Card belongs to user
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             if(offeredCard.getUserID() != user.getUserID()){
-                return sendResponse("null", "Offered Card does not belong to User", HttpStatus.FORBIDDEN);
+                return sendResponseWithType("null", "Offered Card does not belong to User", HttpStatus.FORBIDDEN, ContentType.TEXT);
             }
             //check if trying to trade with self
             Card cardInTrade = getCardDao().read(trade.getCardToTradeID());
             if(cardInTrade == null){
-                return sendResponse("null", "Card in TradingDeal does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "Card in TradingDeal does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             if(cardInTrade.getUserID() == user.getUserID()){
-                return sendResponse("null", "Trying to trade with self", HttpStatus.FORBIDDEN);
+                return sendResponseWithType("null", "Trying to trade with self", HttpStatus.FORBIDDEN, ContentType.TEXT);
             }
             //check if offeredCard is in Deck
             ArrayList<Card> deck = getDeckDao().readDeck(user.getUserID());
@@ -217,16 +209,16 @@ public class TradingController extends Controller{
                     }
                 }
                 if(inDeck){
-                    return sendResponse("null", "Offered Card in Deck", HttpStatus.FORBIDDEN);
+                    return sendResponseWithType("null", "Offered Card in Deck", HttpStatus.FORBIDDEN, ContentType.TEXT);
                 }
             }
             //check if offeredCard is paused
             if(offeredCard.isPaused()){
-                return sendResponse("null", "Offered Card in set in a TradingDeal", HttpStatus.FORBIDDEN);
+                return sendResponseWithType("null", "Offered Card in set in a TradingDeal", HttpStatus.FORBIDDEN, ContentType.TEXT);
             }
             //check if requirements met
             if(offeredCard.getDamage() < trade.getMinDamage() || offeredCard.getType() != trade.getType()){
-                return sendResponse("null", "Offered Card does not meet requirements", HttpStatus.FORBIDDEN);
+                return sendResponseWithType("null", "Offered Card does not meet requirements", HttpStatus.FORBIDDEN, ContentType.TEXT);
             }
             //carry out trade -> update offeredCard UID and cardInTrade UID + paused
             //so beide für gleichen user
@@ -238,11 +230,11 @@ public class TradingController extends Controller{
             getCardDao().update(offeredCard);
             getCardDao().update(cardInTrade);
             getTradeDao().delete(trade);
-            return sendResponse("Trade carried out", "null", HttpStatus.OK);
+            return sendResponseWithType("Trade carried out", "null", HttpStatus.OK, ContentType.TEXT);
 
         }catch(SQLException e){
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
     public Response deleteTradingDeal(String tradeID, String username){
@@ -250,23 +242,23 @@ public class TradingController extends Controller{
             //check if trade with this id exists
             TradingDeal trade = getTradeDao().read(tradeID);
             if (trade == null) {
-                return sendResponse("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //check if authtoken exists
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             //check if card in trade belongs to user
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             Card card = getCardDao().read(trade.getCardToTradeID());
             if(card == null){
-                return sendResponse("null", "Card in Trade does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "Card in Trade does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             if(card.getUserID() != user.getUserID()){
-                return sendResponse("null", "Card in Trade does not belong to User", HttpStatus.FORBIDDEN);
+                return sendResponseWithType("null", "Card in Trade does not belong to User", HttpStatus.FORBIDDEN, ContentType.TEXT);
             }
             //delete TradingDeal
             getTradeDao().delete(trade);
@@ -274,7 +266,7 @@ public class TradingController extends Controller{
             return sendResponse("Deleted : " + tradeDataJson, "null", HttpStatus.OK);
         }catch(SQLException | JsonProcessingException e){
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 }

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,10 +45,7 @@ public class Battle {
             return false;
         }else if(getUser2().getMyDeck().isDeckEmpty()){
             return false;
-        }else if(round >= 100){
-            return false;
-        }
-        return true;
+        }else return round < 100;
     }
     public Card getRandomCardFromUser(User user){
         ArrayList<Card> userCards = user.getMyDeck().getMyCards();
@@ -62,7 +60,60 @@ public class Battle {
         return chosenCard;
     }
 
+    public Card getMutationCardFromUser(User user, Card basisCard){
+        int damage = 0;
+        ArrayList<Card> userCards = user.getMyStack().getMyCards();
+        int watercount = 0;
+        int firecount = 0;
+        int normalcount = 0;
+        int monstercount = 0;
+        int spellcount = 0;
+
+        //get 5 random cards from user stack
+        for(int i = 0; i < 5; i++){
+            int randNr = getRandomizer().nextInt(userCards.size());
+            Card chosenCard = userCards.get(randNr);
+            if(chosenCard == null){
+                throw new IndexOutOfBoundsException("Chosen Index points to Card not in Deck");
+            }
+            //collect count of elements
+            if(chosenCard.getElement() == ELEMENT.FIRE){
+                firecount++;
+            }else if(chosenCard.getElement() == ELEMENT.WATER){
+                watercount++;
+            }else{
+                normalcount++;
+            }
+            //collect count of types
+            if(chosenCard.getType() == TYPE.MONSTER){
+                monstercount++;
+            }else{
+                spellcount++;
+            }
+            //collect damage
+            damage += chosenCard.getDamage();
+        }
+
+        //give name based on most often collected values
+        String name;
+        if(firecount > watercount && firecount > normalcount){
+            name = "Fire";
+        }else if(watercount > normalcount && watercount > firecount){
+            name = "Water";
+        }else{
+            name = "Normal";
+        }
+        if(monstercount > spellcount){
+            name += "MutationMonster";
+        }else{
+            name += "MutationSpell";
+        }
+
+        return new Card("0", user.getUserID(), name, damage, false);
+    }
+
     public void addElementalDamage(Card card1, Card card2){
+        //here all cards need to have an element
         if(card1.getElement() == ELEMENT.WATER){
             if(card2.getElement() == ELEMENT.FIRE){
                 //super effective
@@ -234,23 +285,40 @@ public class Battle {
     public void doBattle() throws SQLException{
         try {
             String fileName = "battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt";
+            File oldLog = new File(fileName);
+            Files.deleteIfExists(oldLog.toPath());
             File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\" + fileName);
             writeToLogfile("\nNEW BATTLE\n\n");
             writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
             while (shouldBattleContinue()) {
-                Card cardUser1 = getRandomCardFromUser(getUser1());
-                Card cardUser2 = getRandomCardFromUser(getUser2());
+                Card cardUser1; //compared
+                Card cardUser2; //compared
+                Card basisCard1; //chosen from deck
+                Card basisCard2; //chosen from deck
+                if(getRound()%10 == 0){
+                    writeToLogfile("This is a mutation round!\n");
+                    //each tenth round is a mutation round
+                    basisCard1 = getRandomCardFromUser(getUser1());
+                    basisCard2 = getRandomCardFromUser(getUser2());
+                    cardUser1 = getMutationCardFromUser(getUser1(), basisCard1);
+                    cardUser2 = getMutationCardFromUser(getUser2(), basisCard2);
+                }else{
+                    basisCard1 = getRandomCardFromUser(getUser1());
+                    basisCard2 = getRandomCardFromUser(getUser2());
+                    cardUser1 = basisCard1;
+                    cardUser2 = basisCard2;
+                }
                 writeToLogfile("Round " + getRound() + ":\n");
                 switch (whichCardStronger(cardUser1, cardUser2)) {
                     case 1 -> {
-                        changeCardOwner(cardUser2, getUser1(), getUser2());
+                        changeCardOwner(basisCard2, getUser1(), getUser2());
                         writeToLogfile("Card " + cardUser1.getName() + " of User " + getUser1().getUsername() + " won\n");
-                        writeToLogfile("User " + getUser1().getUsername() + " gains Card " + cardUser2.getName() + "\n");
+                        writeToLogfile("User " + getUser1().getUsername() + " gains Card " + basisCard2.getName() + "\n");
                     }
                     case 2 -> {
-                        changeCardOwner(cardUser1, getUser2(), getUser1());
+                        changeCardOwner(basisCard1, getUser2(), getUser1());
                         writeToLogfile("Card " + cardUser2.getName() + " of User " + getUser2().getUsername() + " won\n");
-                        writeToLogfile("User " + getUser2().getUsername() + " gains Card " + cardUser1.getName() + "\n");
+                        writeToLogfile("User " + getUser2().getUsername() + " gains Card " + basisCard1.getName() + "\n");
 
                     }
                     case 3 -> writeToLogfile("The round ended in a draw\n");

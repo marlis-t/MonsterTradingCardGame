@@ -1,19 +1,17 @@
 package app.controllers;
 
 import app.daos.UserDao;
+import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import user.User;
+import app.models.UserModel;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
@@ -23,94 +21,93 @@ public class UserController extends Controller{
     }
     //GET /users/username
     public Response getUserByName(String username) {
-        User user;
+        UserModel user;
         try {
             user = getUserDao().read(username);
         } catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
         if(user == null){
-            return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+            return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
         }
         try {
             String userDataJSON = getObjectMapper().writeValueAsString(user);
             return sendResponse(userDataJSON, "null", HttpStatus.OK);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
     //GET /stats
     public Response getStats(String auth){
+        ArrayList<String> auths;
         String username = auth.split("-")[0];
-        User user;
+        UserModel user;
         try {
+            auths = getUserDao().readAuthToken();
             user = getUserDao().read(username);
         } catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
+        }
+        if(!auths.contains(auth)){
+            return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
         }
         if(user == null){
-            return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+            return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
         }
-        String stats = "{ \"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\" }";
+        String stats = "\"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\"";
         return sendResponse(stats, "null", HttpStatus.OK);
     }
 
     //GET /scores
     public Response getScoreboard(String auth){
         ArrayList<String> auths;
-        ArrayList<User> users;
+        ArrayList<UserModel> users;
         try {
             users = getUserDao().readAll();
             auths = getUserDao().readAuthToken();
         } catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
 
         }
         if(users.isEmpty()){
-            return sendResponse("null", "No Users found", HttpStatus.NOT_FOUND);
+            return sendResponseWithType("null", "No Users found", HttpStatus.NOT_FOUND, ContentType.TEXT);
         }
         if(!auths.contains(auth)){
-            return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+            return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
         }
-        users.sort(Comparator.comparing(User::getScore).reversed());
+        users.sort(Comparator.comparing(UserModel::getScore).reversed());
         StringBuilder scoreData = new StringBuilder();
-        scoreData.append("[");
-        for(User user : users){
+        for(UserModel user : users){
             scoreData.append(user.showScore()).append(", ");
         }
-        scoreData.append("]");
         return sendResponse(scoreData.toString(), "null", HttpStatus.OK);
     }
 
     //GET /users
     public Response getAllUsers() {
-        ArrayList<User> users;
+        ArrayList<UserModel> users;
         try {
             users = getUserDao().readAll();
         } catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
 
         }
         if(users.isEmpty()){
-            return sendResponse("null", "No Users found", HttpStatus.NOT_FOUND);
+            return sendResponseWithType("null", "No Users found", HttpStatus.NOT_FOUND, ContentType.TEXT);
 
         }
-        /*StringBuilder userData = new StringBuilder();
-        for(User user : users){
-            userData.append(user.showUserData());
-        }*/
         try {
             String userDataJSON = getObjectMapper().writeValueAsString(users);
             return sendResponse(userDataJSON, "null", HttpStatus.OK);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
@@ -129,26 +126,26 @@ public class UserController extends Controller{
             }
         }
         if(username.equals("") || password.equals("")){
-            return sendResponse("null", "Username or password not set", HttpStatus.BAD_REQUEST);
+            return sendResponseWithType("null", "Username or password not set", HttpStatus.BAD_REQUEST, ContentType.TEXT);
         }
         try{
             //push user to db
-            User user = new User(username, password);
+            UserModel user = new UserModel(username, password);
             //check if username already in use
-            ArrayList<User> allUsers;
+            ArrayList<UserModel> allUsers;
             allUsers = getUserDao().readAll();
-            for(User temp : allUsers){
+            for(UserModel temp : allUsers){
                 if(Objects.equals(user.getUsername(), temp.getUsername())){
-                    return sendResponse("null", "Username already in use", HttpStatus.BAD_REQUEST);
+                    return sendResponseWithType("null", "Username already in use", HttpStatus.CONFLICT, ContentType.TEXT);
                 }
             }
-            User createdUser = getUserDao().create(user);
+            UserModel createdUser = getUserDao().create(user);
             String userDataJSON = getObjectMapper().writeValueAsString(createdUser);
             return sendResponse(userDataJSON, "null", HttpStatus.CREATED);
 
         }catch(JsonProcessingException | SQLException e){
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
@@ -166,38 +163,38 @@ public class UserController extends Controller{
             }
         }
         if(username.equals("") || password.equals("")){
-            return sendResponse("null", "Username or password not set", HttpStatus.BAD_REQUEST);
+            return sendResponseWithType("null", "Username or password not set", HttpStatus.BAD_REQUEST, ContentType.TEXT);
         }
         try {
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if (!getUserDao().checkCredentials(username, password)) {
-                return sendResponse("null", "Incorrect User-credentials", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect User-credentials", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             String token = user.getUsername() + "-mtcgToken";
             user.setAuthToken(token);
             //push token to db
             getUserDao().update(user);
-            return sendResponse("User logged in", "null", HttpStatus.OK);
+            return sendResponseWithType(token, "null", HttpStatus.OK, ContentType.TEXT);
         } catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
     //DELETE /users/username
     public Response deleteUser(String username) {
-        User userToDelete = null;
+        UserModel userToDelete = null;
         try {
             userToDelete = getUserDao().read(username);
             if (userToDelete == null) {
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             getUserDao().delete(userToDelete);
         }catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
-        return sendResponse("User deleted", "null", HttpStatus.OK);
+        return sendResponseWithType("User deleted", "null", HttpStatus.OK, ContentType.TEXT);
     }
     //PUT /users/username *****
     public Response updateUser(String username, String body) {
@@ -216,13 +213,13 @@ public class UserController extends Controller{
                 newImage = split[i+2];
             }
         }
-        User oldUser;
-        User newUser;
+        UserModel oldUser;
+        UserModel newUser;
         //beg. bei 1 und dann +4 sind die deskriptoren
         try {
             oldUser = getUserDao().read(username);
             if (oldUser == null) {
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             newUser = oldUser;
             if (!Objects.equals(newBio, "")) {
@@ -234,8 +231,8 @@ public class UserController extends Controller{
             getUserDao().update(newUser);
         }catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
-        return sendResponse("User was updated", "null", HttpStatus.OK);
+        return sendResponseWithType("User was updated", "null", HttpStatus.OK, ContentType.TEXT);
     }
 }

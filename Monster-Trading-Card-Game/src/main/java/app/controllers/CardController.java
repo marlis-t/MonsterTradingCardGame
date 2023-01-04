@@ -4,6 +4,7 @@ import app.daos.CardDao;
 import app.daos.DeckDao;
 import app.daos.PackageDao;
 import app.daos.UserDao;
+import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Response;
 import card.Card;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import user.User;
+import app.models.UserModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,21 +40,21 @@ public class CardController extends Controller{
         try {
             //check if Token ok
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             ArrayList<Card> cardData = getCardDao().readAllCardsFromUser(user.getUserID());
             if(cardData.size()==0){
-                return sendResponse("No Cards for this User", "null", HttpStatus.NO_CONTENT);
+                return sendResponseWithType("No Cards for this User", "null", HttpStatus.NO_CONTENT, ContentType.TEXT);
             }
             String cardDataJSON = getObjectMapper().writeValueAsString(cardData);
             return sendResponse(cardDataJSON, "null", HttpStatus.OK);
         } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
@@ -62,56 +63,30 @@ public class CardController extends Controller{
         try {
             //check if Token ok
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             ArrayList<Card> deck = getDeckDao().readDeck(user.getUserID());
             if(deck.size() == 0){
-                return sendResponse("No Cards in the Deck", "null", HttpStatus.NO_CONTENT);
+                return sendResponseWithType("No Cards in the Deck", "null", HttpStatus.NO_CONTENT, ContentType.TEXT);
             }
             String deckDataJson;
             if(plain){
                 deckDataJson = plainCards(deck);
+                return sendResponseWithType(deckDataJson, "null", HttpStatus.OK, ContentType.TEXT);
             }else{
                 deckDataJson = getObjectMapper().writeValueAsString(deck);
+                return sendResponse(deckDataJson, "null", HttpStatus.OK);
             }
-            return sendResponse(deckDataJson, "null", HttpStatus.OK);
         } catch (SQLException | JsonProcessingException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
-    //----
-    /*
-    public Response getAllOfferedCards(int Uid){
-        try {
-            ArrayList<CardModel> cardData = getCardService().getAllOfferedCards(Uid);
-            if(cardData.size()==0){
-                return new Response(
-                        HttpStatus.NO_CONTENT,
-                        ContentType.JSON,
-                        "{}"
-                );
-            }
-            String cardDataJSON = getObjectMapper().writeValueAsString(cardData);
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + cardDataJSON + ", \"error\": null }"
-            );
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return new Response(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    ContentType.JSON,
-                    "{ \"error\": \"Internal Server Error\", \"data\": null }"
-            );
-        }
-    }
-    */
+
     // POST /packages
     public Response createPackage(String body) {
         try{
@@ -136,7 +111,7 @@ public class CardController extends Controller{
                     }
                 }
                 if(ID.equals("") || name.equals("") || damage == 0){
-                    return sendResponse("null", "Invalid Information for Card declaration", HttpStatus.BAD_REQUEST);
+                    return sendResponseWithType("null", "Invalid Information for Card declaration", HttpStatus.BAD_REQUEST, ContentType.TEXT);
                 }
                 Card card = new Card(ID, 0, name, damage, false);
                 packCards.add(card);
@@ -146,7 +121,7 @@ public class CardController extends Controller{
                 }
             }
             if(packCards.size() < 5){
-                return sendResponse("null", "No full package created", HttpStatus.CONFLICT);
+                return sendResponseWithType("null", "No full package created", HttpStatus.CONFLICT, ContentType.TEXT);
             }
             //check if id already exists
             ArrayList<Card> allCards;
@@ -155,19 +130,17 @@ public class CardController extends Controller{
                 for(Card temp1 : allCards){
                     for(Card temp2 : packCards){
                         if(temp1.getCardID().equals(temp2.getCardID())){
-                            return sendResponse("null", "ID already exists", HttpStatus.CONFLICT);
+                            return sendResponseWithType("null", "ID already exists", HttpStatus.CONFLICT, ContentType.TEXT);
                         }
                     }
                 }
             }
             ArrayList<Card> createdCards = getPackageDao().create(packCards);
-            String cardDataJSON = getObjectMapper().writeValueAsString(createdCards);
+            return sendResponseWithType("Package created", "null", HttpStatus.CREATED, ContentType.TEXT);
 
-            return sendResponse(cardDataJSON, "null", HttpStatus.CREATED);
-
-        }catch(JsonProcessingException | SQLException | IllegalArgumentException e){
+        }catch(SQLException | IllegalArgumentException e){
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
 
@@ -176,20 +149,20 @@ public class CardController extends Controller{
         try {
             //check if Token ok
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             //check if enough coins
-            User user = getUserDao().read(username);
+            UserModel user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             if(user.getCoins() < 5){
-                return sendResponse("null", "Not enough coins", HttpStatus.BAD_REQUEST);
+                return sendResponseWithType("null", "Not enough coins", HttpStatus.BAD_REQUEST, ContentType.TEXT);
             }
             //get one package
             ArrayList<Card> packCards = getPackageDao().readPackage();
             if(packCards.isEmpty()){
-                return sendResponse("null", "No package found", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "No package found", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //remove bought package
             getPackageDao().delete();
@@ -202,19 +175,20 @@ public class CardController extends Controller{
             //deduct user money
             user.setCoins(user.getCoins() - 5);
             getUserDao().update(user);
+            String packDataJson = getObjectMapper().writeValueAsString(packCards);
+            return sendResponse(packDataJson, "null", HttpStatus.OK);
 
-        }catch(SQLException e){
+        }catch(SQLException | JsonProcessingException e){
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
-        return sendResponse("Bought package", "null", HttpStatus.OK);
     }
     //POST /decks
     public Response assembleDeck(String body, String username){
         try {
             //check if Token ok
             if(!isAuthorized(username + "-mtcgToken")){
-                return sendResponse("null", "Incorrect Token", HttpStatus.UNAUTHORIZED);
+                return sendResponseWithType("null", "Incorrect Token", HttpStatus.UNAUTHORIZED, ContentType.TEXT);
             }
             String[] splitByCardID = body.split("\"");
             ArrayList<String> cardIDs = new ArrayList<String>();
@@ -228,11 +202,11 @@ public class CardController extends Controller{
                     cardIDs.add(ID);
                 }
             }
-            User user;
+            UserModel user;
             //get user
             user = getUserDao().read(username);
             if(user == null){
-                return sendResponse("null", "User does not exist", HttpStatus.NOT_FOUND);
+                return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //check if Cards belong to right user
             ArrayList<Card>chosenCards = new ArrayList<Card>();
@@ -240,29 +214,28 @@ public class CardController extends Controller{
                 System.out.println("find " + id);
                 Card tempCard = getCardDao().read(id);
                 if(tempCard == null){
-                    return sendResponse("null", "Card does not exist", HttpStatus.NOT_FOUND);
+                    return sendResponseWithType("null", "Card does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
                 }else if(tempCard.getUserID() != user.getUserID()){
-                    return sendResponse("null", "Chosen Card does not belong to User", HttpStatus.FORBIDDEN);
+                    return sendResponseWithType("null", "Chosen Card does not belong to User", HttpStatus.FORBIDDEN, ContentType.TEXT);
                 }
                 if(tempCard.isPaused()){
-                    return sendResponse("null", "Card cannot be used in Deck", HttpStatus.FORBIDDEN);
+                    return sendResponseWithType("null", "Card cannot be used in Deck", HttpStatus.FORBIDDEN, ContentType.TEXT);
                 }
                 chosenCards.add(tempCard);
             }
             //check if enough valid Cards found
             if(chosenCards.size() < 4){
-                return sendResponse("null", "Not enough Cards chosen for Deck", HttpStatus.BAD_REQUEST);
+                return sendResponseWithType("null", "Not enough Cards chosen for Deck", HttpStatus.BAD_REQUEST, ContentType.TEXT);
             }
             //delete old deck if exists
             getDeckDao().delete(user.getUserID());
             //create new deck
             ArrayList<Card> newDeck = getDeckDao().create(chosenCards);
-            String deckDataJson = getObjectMapper().writeValueAsString(newDeck);
-            return sendResponse(deckDataJson, "null", HttpStatus.OK);
+            return sendResponseWithType("Deck successfully configured", "null", HttpStatus.OK, ContentType.TEXT);
 
-        } catch (SQLException | JsonProcessingException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            return sendResponse("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
     public String plainCards(ArrayList<Card> deck){

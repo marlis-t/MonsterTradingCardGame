@@ -23,9 +23,11 @@ public class BattleTest {
 
     public User prepUser(){
         StackOfCards stack = new StackOfCards();
-        User user = new User(1, "user", 20, 100, 2, stack);
+        User user = new User(1, "user", 20, 100, 2, "auth", stack);
         Package p = new Package();
+        Package p2 = new Package();
         user.buyPackage(p);
+        user.buyPackage(p2);
         user.assembleDeck();
         return user;
     }

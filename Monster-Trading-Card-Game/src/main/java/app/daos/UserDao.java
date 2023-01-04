@@ -1,9 +1,9 @@
 package app.daos;
 
+import app.models.UserModel;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import user.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserDao implements Dao<User>{
+public class UserDao implements Dao<UserModel>{
     @Getter(AccessLevel.PRIVATE)
     @Setter(AccessLevel.PRIVATE)
     private Connection connection;
@@ -19,7 +19,7 @@ public class UserDao implements Dao<User>{
     public UserDao(Connection connection){setConnection(connection);}
 
     @Override
-    public User create(User user) throws SQLException {
+    public UserModel create(UserModel user) throws SQLException {
         String query = "INSERT INTO users(Username, Password, Coins, Score, GamesPlayed, Bio, Image, AuthToken) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, user.getUsername());
@@ -32,37 +32,21 @@ public class UserDao implements Dao<User>{
         statement.setString(8, user.getAuthToken());
 
         statement.execute();
-        /*
-        User createdUser = new User (
-                res.getInt(1), //Uid
-                res.getString(2), //Username
-                res.getString(3), //Password
-                res.getInt(4), //Coins
-                res.getInt(5), //Score
-                res.getInt(6), //GamesPlayed
-                res.getString(7), //Bio
-                res.getString(8), //Image
-                res.getString(9), //authToken
-                null, //stack
-                null, //deck
-                null //tradingDeal
-        );
-        */
-
         statement.close();
+        user.setPassword("");
         return user;
     }
 
 
     @Override
-    public ArrayList<User> readAll() throws SQLException {
-        ArrayList<User> userList = new ArrayList<User>();
+    public ArrayList<UserModel> readAll() throws SQLException {
+        ArrayList<UserModel> userList = new ArrayList<UserModel>();
         String query = "SELECT * FROM users";
         PreparedStatement statement = getConnection().prepareStatement(query);
 
         ResultSet res = statement.executeQuery();
         while(res.next()){
-            User tempUser = new User(
+            UserModel tempUser = new UserModel(
                     res.getInt(1), //Uid
                     res.getString(2), //Username
                     "", //Password
@@ -71,9 +55,7 @@ public class UserDao implements Dao<User>{
                     res.getInt(6), //GamesPlayed
                     res.getString(7), //Bio
                     res.getString(8), //Image
-                    res.getString(9), //authToken
-                    null, //stack
-                    null //deck
+                    res.getString(9) //authToken
             );
             userList.add(tempUser);
         }
@@ -82,7 +64,7 @@ public class UserDao implements Dao<User>{
     }
 
     @Override
-    public User read(String username) throws SQLException{
+    public UserModel read(String username) throws SQLException{
         String query = "SELECT * FROM users WHERE Username = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, username);
@@ -92,7 +74,7 @@ public class UserDao implements Dao<User>{
             statement.close();
             return null;
         }
-        User foundUser = new User (
+        UserModel foundUser = new UserModel (
                 res.getInt(1), //Uid
                 res.getString(2), //Username
                 "", //Password
@@ -101,9 +83,7 @@ public class UserDao implements Dao<User>{
                 res.getInt(6), //GamesPlayed
                 res.getString(7), //Bio
                 res.getString(8), //Image
-                res.getString(9), //authToken
-                null, //stack
-                null //deck
+                res.getString(9) //authToken
         );
         statement.close();
         return foundUser;
@@ -139,7 +119,7 @@ public class UserDao implements Dao<User>{
         return authTokenList;
     }
     @Override
-    public void update(User user) throws SQLException{
+    public void update(UserModel user) throws SQLException{
         String query = "UPDATE users SET Coins = ?, Score = ?, GamesPlayed = ?, Bio = ?, Image = ?, AuthToken = ? WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setInt(1, user.getCoins());
@@ -156,7 +136,7 @@ public class UserDao implements Dao<User>{
     }
 
     @Override
-    public void delete(User user) throws SQLException {
+    public void delete(UserModel user) throws SQLException {
         String query = "DELETE FROM users WHERE UserID = ?";
         PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setInt(1, user.getUserID());

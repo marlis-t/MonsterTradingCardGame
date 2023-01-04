@@ -19,7 +19,6 @@ public class PackageDao{
     public PackageDao(Connection connection){setConnection(connection);}
 
     public ArrayList<Card> create(ArrayList<Card> cards) throws SQLException {
-        //ArrayList<Card> result = new ArrayList<Card>();
         for(Card card: cards){
             String query = "INSERT INTO packages(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = getConnection().prepareStatement(query);

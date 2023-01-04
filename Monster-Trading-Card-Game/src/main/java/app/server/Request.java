@@ -35,19 +35,16 @@ public class Request {
         try {
             String line;
             line = inputStream.readLine();
-            System.out.println("done with reading first line input");
 
             //what if line == null
             //if content added
             if (line != null) {
-                System.out.println("get content");
                 String[] splitFirstLine = line.split(" ");
                 Boolean hasParams = splitFirstLine[1].contains("?");
 
                 setMethod(getMethodFromInputLine(splitFirstLine));
                 setPathname(getPathnameFromInputLine(splitFirstLine, hasParams));
                 setParameters(getParamsFromInputLine(splitFirstLine, hasParams));
-                System.out.println("err set");
 
                 while (!line.isEmpty()) {
                     line = inputStream.readLine();
@@ -61,13 +58,6 @@ public class Request {
                         setAuthToken(getAuthorizationFromInputLine(line));
                     }
                 }
-                System.out.println("really err set");
-                System.out.println(getMethod());
-                System.out.println(getPathname());
-                System.out.println(getParameters());
-                System.out.println(getContentLength());
-                System.out.println(getContentType());
-                System.out.println(getAuthToken());
 
                 if (getMethod() == Method.POST || getMethod() == Method.PUT) {
                     if(getContentLength() != null){

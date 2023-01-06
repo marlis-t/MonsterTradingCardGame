@@ -1,6 +1,6 @@
 package app.daos;
 
-import card.Card;
+import app.models.Card;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +40,8 @@ public class PackageDao{
         ResultSet res = statement.executeQuery();
 
         ArrayList<Card> pack = new ArrayList<Card>();
+        ArrayList<String> ids = new ArrayList<String>();
+
         while(res.next()){
             Card tempCard = new Card(
                     res.getString(1), //CardID
@@ -49,14 +51,21 @@ public class PackageDao{
                     res.getBoolean(5) //paused
             );
             pack.add(tempCard);
+            ids.add(res.getString(1));
         }
         statement.close();
+        delete(ids);
         return pack;
     }
 
-    public void delete() throws SQLException {
-        String query = "DELETE FROM packages WHERE CardID IN (SELECT CardID FROM packages LIMIT 5)";
+    public void delete(ArrayList<String> ids) throws SQLException {
+        String query = "DELETE FROM packages WHERE CardID IN (?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, ids.get(0));
+        statement.setString(2, ids.get(1));
+        statement.setString(3, ids.get(2));
+        statement.setString(4, ids.get(3));
+        statement.setString(5, ids.get(4));
         statement.execute();
         statement.close();
     }

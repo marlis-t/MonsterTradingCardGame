@@ -1,6 +1,6 @@
 package app.daos;
 
-import card.Card;
+import app.models.Card;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

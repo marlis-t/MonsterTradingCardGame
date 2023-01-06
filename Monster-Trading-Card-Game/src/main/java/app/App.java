@@ -10,13 +10,11 @@ import app.http.HttpStatus;
 import app.server.Request;
 import app.server.Response;
 import app.server.ServerApp;
-import app.services.DatabaseService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -29,12 +27,8 @@ public class App implements ServerApp {
     private BattleController battleController;
     private Connection connection;
 
-    public App() {
-        try {
-            setConnection(new DatabaseService().getConnection());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public App(Connection connection) {
+        setConnection(connection);
         setCardController(new CardController(new CardDao(getConnection()), new UserDao(getConnection()), new PackageDao(getConnection()), new DeckDao(getConnection())));
         setUserController(new UserController(new UserDao(getConnection())));
         setTradingController(new TradingController(new TradeDao(getConnection()), new UserDao(getConnection()), new CardDao(getConnection()), new DeckDao(getConnection())));
@@ -152,16 +146,29 @@ public class App implements ServerApp {
         return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, "{ \"error\": \"Method Not Found\", \"data\": null }");
     }
     public String parseUsernameFromPath(String[] split){
+        if(split == null){
+            throw new IllegalArgumentException("Path is null");
+        }
         //username always last
         int length = (int) Arrays.stream(split).count();
+        if(length < 5){
+            //path incomplete/too short to contain username
+            throw new IllegalArgumentException("Path incomplete");
+        }
         return split[length-1];
     }
     public String getUsernameFromToken(String auth){
+        if(auth == null){
+            throw new IllegalArgumentException("AuthToken is null");
+        }
         String[] splitAuth = auth.split("-");
         return splitAuth[0];
     }
     public boolean doesAuthTokenMatchWithUser(String auth, String username){
         //auth == username-mtcgToken
+        if(auth == null){
+            throw new IllegalArgumentException("AuthToken is null");
+        }
         String[] splitAuth = auth.split("-");
         return Objects.equals(splitAuth[0], username);
     }

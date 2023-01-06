@@ -1,7 +1,7 @@
 package battle;
 
 import app.controllers.BattleDirectController;
-import card.Card;
+import app.models.Card;
 import card.Enum.ELEMENT;
 import card.Enum.TYPE;
 import lombok.Getter;
@@ -62,33 +62,29 @@ public class Battle {
 
     public Card getMutationCardFromUser(User user, Card basisCard){
         int damage = 0;
-        ArrayList<Card> userCards = user.getMyStack().getMyCards();
-        int watercount = 0;
-        int firecount = 0;
-        int normalcount = 0;
-        int monstercount = 0;
-        int spellcount = 0;
+        int waterCount = 0;
+        int fireCount = 0;
+        int normalCount = 0;
+        int monsterCount = 0;
+        int spellCount = 0;
 
-        //get 5 random cards from user stack
-        for(int i = 0; i < 5; i++){
-            int randNr = getRandomizer().nextInt(userCards.size());
-            Card chosenCard = userCards.get(randNr);
-            if(chosenCard == null){
-                throw new IndexOutOfBoundsException("Chosen Index points to Card not in Deck");
-            }
+        //get 4 best cards from user stack + basisCard
+        ArrayList<Card> bestCards = user.getMyStack().best4Cards();
+        bestCards.add(basisCard);
+        for(Card chosenCard : bestCards){
             //collect count of elements
             if(chosenCard.getElement() == ELEMENT.FIRE){
-                firecount++;
+                fireCount++;
             }else if(chosenCard.getElement() == ELEMENT.WATER){
-                watercount++;
+                waterCount++;
             }else{
-                normalcount++;
+                normalCount++;
             }
             //collect count of types
             if(chosenCard.getType() == TYPE.MONSTER){
-                monstercount++;
+                monsterCount++;
             }else{
-                spellcount++;
+                spellCount++;
             }
             //collect damage
             damage += chosenCard.getDamage();
@@ -96,14 +92,14 @@ public class Battle {
 
         //give name based on most often collected values
         String name;
-        if(firecount > watercount && firecount > normalcount){
+        if(fireCount > waterCount && fireCount > normalCount){
             name = "Fire";
-        }else if(watercount > normalcount && watercount > firecount){
+        }else if(waterCount > normalCount && waterCount > fireCount){
             name = "Water";
         }else{
             name = "Normal";
         }
-        if(monstercount > spellcount){
+        if(monsterCount > spellCount){
             name += "MutationMonster";
         }else{
             name += "MutationSpell";
@@ -291,10 +287,10 @@ public class Battle {
             writeToLogfile("\nNEW BATTLE\n\n");
             writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
             while (shouldBattleContinue()) {
-                Card cardUser1; //compared
-                Card cardUser2; //compared
-                Card basisCard1; //chosen from deck
-                Card basisCard2; //chosen from deck
+                Card cardUser1; //this is compared
+                Card cardUser2; //this is compared
+                Card basisCard1; //this is chosen from deck
+                Card basisCard2; //this is chosen from deck
                 if(getRound()%10 == 0){
                     writeToLogfile("This is a mutation round!\n");
                     //each tenth round is a mutation round

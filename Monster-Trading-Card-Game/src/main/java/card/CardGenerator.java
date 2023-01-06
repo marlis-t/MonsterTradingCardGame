@@ -1,11 +1,11 @@
 package card;
 
+import app.models.Card;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
@@ -22,46 +22,36 @@ public class CardGenerator {
         setSpecifications(new ArrayList<String>());
         setDamages(new ArrayList<Integer>());
 
-        Elements.add("Fire");
-        Elements.add("Water");
-        Elements.add("Normal");
+        getElements().add("Fire");
+        getElements().add("Water");
+        getElements().add("Normal");
 
-        Types.add("Spell");
-        Types.add("Monster");
+        getTypes().add("Spell");
+        getTypes().add("Monster");
 
-        Specifications.add("Goblin");
-        Specifications.add("Dragon");
-        Specifications.add("Knight");
-        Specifications.add("Elf");
-        Specifications.add("Wizard");
-        Specifications.add("Ork");
-        Specifications.add("Kraken");
-
-        Damages.add(20);
-        Damages.add(25);
-        Damages.add(30);
-        Damages.add(35);
-        Damages.add(40);
-        Damages.add(45);
-        Damages.add(50);
+        getSpecifications().add("Goblin");
+        getSpecifications().add("Dragon");
+        getSpecifications().add("Knight");
+        getSpecifications().add("Elf");
+        getSpecifications().add("Wizard");
+        getSpecifications().add("Ork");
+        getSpecifications().add("Kraken");
     }
     public Card generateCard(){
         int randDamage = 0;
         String cardName = null;
         try{
-            String randElement = chooseElement(randomizer);
-            String randType = chooseType(randomizer);
-            String randSpec;
-            if(randType == "Monster"){
-                randSpec = chooseSpecification(randomizer);
-            }else{
-                randSpec = "Magic";
+            String randElement = chooseElement(getRandomizer());
+            String randType = chooseType(getRandomizer());
+            String randSpec = "";
+            if(Objects.equals(randType, "Monster")){
+                randSpec = chooseSpecification(getRandomizer());
             }
-            randDamage = chooseDamage(randomizer);
+            randDamage = chooseDamage(getRandomizer());
             cardName = randElement + randSpec + randType;
 
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return new Card("0", 0, cardName, randDamage, false);
     }
@@ -70,28 +60,27 @@ public class CardGenerator {
         if(randomizer == null){
             throw new NullPointerException("Randomizer does not exist");
         }
-        int randNr = randomizer.nextInt(Elements.size());
-        return Elements.get(randNr);
+        int randNr = randomizer.nextInt(getElements().size());
+        return getElements().get(randNr);
     }
     public String chooseType(Random randomizer){
         if(randomizer == null){
             throw new NullPointerException("Randomizer does not exist");
         }
-        int randNr = randomizer.nextInt(Types.size());
-        return Types.get(randNr);
+        int randNr = randomizer.nextInt(getTypes().size());
+        return getTypes().get(randNr);
     }
     public String chooseSpecification(Random randomizer){
         if(randomizer == null){
             throw new NullPointerException("Randomizer does not exist");
         }
-        int randNr = randomizer.nextInt(Specifications.size());
-        return Specifications.get(randNr);
+        int randNr = randomizer.nextInt(getSpecifications().size());
+        return getSpecifications().get(randNr);
     }
     public int chooseDamage(Random randomizer){
         if(randomizer == null){
             throw new NullPointerException("Randomizer does not exist");
         }
-        int randNr = randomizer.nextInt(Damages.size());
-        return Damages.get(randNr);
+        return randomizer.nextInt(10, 100);
     }
 }

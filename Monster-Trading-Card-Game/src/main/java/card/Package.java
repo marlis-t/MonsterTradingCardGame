@@ -1,5 +1,7 @@
 package card;
 
+import app.models.Card;
+
 public class Package extends CollectionOfCards{
     public Package(){
         super();

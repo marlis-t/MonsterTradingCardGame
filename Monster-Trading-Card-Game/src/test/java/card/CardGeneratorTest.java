@@ -46,7 +46,6 @@ public class CardGeneratorTest {
 
         assertDoesNotThrow(() -> {
             int testInt = generator.chooseDamage(randomizer);
-            System.out.println(testInt);
         });
     }
 }

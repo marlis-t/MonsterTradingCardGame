@@ -1,6 +1,6 @@
 package user;
 
-import card.Card;
+import app.models.Card;
 import card.Deck;
 import card.Package;
 import card.StackOfCards;

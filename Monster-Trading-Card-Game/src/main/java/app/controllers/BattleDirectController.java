@@ -3,7 +3,7 @@ package app.controllers;
 import app.daos.CardDao;
 import app.daos.DeckDao;
 import app.daos.UserDao;
-import card.Card;
+import app.models.Card;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package tradingDeal;
+package app.models;
 
 import card.Enum.TYPE;
 import com.fasterxml.jackson.annotation.JsonAlias;

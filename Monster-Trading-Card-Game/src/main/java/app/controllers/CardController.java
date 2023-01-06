@@ -7,7 +7,7 @@ import app.daos.UserDao;
 import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Response;
-import card.Card;
+import app.models.Card;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -159,13 +159,13 @@ public class CardController extends Controller{
             if(user.getCoins() < 5){
                 return sendResponseWithType("null", "Not enough coins", HttpStatus.BAD_REQUEST, ContentType.TEXT);
             }
-            //get one package
+            //get one package + remove it
             ArrayList<Card> packCards = getPackageDao().readPackage();
             if(packCards.isEmpty()){
                 return sendResponseWithType("null", "No package found", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             //remove bought package
-            getPackageDao().delete();
+            //getPackageDao().delete();
 
             //change UID of Cards and put into Card table
             for(Card card : packCards){

@@ -9,7 +9,7 @@ import app.http.HttpStatus;
 import app.models.BattleModel;
 import app.server.Response;
 import battle.Battle;
-import card.Card;
+import app.models.Card;
 import card.Deck;
 import card.StackOfCards;
 import lombok.AccessLevel;

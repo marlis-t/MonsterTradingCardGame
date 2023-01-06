@@ -3,7 +3,7 @@ package app.daos;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import tradingDeal.TradingDeal;
+import app.models.TradingDeal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

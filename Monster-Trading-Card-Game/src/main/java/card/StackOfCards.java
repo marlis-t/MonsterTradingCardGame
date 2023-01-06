@@ -1,5 +1,7 @@
 package card;
 
+import app.models.Card;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 

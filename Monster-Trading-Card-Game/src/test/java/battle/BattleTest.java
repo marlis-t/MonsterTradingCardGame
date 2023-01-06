@@ -1,7 +1,9 @@
 package battle;
 
 import app.controllers.BattleDirectController;
-import card.Card;
+import app.models.Card;
+import card.Enum.ELEMENT;
+import card.Enum.TYPE;
 import card.Package;
 import card.StackOfCards;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,6 +85,27 @@ public class BattleTest {
         Exception thrownException = assertThrows(IllegalArgumentException.class, () -> {
             testBattle.getRandomCardFromUser(user1);
         });
+    }
+
+    @Test
+    @DisplayName("Test: getMutationCardFromUser(user, basisCard); ")
+    public void testGetMutationCardFromUser_expectCertainCard(){
+        user1.getMyStack().addCard(new Card("0", 1, "FireSpell", 99, false));
+        user1.getMyStack().addCard(new Card("1", 1, "FireMonster", 99, false));
+        user1.getMyStack().addCard(new Card("2", 1, "WaterSpell", 99, false));
+        user1.getMyStack().addCard(new Card("3", 1, "FireSpell", 99, false));
+        Card basisCard = user1.getMyDeck().getMyCards().get(0);
+        int expectedDamage = 99*4 + basisCard.getDamage();
+        TYPE expectedType = TYPE.SPELL;
+        ELEMENT expectedElement = ELEMENT.FIRE;
+        String expectedName = "FireMutationSpell";
+
+        Card resultCard = testBattle.getMutationCardFromUser(user1, basisCard);
+
+        assertEquals(expectedDamage, resultCard.getDamage());
+        assertEquals(expectedType, resultCard.getType());
+        assertEquals(expectedElement, resultCard.getElement());
+        assertEquals(expectedName, resultCard.getName());
     }
 
     @Test

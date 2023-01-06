@@ -1,4 +1,5 @@
 package card;
+import app.models.Card;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;

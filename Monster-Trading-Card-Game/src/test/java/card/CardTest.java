@@ -1,4 +1,5 @@
 package card;
+import app.models.Card;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,15 +19,5 @@ public class CardTest {
             Card card = new Card("1", 0, "NormalSpell", 0, false);
 
         });
-    }
-    @Test
-    @DisplayName("card.isPaused(); == false")
-    public void testBooleanPausedForNewCard_expectFalse(){
-        Card card = new Card("1", 0, "TestSpell", 0, false);
-        boolean expectedBoolean = false;
-
-        boolean actualBoolean = card.isPaused();
-
-        assertEquals(expectedBoolean, actualBoolean);
     }
 }

@@ -7,12 +7,12 @@ import app.daos.UserDao;
 import app.http.ContentType;
 import app.http.HttpStatus;
 import app.server.Response;
-import card.Card;
+import app.models.Card;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import tradingDeal.TradingDeal;
+import app.models.TradingDeal;
 import app.models.UserModel;
 
 import java.sql.SQLException;

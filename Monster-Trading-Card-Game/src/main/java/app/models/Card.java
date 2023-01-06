@@ -1,4 +1,4 @@
-package card;
+package app.models;
 
 import card.Enum.ELEMENT;
 import card.Enum.TYPE;

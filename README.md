@@ -36,4 +36,6 @@ Requirements:
 -does not allow SQL-Injections
 -Unit Tests
 
-All requests this project can complete are listed in "MonsterTradingCards.exercise.curl.withpause.bat"
+All requests this project can complete are listed in "MonsterTradingCards.exercise.curl.modified.bat"
+
+Link to repository: https://github.com/marlis-t/MonsterTradingCardGame.git

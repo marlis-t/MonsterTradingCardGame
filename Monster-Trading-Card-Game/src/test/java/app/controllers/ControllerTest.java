@@ -55,7 +55,7 @@ public class ControllerTest {
         final Response[] realResponse = new Response[1];
         HttpStatus expectedStatus = HttpStatus.OK;
         ContentType expectedContentType = ContentType.TEXT;
-        String expectedContent = "{ \"data\": \"content\", \"error\": null }";
+        String expectedContent = "content, error: null \n";
 
         assertDoesNotThrow(() -> {
             realResponse[0] = controller.sendResponseWithType("content", "null", HttpStatus.OK, ContentType.TEXT);

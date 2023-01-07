@@ -26,7 +26,6 @@ public class CardGeneratorTest {
 
         assertDoesNotThrow(() -> {
             String testString = generator.chooseElement(randomizer);
-            System.out.println(testString);
         });
     }
     @Test

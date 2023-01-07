@@ -31,7 +31,7 @@ public class AppTest {
     @Test
     @DisplayName("Test: parseUsernameFromPath(path); expect username")
     public void testParseUsernameFromPath_expectMatchingUsername(){
-        String path = "http://localhost:7777/users/testname";
+        String path = "/users/testname";
         String[] split = path.split("/");
         String expectedUsername = "testname";
         String realUsername;

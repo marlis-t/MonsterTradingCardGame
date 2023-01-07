@@ -33,7 +33,7 @@ public class UserController extends Controller{
         }
         try {
             String userDataJSON = getObjectMapper().writeValueAsString(user);
-            return sendResponse(userDataJSON, "null", HttpStatus.OK);
+            return sendResponseWithType(userDataJSON, "null", HttpStatus.OK, ContentType.JSON);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
@@ -59,7 +59,7 @@ public class UserController extends Controller{
             return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
         }
         String stats = "\"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\"";
-        return sendResponse(stats, "null", HttpStatus.OK);
+        return sendResponseWithType(stats, "null", HttpStatus.OK, ContentType.JSON);
     }
 
     //GET /scores
@@ -85,7 +85,7 @@ public class UserController extends Controller{
         for(UserModel user : users){
             scoreData.append(user.showScore()).append(", ");
         }
-        return sendResponse(scoreData.toString(), "null", HttpStatus.OK);
+        return sendResponseWithType(scoreData.toString(), "null", HttpStatus.OK, ContentType.JSON);
     }
 
     //GET /users
@@ -104,7 +104,7 @@ public class UserController extends Controller{
         }
         try {
             String userDataJSON = getObjectMapper().writeValueAsString(users);
-            return sendResponse(userDataJSON, "null", HttpStatus.OK);
+            return sendResponseWithType(userDataJSON, "null", HttpStatus.OK, ContentType.JSON);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
@@ -141,7 +141,7 @@ public class UserController extends Controller{
             }
             UserModel createdUser = getUserDao().create(user);
             String userDataJSON = getObjectMapper().writeValueAsString(createdUser);
-            return sendResponse(userDataJSON, "null", HttpStatus.CREATED);
+            return sendResponseWithType(userDataJSON, "null", HttpStatus.CREATED, ContentType.JSON);
 
         }catch(JsonProcessingException | SQLException e){
             e.printStackTrace();

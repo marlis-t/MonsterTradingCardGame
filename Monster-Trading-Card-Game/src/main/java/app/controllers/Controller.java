@@ -42,10 +42,18 @@ public class Controller {
         if(status == null || type == null){
             throw new IllegalArgumentException("Status and ContentType cannot be null");
         }
-        return new Response(
-                status,
-                type,
-                "{ \"data\": \"" + data + "\", \"error\": " + error + " }"
-        );
+        if(type == ContentType.JSON){
+            return new Response(
+                    status,
+                    type,
+                    "{ \"data\": \"" + data + "\", \"error\": " + error + " }\n"
+            );
+        }else{
+            return new Response(
+                    status,
+                    type,
+                    data + ", error: " + error + " \n"
+            );
+        }
     }
 }

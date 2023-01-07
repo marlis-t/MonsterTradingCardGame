@@ -51,7 +51,7 @@ public class CardController extends Controller{
                 return sendResponseWithType("No Cards for this User", "null", HttpStatus.NO_CONTENT, ContentType.TEXT);
             }
             String cardDataJSON = getObjectMapper().writeValueAsString(cardData);
-            return sendResponse(cardDataJSON, "null", HttpStatus.OK);
+            return sendResponseWithType(cardDataJSON, "null", HttpStatus.OK, ContentType.JSON);
         } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
@@ -79,7 +79,7 @@ public class CardController extends Controller{
                 return sendResponseWithType(deckDataJson, "null", HttpStatus.OK, ContentType.TEXT);
             }else{
                 deckDataJson = getObjectMapper().writeValueAsString(deck);
-                return sendResponse(deckDataJson, "null", HttpStatus.OK);
+                return sendResponseWithType(deckDataJson, "null", HttpStatus.OK, ContentType.JSON);
             }
         } catch (SQLException | JsonProcessingException e) {
             e.printStackTrace();
@@ -161,12 +161,9 @@ public class CardController extends Controller{
             }
             //get one package + remove it
             ArrayList<Card> packCards = getPackageDao().readPackage();
-            if(packCards.isEmpty()){
+            if(packCards == null){
                 return sendResponseWithType("null", "No package found", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
-            //remove bought package
-            //getPackageDao().delete();
-
             //change UID of Cards and put into Card table
             for(Card card : packCards){
                 card.setUserID(user.getUserID());
@@ -176,7 +173,7 @@ public class CardController extends Controller{
             user.setCoins(user.getCoins() - 5);
             getUserDao().update(user);
             String packDataJson = getObjectMapper().writeValueAsString(packCards);
-            return sendResponse(packDataJson, "null", HttpStatus.OK);
+            return sendResponseWithType(packDataJson, "null", HttpStatus.OK, ContentType.JSON);
 
         }catch(SQLException | JsonProcessingException e){
             e.printStackTrace();

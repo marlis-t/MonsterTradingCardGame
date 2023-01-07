@@ -151,7 +151,7 @@ public class App implements ServerApp {
         }
         //username always last
         int length = (int) Arrays.stream(split).count();
-        if(length < 5){
+        if(length < 2){
             //path incomplete/too short to contain username
             throw new IllegalArgumentException("Path incomplete");
         }

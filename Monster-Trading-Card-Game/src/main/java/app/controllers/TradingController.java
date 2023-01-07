@@ -44,7 +44,7 @@ public class TradingController extends Controller{
                 return sendResponseWithType("null", "TradingDeal does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
             }
             String tradeDataJSON = getObjectMapper().writeValueAsString(trade);
-            return sendResponse(tradeDataJSON, "null", HttpStatus.OK );
+            return sendResponseWithType(tradeDataJSON, "null", HttpStatus.OK, ContentType.JSON);
         } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
@@ -61,7 +61,7 @@ public class TradingController extends Controller{
                 return sendResponseWithType("No TradingDeals", "null", HttpStatus.NO_CONTENT, ContentType.TEXT);
             }
             String tradeDataJSON = getObjectMapper().writeValueAsString(trades);
-            return sendResponse(tradeDataJSON, "null", HttpStatus.OK);
+            return sendResponseWithType(tradeDataJSON, "null", HttpStatus.OK, ContentType.JSON);
 
         } catch (JsonProcessingException | SQLException e) {
             e.printStackTrace();
@@ -146,7 +146,7 @@ public class TradingController extends Controller{
             cardToTrade.setPaused(true);
            getCardDao().update(cardToTrade);
            String tradeDataJson = getObjectMapper().writeValueAsString(trade);
-           return sendResponse(tradeDataJson, "null", HttpStatus.CREATED);
+           return sendResponseWithType(tradeDataJson, "null", HttpStatus.CREATED, ContentType.JSON);
 
         }catch(JsonProcessingException | SQLException e){
             e.printStackTrace();
@@ -263,7 +263,7 @@ public class TradingController extends Controller{
             //delete TradingDeal
             getTradeDao().delete(trade);
             String tradeDataJson = getObjectMapper().writeValueAsString(trade);
-            return sendResponse("Deleted : " + tradeDataJson, "null", HttpStatus.OK);
+            return sendResponseWithType("Deleted : " + tradeDataJson, "null", HttpStatus.OK, ContentType.JSON);
         }catch(SQLException | JsonProcessingException e){
             e.printStackTrace();
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);

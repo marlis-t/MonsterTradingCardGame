@@ -42,7 +42,11 @@ public class PackageDao{
         ArrayList<Card> pack = new ArrayList<Card>();
         ArrayList<String> ids = new ArrayList<String>();
 
-        while(res.next()){
+        if(!res.next()){
+            statement.close();
+            return null;
+        }
+        do{
             Card tempCard = new Card(
                     res.getString(1), //CardID
                     res.getInt(2),  //UserID
@@ -53,6 +57,7 @@ public class PackageDao{
             pack.add(tempCard);
             ids.add(res.getString(1));
         }
+        while(res.next());
         statement.close();
         delete(ids);
         return pack;

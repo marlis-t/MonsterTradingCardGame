@@ -9,18 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="896cb30f-1c4c-4e67-a6ba-36147569af0a" name="Changes" comment="enums added, vectors changed to lists, userIdentification is a separate class, no registration or login yet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagrams/classdiagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrams/classdiagram.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagrams/sequencediagram-battle.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrams/sequencediagram-battle.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/CardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/TradingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/daos/PackageDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/app/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/app/controllers/ControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/app/controllers/ControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/card/CardGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/card/CardGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MonsterTradingCards.exercise.curl.withpause.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

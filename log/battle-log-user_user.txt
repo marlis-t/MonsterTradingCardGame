@@ -1,0 +1,616 @@
+
+NEW BATTLE
+
+User 'user' and User 'user' are battling
+This is a mutation round!
+Round 0:
+Card FireMutationSpell and Card FireMutationMonster have been chosen.
+Damage (before type and specification includes) : FireMutationSpell-> 175, FireMutationMonster-> 185
+Final damage: FireMutationSpell-> 175, FireMutationMonster-> 185
+Card FireMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 1:
+Card NormalMagicSpell and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : NormalMagicSpell-> 50, FireMagicSpell-> 50
+Final damage: NormalMagicSpell-> 25, FireMagicSpell-> 100
+Card FireMagicSpell of User user won
+User user gains Card NormalMagicSpell
+
+Round 2:
+Card FireMagicSpell and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 40, FireMagicSpell-> 50
+Final damage: FireMagicSpell-> 40, FireMagicSpell-> 50
+Card FireMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 3:
+Card WaterMagicSpell and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 40, FireMagicSpell-> 45
+Final damage: WaterMagicSpell-> 80, FireMagicSpell-> 22
+Card WaterMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 4:
+Card WaterMagicSpell and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 40, WaterElfMonster-> 50
+Final damage: WaterMagicSpell-> 40, WaterElfMonster-> 50
+Card WaterElfMonster of User user won
+User user gains Card WaterMagicSpell
+
+Round 5:
+Card FireMagicSpell and Card WaterMagicSpell have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 45, WaterMagicSpell-> 40
+Final damage: FireMagicSpell-> 22, WaterMagicSpell-> 80
+Card WaterMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+User user won the battle
+
+NEW BATTLE
+
+User 'user' and User 'user' are battling
+This is a mutation round!
+Round 0:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 185, NormalMutationMonster-> 180
+Final damage: NormalMutationMonster-> 185, NormalMutationMonster-> 180
+Card FireMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 1:
+Card FireMagicSpell and Card NormalWizardMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 45, NormalWizardMonster-> 45
+Final damage: FireMagicSpell-> 90, NormalWizardMonster-> 22
+Card FireMagicSpell of User user won
+User user gains Card NormalWizardMonster
+
+Round 2:
+Card FireMagicSpell and Card WaterKnightMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 45, WaterKnightMonster-> 45
+Final damage: FireMagicSpell-> 22, WaterKnightMonster-> 90
+Card WaterKnightMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 3:
+Card NormalWizardMonster and Card NormalOrkMonster have been chosen.
+Damage (before type and specification includes) : NormalWizardMonster-> 45, NormalOrkMonster-> 50
+Final damage: NormalWizardMonster-> 45, NormalOrkMonster-> 0
+Card NormalWizardMonster of User user won
+User user gains Card NormalOrkMonster
+
+Round 4:
+Card FireMagicSpell and Card WaterKnightMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 45, WaterKnightMonster-> 45
+Final damage: FireMagicSpell-> 22, WaterKnightMonster-> 90
+Card WaterKnightMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 5:
+Card FireOrkMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : FireOrkMonster-> 50, FireMagicSpell-> 45
+Final damage: FireOrkMonster-> 50, FireMagicSpell-> 45
+Card FireOrkMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 6:
+Card FireMagicSpell and Card WaterKnightMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 45, WaterKnightMonster-> 45
+Final damage: FireMagicSpell-> 22, WaterKnightMonster-> 90
+Card WaterKnightMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 7:
+Card NormalOrkMonster and Card WaterKnightMonster have been chosen.
+Damage (before type and specification includes) : NormalOrkMonster-> 50, WaterKnightMonster-> 45
+Final damage: NormalOrkMonster-> 50, WaterKnightMonster-> 45
+Card NormalOrkMonster of User user won
+User user gains Card WaterKnightMonster
+
+Round 8:
+Card NormalWizardMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : NormalWizardMonster-> 40, FireMagicSpell-> 45
+Final damage: NormalWizardMonster-> 20, FireMagicSpell-> 90
+Card FireMagicSpell of User user won
+User user gains Card NormalWizardMonster
+
+Round 9:
+Card FireKrakenMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : FireKrakenMonster-> 50, FireMagicSpell-> 45
+Final damage: FireKrakenMonster-> 50, FireMagicSpell-> 0
+Card FireKrakenMonster of User user won
+User user gains Card FireMagicSpell
+
+This is a mutation round!
+Round 10:
+Card WaterMutationMonster and Card FireMutationSpell have been chosen.
+Damage (before type and specification includes) : WaterMutationMonster-> 180, FireMutationSpell-> 185
+Final damage: WaterMutationMonster-> 360, FireMutationSpell-> 92
+Card FireKrakenMonster of User user won
+User user gains Card NormalWizardMonster
+
+Round 11:
+Card NormalWizardMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : NormalWizardMonster-> 40, FireMagicSpell-> 45
+Final damage: NormalWizardMonster-> 20, FireMagicSpell-> 90
+Card FireMagicSpell of User user won
+User user gains Card NormalWizardMonster
+
+Round 12:
+Card FireKrakenMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : FireKrakenMonster-> 50, FireMagicSpell-> 45
+Final damage: FireKrakenMonster-> 50, FireMagicSpell-> 0
+Card FireKrakenMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 13:
+Card NormalWizardMonster and Card NormalWizardMonster have been chosen.
+Damage (before type and specification includes) : NormalWizardMonster-> 45, NormalWizardMonster-> 40
+Final damage: NormalWizardMonster-> 45, NormalWizardMonster-> 40
+Card NormalWizardMonster of User user won
+User user gains Card NormalWizardMonster
+
+User user won the battle
+
+NEW BATTLE
+
+User 'user' and User 'user' are battling
+This is a mutation round!
+Round 0:
+Card WaterMutationSpell and Card WaterMutationMonster have been chosen.
+Damage (before type and specification includes) : WaterMutationSpell-> 195, WaterMutationMonster-> 195
+Final damage: WaterMutationSpell-> 195, WaterMutationMonster-> 195
+The round ended in a draw
+
+Round 1:
+Card WaterMagicSpell and Card WaterKrakenMonster have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 45, WaterKrakenMonster-> 50
+Final damage: WaterMagicSpell-> 0, WaterKrakenMonster-> 50
+Card WaterKrakenMonster of User user won
+User user gains Card WaterMagicSpell
+
+Round 2:
+Card FireOrkMonster and Card WaterMagicSpell have been chosen.
+Damage (before type and specification includes) : FireOrkMonster-> 40, WaterMagicSpell-> 50
+Final damage: FireOrkMonster-> 20, WaterMagicSpell-> 100
+Card WaterMagicSpell of User user won
+User user gains Card FireOrkMonster
+
+Round 3:
+Card WaterKnightMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, FireMagicSpell-> 50
+Final damage: WaterKnightMonster-> 100, FireMagicSpell-> 25
+Card WaterKnightMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 4:
+Card FireMagicSpell and Card WaterMagicSpell have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 40, WaterMagicSpell-> 50
+Final damage: FireMagicSpell-> 20, WaterMagicSpell-> 100
+Card WaterMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 5:
+Card FireMagicSpell and Card FireOrkMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 50, FireOrkMonster-> 40
+Final damage: FireMagicSpell-> 50, FireOrkMonster-> 40
+Card FireMagicSpell of User user won
+User user gains Card FireOrkMonster
+
+Round 6:
+Card WaterKnightMonster and Card WaterKrakenMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, WaterKrakenMonster-> 50
+Final damage: WaterKnightMonster-> 50, WaterKrakenMonster-> 50
+The round ended in a draw
+
+Round 7:
+Card FireMagicSpell and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 50, WaterElfMonster-> 50
+Final damage: FireMagicSpell-> 25, WaterElfMonster-> 100
+Card WaterElfMonster of User user won
+User user gains Card FireMagicSpell
+
+Round 8:
+Card FireOrkMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : FireOrkMonster-> 40, WaterElfMonster-> 50
+Final damage: FireOrkMonster-> 40, WaterElfMonster-> 50
+Card WaterElfMonster of User user won
+User user gains Card FireOrkMonster
+
+Round 9:
+Card WaterKnightMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKnightMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+This is a mutation round!
+Round 10:
+Card NormalMutationMonster and Card WaterMutationSpell have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 170, WaterMutationSpell-> 200
+Final damage: NormalMutationMonster-> 340, WaterMutationSpell-> 100
+Card WaterKnightMonster of User user won
+User user gains Card WaterMagicSpell
+
+Round 11:
+Card WaterKnightMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKnightMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+Round 12:
+Card WaterKnightMonster and Card FireOrkMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, FireOrkMonster-> 40
+Final damage: WaterKnightMonster-> 50, FireOrkMonster-> 40
+Card WaterKnightMonster of User user won
+User user gains Card FireOrkMonster
+
+Round 13:
+Card WaterMagicSpell and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 50, FireMagicSpell-> 50
+Final damage: WaterMagicSpell-> 100, FireMagicSpell-> 25
+Card WaterMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 14:
+Card FireOrkMonster and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : FireOrkMonster-> 40, FireMagicSpell-> 40
+Final damage: FireOrkMonster-> 40, FireMagicSpell-> 40
+The round ended in a draw
+
+Round 15:
+Card FireOrkMonster and Card WaterKrakenMonster have been chosen.
+Damage (before type and specification includes) : FireOrkMonster-> 40, WaterKrakenMonster-> 50
+Final damage: FireOrkMonster-> 40, WaterKrakenMonster-> 50
+Card WaterKrakenMonster of User user won
+User user gains Card FireOrkMonster
+
+Round 16:
+Card WaterMagicSpell and Card WaterMagicSpell have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 50, WaterMagicSpell-> 45
+Final damage: WaterMagicSpell-> 50, WaterMagicSpell-> 45
+Card WaterMagicSpell of User user won
+User user gains Card WaterMagicSpell
+
+Round 17:
+Card WaterKnightMonster and Card FireOrkMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, FireOrkMonster-> 40
+Final damage: WaterKnightMonster-> 50, FireOrkMonster-> 40
+Card WaterKnightMonster of User user won
+User user gains Card FireOrkMonster
+
+Round 18:
+Card WaterKnightMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKnightMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+Round 19:
+Card FireMagicSpell and Card WaterKrakenMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 50, WaterKrakenMonster-> 50
+Final damage: FireMagicSpell-> 0, WaterKrakenMonster-> 100
+Card WaterKrakenMonster of User user won
+User user gains Card FireMagicSpell
+
+This is a mutation round!
+Round 20:
+Card FireMutationSpell and Card FireMutationSpell have been chosen.
+Damage (before type and specification includes) : FireMutationSpell-> 225, FireMutationSpell-> 210
+Final damage: FireMutationSpell-> 225, FireMutationSpell-> 210
+Card WaterMagicSpell of User user won
+User user gains Card WaterKrakenMonster
+
+Round 21:
+Card WaterMagicSpell and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 50, FireMagicSpell-> 50
+Final damage: WaterMagicSpell-> 100, FireMagicSpell-> 25
+Card WaterMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 22:
+Card WaterKrakenMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKrakenMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKrakenMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+Round 23:
+Card FireMagicSpell and Card FireMagicSpell have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 50, FireMagicSpell-> 40
+Final damage: FireMagicSpell-> 50, FireMagicSpell-> 40
+Card FireMagicSpell of User user won
+User user gains Card FireMagicSpell
+
+Round 24:
+Card WaterMagicSpell and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterMagicSpell-> 50, WaterElfMonster-> 50
+Final damage: WaterMagicSpell-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+Round 25:
+Card WaterKrakenMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKrakenMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKrakenMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+Round 26:
+Card FireOrkMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : FireOrkMonster-> 40, WaterElfMonster-> 50
+Final damage: FireOrkMonster-> 40, WaterElfMonster-> 50
+Card WaterElfMonster of User user won
+User user gains Card FireOrkMonster
+
+Round 27:
+Card FireMagicSpell and Card FireOrkMonster have been chosen.
+Damage (before type and specification includes) : FireMagicSpell-> 40, FireOrkMonster-> 40
+Final damage: FireMagicSpell-> 40, FireOrkMonster-> 40
+The round ended in a draw
+
+Round 28:
+Card WaterKnightMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKnightMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+Round 29:
+Card WaterKnightMonster and Card WaterElfMonster have been chosen.
+Damage (before type and specification includes) : WaterKnightMonster-> 50, WaterElfMonster-> 50
+Final damage: WaterKnightMonster-> 50, WaterElfMonster-> 50
+The round ended in a draw
+
+This is a mutation round!
+Round 30:
+Card WaterMutationSpell and Card FireMutationMonster have been chosen.
+Damage (before type and specification includes) : WaterMutationSpell-> 195, FireMutationMonster-> 205
+Final damage: WaterMutationSpell-> 390, FireMutationMonster-> 102
+Card WaterKnightMonster of User user won
+User user gains Card WaterElfMonster
+
+Round 31:
+Card WaterElfMonster and Card FireOrkMonster have been chosen.
+Damage (before type and specification includes) : WaterElfMonster-> 50, FireOrkMonster-> 40
+Final damage: WaterElfMonster-> 50, FireOrkMonster-> 40
+Card WaterElfMonster of User user won
+User user gains Card FireOrkMonster
+
+User user won the battle
+Card WaterSpell and Card FireDragon have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, FireDragon-> 20
+Final damage: WaterSpell-> 40, FireDragon-> 10
+
+NEW BATTLE
+
+User 'user' and User 'user' are battling
+This is a mutation round!
+Round 0:
+Card FireMutationSpell and Card NormalMutationSpell have been chosen.
+Damage (before type and specification includes) : FireMutationSpell-> 337, NormalMutationSpell-> 385
+Final damage: FireMutationSpell-> 674, NormalMutationSpell-> 192
+Card FireMutationSpell of User user won
+User user gains Card NormalSpell
+
+Round 1:
+Card FireSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : FireSpell-> 60, NormalSpell-> 81
+Final damage: FireSpell-> 120, NormalSpell-> 40
+Card FireSpell of User user won
+User user gains Card NormalSpell
+
+Round 2:
+Card FireSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : FireSpell-> 60, WaterSpell-> 96
+Final damage: FireSpell-> 30, WaterSpell-> 192
+Card WaterSpell of User user won
+User user gains Card FireSpell
+
+Round 3:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 81, NormalSpell-> 94
+Final damage: NormalSpell-> 81, NormalSpell-> 94
+Card NormalSpell of User user won
+User user gains Card NormalSpell
+
+Round 4:
+Card FireSpell and Card FireSpell have been chosen.
+Damage (before type and specification includes) : FireSpell-> 52, FireSpell-> 60
+Final damage: FireSpell-> 52, FireSpell-> 60
+Card FireSpell of User user won
+User user gains Card FireSpell
+
+Round 5:
+Card WaterKrakenMonster and Card FireSpell have been chosen.
+Damage (before type and specification includes) : WaterKrakenMonster-> 78, FireSpell-> 52
+Final damage: WaterKrakenMonster-> 156, FireSpell-> 0
+Card WaterKrakenMonster of User user won
+User user gains Card FireSpell
+
+Round 6:
+Card WaterKrakenMonster and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterKrakenMonster-> 78, NormalSpell-> 81
+Final damage: WaterKrakenMonster-> 39, NormalSpell-> 0
+Card WaterKrakenMonster of User user won
+User user gains Card NormalSpell
+
+Round 7:
+Card NormalGoblinMonster and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalGoblinMonster-> 95, NormalSpell-> 94
+Final damage: NormalGoblinMonster-> 95, NormalSpell-> 94
+Card NormalGoblinMonster of User user won
+User user gains Card NormalSpell
+
+Round 8:
+Card WaterKrakenMonster and Card FireSpell have been chosen.
+Damage (before type and specification includes) : WaterKrakenMonster-> 78, FireSpell-> 60
+Final damage: WaterKrakenMonster-> 156, FireSpell-> 0
+Card WaterKrakenMonster of User user won
+User user gains Card FireSpell
+
+Round 9:
+Card NormalGoblinMonster and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalGoblinMonster-> 95, WaterSpell-> 96
+Final damage: NormalGoblinMonster-> 190, WaterSpell-> 48
+Card NormalGoblinMonster of User user won
+User user gains Card WaterSpell
+
+User user won the battle
+The battle ended in a draw
+User user won the battle
+Card WaterSpell and Card FireDragon have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 10, FireDragon-> 40
+Final damage: WaterSpell-> 20, FireDragon-> 20
+
+test: log entryCard WaterSpell and Card FireDragon have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, FireDragon-> 20
+Final damage: WaterSpell-> 40, FireDragon-> 10
+
+NEW BATTLE
+
+User 'user' and User 'user' are battling
+This is a mutation round!
+Round 0:
+Card NormalMutationSpell and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationSpell-> 464, NormalMutationMonster-> 302
+Final damage: NormalMutationSpell-> 464, NormalMutationMonster-> 302
+Card NormalMutationSpell of User user won
+User user gains Card NormalOrkMonster
+
+Round 1:
+Card NormalSpell and Card FireDragonMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 84, FireDragonMonster-> 56
+Final damage: NormalSpell-> 42, FireDragonMonster-> 112
+Card FireDragonMonster of User user won
+User user gains Card NormalSpell
+
+Round 2:
+Card NormalOrkMonster and Card FireKnightMonster have been chosen.
+Damage (before type and specification includes) : NormalOrkMonster-> 51, FireKnightMonster-> 69
+Final damage: NormalOrkMonster-> 51, FireKnightMonster-> 69
+Card FireKnightMonster of User user won
+User user gains Card NormalOrkMonster
+
+Round 3:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 99, NormalSpell-> 84
+Final damage: NormalSpell-> 99, NormalSpell-> 84
+Card NormalSpell of User user won
+User user gains Card NormalSpell
+
+Round 4:
+Card NormalSpell and Card NormalOrkMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 84, NormalOrkMonster-> 51
+Final damage: NormalSpell-> 84, NormalOrkMonster-> 51
+Card NormalSpell of User user won
+User user gains Card NormalOrkMonster
+
+Round 5:
+Card WaterSpell and Card FireKnightMonster have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 91, FireKnightMonster-> 69
+Final damage: WaterSpell-> 182, FireKnightMonster-> 0
+Card WaterSpell of User user won
+User user gains Card FireKnightMonster
+
+Round 6:
+Card NormalSpell and Card FireDragonMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 84, FireDragonMonster-> 56
+Final damage: NormalSpell-> 42, FireDragonMonster-> 112
+Card FireDragonMonster of User user won
+User user gains Card NormalSpell
+
+Round 7:
+Card WaterSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 91, NormalSpell-> 84
+Final damage: WaterSpell-> 45, NormalSpell-> 168
+Card NormalSpell of User user won
+User user gains Card WaterSpell
+
+Round 8:
+Card FireKnightMonster and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : FireKnightMonster-> 69, NormalSpell-> 84
+Final damage: FireKnightMonster-> 138, NormalSpell-> 42
+Card FireKnightMonster of User user won
+User user gains Card NormalSpell
+
+Round 9:
+Card FireKnightMonster and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : FireKnightMonster-> 69, WaterSpell-> 91
+Final damage: FireKnightMonster-> 0, WaterSpell-> 182
+Card WaterSpell of User user won
+User user gains Card FireKnightMonster
+
+This is a mutation round!
+Round 10:
+Card NormalMutationSpell and Card NormalMutationSpell have been chosen.
+Damage (before type and specification includes) : NormalMutationSpell-> 374, NormalMutationSpell-> 384
+Final damage: NormalMutationSpell-> 374, NormalMutationSpell-> 384
+Card NormalMutationSpell of User user won
+User user gains Card NormalSpell
+
+Round 11:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 99, NormalSpell-> 84
+Final damage: NormalSpell-> 99, NormalSpell-> 84
+Card NormalSpell of User user won
+User user gains Card NormalSpell
+
+Round 12:
+Card NormalOrkMonster and Card WaterGoblinMonster have been chosen.
+Damage (before type and specification includes) : NormalOrkMonster-> 51, WaterGoblinMonster-> 75
+Final damage: NormalOrkMonster-> 51, WaterGoblinMonster-> 75
+Card WaterGoblinMonster of User user won
+User user gains Card NormalOrkMonster
+
+Round 13:
+Card NormalSpell and Card NormalOrkMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 95, NormalOrkMonster-> 51
+Final damage: NormalSpell-> 95, NormalOrkMonster-> 51
+Card NormalSpell of User user won
+User user gains Card NormalOrkMonster
+
+Round 14:
+Card NormalOrkMonster and Card FireDragonMonster have been chosen.
+Damage (before type and specification includes) : NormalOrkMonster-> 51, FireDragonMonster-> 56
+Final damage: NormalOrkMonster-> 51, FireDragonMonster-> 56
+Card FireDragonMonster of User user won
+User user gains Card NormalOrkMonster
+
+Round 15:
+Card NormalSpell and Card FireDragonMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 84, FireDragonMonster-> 56
+Final damage: NormalSpell-> 42, FireDragonMonster-> 112
+Card FireDragonMonster of User user won
+User user gains Card NormalSpell
+
+Round 16:
+Card NormalSpell and Card FireKnightMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 99, FireKnightMonster-> 69
+Final damage: NormalSpell-> 49, FireKnightMonster-> 138
+Card FireKnightMonster of User user won
+User user gains Card NormalSpell
+
+Round 17:
+Card NormalSpell and Card NormalOrkMonster have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 95, NormalOrkMonster-> 51
+Final damage: NormalSpell-> 95, NormalOrkMonster-> 51
+Card NormalSpell of User user won
+User user gains Card NormalOrkMonster
+
+Round 18:
+Card NormalOrkMonster and Card WaterGoblinMonster have been chosen.
+Damage (before type and specification includes) : NormalOrkMonster-> 51, WaterGoblinMonster-> 75
+Final damage: NormalOrkMonster-> 51, WaterGoblinMonster-> 75
+Card WaterGoblinMonster of User user won
+User user gains Card NormalOrkMonster
+
+Round 19:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 95, NormalSpell-> 99
+Final damage: NormalSpell-> 95, NormalSpell-> 99
+Card NormalSpell of User user won
+User user gains Card NormalSpell
+
+User user won the battle
+The battle ended in a draw
+User user won the battle
+Card WaterSpell and Card FireDragon have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 10, FireDragon-> 40
+Final damage: WaterSpell-> 20, FireDragon-> 20
+
+test: log entry

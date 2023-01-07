@@ -1,0 +1,41 @@
+PROTOCOL - MonsterTradingCardGame 
+Tiefengraber Marlis
+BIF3 22/23
+
+Technical Steps:
+->basic server-design including Request, RequestHandler, Response, Server taken from example provided in course
+->added DAOs for every class that should be stored in the database for clean, one-point access
+->added Controllers for every data type (users, cards, ...) for handling Requests 
+->models for every class that should be stored in database
+->additionally to User- and BattleModel seperate User and Battle class for simplifying battle-system (e.g. User has Stack and Deck, Battle has Users, rounds, ...)
+->classes for Stack and Deck (instead of simple Lists) for added functionality in battles
+->CardGenerator and Package class mainly for simplified testing (quickly set up Users with differing decks/stacks)
+
+->Package class originally planned as Model for database; scrapped because unnecessary
+->CardGenerator class originally planned for creating random Packages; scrapped because only fixed Packages in Curl-Skript
+->Originally planned for a GameControl class to manage overall matters; scrapped because instead App distributes Requests to matching Controllers
+
+Unit Tests:
+->No tests for code strictly taken over from provided example
+->Card tests check for correct initialization of Cards as otherwise Cards cannot be used properly
+->Collection- and StackOfCard tests check for correct behavior when manipulating Card-Lists 
+and for correct throwing of Exceptions for crucial errors as further execution of code would in these cases
+->Battle tests check if each battle function is working properly to ensure a working battle, 
+problems with e.g. the damage-calculation could lead to contaminated battle results
+->TradingDeal tests check for proper parsing of input and therefore correct initialization as otherwise deals may not be fulfillable
+->App tests check for correct parsing of information as otherwise Requests could not continue properly
+
+Time spent:
+As I first had a slightly wrong understanding of the desired functionality of the project, I wrote a lot of code that I had to remove later;
+Therefore I spend more time on the project than what the project looks like now.
+Estimated time spent on project: ~80hrs
+
+Additional information:
+->modified curl script: changes names of some cards to include elements, changed port to 7777, modified body of carry-out-trade/assemble-deck request for easier parsing
+-->modified version attached as 'MonsterTradingCards.exercise.curl.modified.bat'
+->a file depicting the history of git branches attached as 'Git-Tree.txt'
+->a file depicting the history of commits with messages attached as 'History.txt'
+->a class diagram and a battle-sequence diagram attached in Diagrams package inside project
+-> a file depicting the database design attached as 'db.sql' in DB package inside project
+
+->link to git repository https://github.com/marlis-t/MonsterTradingCardGame.git

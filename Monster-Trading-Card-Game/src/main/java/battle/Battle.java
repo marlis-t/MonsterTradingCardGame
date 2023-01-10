@@ -4,22 +4,21 @@ import app.controllers.BattleDirectController;
 import app.models.Card;
 import card.Enum.ELEMENT;
 import card.Enum.TYPE;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import user.User;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-@Getter
-@Setter
+@Getter(AccessLevel.PRIVATE)
+@Setter(AccessLevel.PRIVATE)
 public class Battle {
     private BattleDirectController battleDirectController;
     private User User1;
@@ -41,6 +40,7 @@ public class Battle {
         setBattleDirectController(battleDirectController);
     }
     public Boolean shouldBattleContinue(){
+        //checks if anyone has lost or round 100
         if(getUser1().getMyDeck().isDeckEmpty()){
             return false;
         }else if(getUser2().getMyDeck().isDeckEmpty()){
@@ -50,8 +50,7 @@ public class Battle {
     public Card getRandomCardFromUser(User user){
         ArrayList<Card> userCards = user.getMyDeck().getMyCards();
         //chooses random int in range of 0 to size of deck -1
-        //throws IllegalArgumentException if deck is empty (size == 0)
-        // bc battle should have ended already
+        //throws IllegalArgumentException if deck is empty (size == 0) bc battle should have ended already
         int randNr = getRandomizer().nextInt(userCards.size());
         Card chosenCard = userCards.get(randNr);
         if(chosenCard == null){
@@ -195,6 +194,7 @@ public class Battle {
     }
 
     public int whichCardStronger(Card card1, Card card2) {
+        //damage before anything added
         setCard1Damage(card1.getDamage());
         setCard2Damage(card2.getDamage());
         try {
@@ -215,6 +215,7 @@ public class Battle {
         }
         int strongerCard;
 
+        //returns nr of stronger card or 3 if draw
         if(getCard1Damage() > getCard2Damage()){
             strongerCard = 1;
         }else if(getCard2Damage() > getCard1Damage()){
@@ -256,16 +257,17 @@ public class Battle {
     public void updatePlayerStats() throws SQLException {
         try {
             if (getUser1().getMyDeck().isDeckEmpty()) {
-                //User1 lost
+                //User1 lost, update score accordingly
                 getUser1().setScore(getUser1().getScore() - 5);
                 getUser2().setScore(getUser2().getScore() + 3);
                 writeToLogfile("User " + getUser2().getUsername() + " won the battle\n");
             } else if (getUser2().getMyDeck().isDeckEmpty()) {
-                //User2 lost
+                //User2 lost, update score accordingly
                 getUser2().setScore(getUser2().getScore() - 5);
                 getUser1().setScore(getUser1().getScore() + 3);
                 writeToLogfile("User " + getUser1().getUsername() + " won the battle\n");
             } else {
+                //draw
                 writeToLogfile("The battle ended in a draw\n");
             }
             getUser1().setGamesPlayed(getUser1().getGamesPlayed() + 1);
@@ -280,25 +282,24 @@ public class Battle {
 
     public void doBattle() throws SQLException{
         try {
-            String fileName = "battle-log-" + getUser1().getUsername() + "_" + getUser2().getUsername() +".txt";
-            File oldLog = new File(fileName);
-            Files.deleteIfExists(oldLog.toPath());
-            File myLog = new File("C:\\MARLIS\\Fh_Technikum\\Semester 3\\Software\\MonsterTradingCardGame-Tiefengraber\\log\\" + fileName);
             writeToLogfile("\nNEW BATTLE\n\n");
             writeToLogfile("User '" + getUser1().getUsername() + "' and User '" + getUser2().getUsername() + "' are battling\n");
             while (shouldBattleContinue()) {
-                Card cardUser1; //this is compared
-                Card cardUser2; //this is compared
-                Card basisCard1; //this is chosen from deck
-                Card basisCard2; //this is chosen from deck
+                Card cardUser1; //this card's damage is compared
+                Card cardUser2; //this card's damage is compared
+                Card basisCard1; //this card is chosen from deck
+                Card basisCard2; //this card is chosen from deck
                 if(getRound()%10 == 0){
                     writeToLogfile("This is a mutation round!\n");
                     //each tenth round is a mutation round
+                    //get basis-cards
                     basisCard1 = getRandomCardFromUser(getUser1());
                     basisCard2 = getRandomCardFromUser(getUser2());
+                    //mutate them
                     cardUser1 = getMutationCardFromUser(getUser1(), basisCard1);
                     cardUser2 = getMutationCardFromUser(getUser2(), basisCard2);
                 }else{
+                    //only get basis-cards
                     basisCard1 = getRandomCardFromUser(getUser1());
                     basisCard2 = getRandomCardFromUser(getUser2());
                     cardUser1 = basisCard1;
@@ -307,16 +308,19 @@ public class Battle {
                 writeToLogfile("Round " + getRound() + ":\n");
                 switch (whichCardStronger(cardUser1, cardUser2)) {
                     case 1 -> {
+                        //card 1 stronger
                         changeCardOwner(basisCard2, getUser1(), getUser2());
                         writeToLogfile("Card " + cardUser1.getName() + " of User " + getUser1().getUsername() + " won\n");
                         writeToLogfile("User " + getUser1().getUsername() + " gains Card " + basisCard2.getName() + "\n");
                     }
                     case 2 -> {
+                        //card 2 stronger
                         changeCardOwner(basisCard1, getUser2(), getUser1());
                         writeToLogfile("Card " + cardUser2.getName() + " of User " + getUser2().getUsername() + " won\n");
                         writeToLogfile("User " + getUser2().getUsername() + " gains Card " + basisCard1.getName() + "\n");
 
                     }
+                    //a draw
                     case 3 -> writeToLogfile("The round ended in a draw\n");
                     default -> throw new IllegalArgumentException("WhichCardStronger() returned illegal argument");
                 }

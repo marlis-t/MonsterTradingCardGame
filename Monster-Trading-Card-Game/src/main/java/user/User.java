@@ -60,20 +60,8 @@ public class User {
 
     }
     public User(){}
-
-    public String showUserData(){
-        return "{ \"Username\": \"" + getUsername() + "\"," +
-                " \"Bio\": \"" + getBio() + "\"," +
-                " \"Image\": \"" + getImage() + "\" }";
-    }
-    public String showScore(){
-        return "{ \"Username\": \"" + getUsername() + "\", " +
-                "\"Score\": \"" + getScore() + "\" }";
-    }
-    public String showUserStats(){
-        return "Score: " + getScore() + "\n" + "Games played: " + getGamesPlayed() + "\n";
-    }
     public void buyPackage(Package pack){
+        //used just in tests to quickly setup user
         if(pack == null){
             throw new IllegalArgumentException("Tried to add Null to stack");
         }

@@ -25,6 +25,7 @@ public class TradingDeal {
         setUserID(userID);
         setCardToTradeID(cardToTradeID);
         setMinDamage(minDamage);
+        //setup type
         if(type.equalsIgnoreCase("Monster")){
             setType(TYPE.MONSTER);
         }else if(type.equalsIgnoreCase("Spell")){

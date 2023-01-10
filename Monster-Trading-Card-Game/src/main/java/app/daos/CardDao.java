@@ -29,15 +29,6 @@ public class CardDao implements Dao<Card>{
         statement.setBoolean(5, card.isPaused());
 
         statement.execute();
-        /*
-        Card createdCard = new Card (
-                res.getString(1), //CardID
-                res.getInt(2),  //UserID
-                res.getString(3), //Name
-                res.getInt(4), //Damage
-                res.getBoolean(5) //paused
-        );
-         */
         statement.close();
         return card;
     }

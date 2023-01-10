@@ -12,9 +12,10 @@ public class Package extends CollectionOfCards{
             try{
                 addCard(tempCard);
             }catch(Exception e){
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
+        //package with 5 random cards
     }
 
 }

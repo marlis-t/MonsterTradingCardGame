@@ -20,33 +20,19 @@ public class CollectionOfCards {
         if(chosenCard == null){
             throw new NullPointerException("Tried to add Null to List.");
         }
-        myCards.add(chosenCard);
+        getMyCards().add(chosenCard);
     }
     public void addCards(ArrayList<Card> cards){
         if(cards == null){
             throw new NullPointerException("Tried to add Null to List.");
         }
-        myCards.addAll(cards);
+        getMyCards().addAll(cards);
     }
     public void removeCard(Card chosenCard){
-        int index = myCards.indexOf(chosenCard);
+        int index = getMyCards().indexOf(chosenCard);
         if(index == -1){
             throw new IndexOutOfBoundsException("Tried to remove Card that is not in list.");
         }
-        myCards.remove(index);
+        getMyCards().remove(index);
     }
-
-    /*
-    public void showCards(){
-        if(myCards.size() == 0){
-            System.out.println("No Cards to show!\n");
-            return;
-        }
-        int size = myCards.size();
-        for(int i = 0; i < size; i++){
-            System.out.println(i + ": ");
-            myCards.get(i).showCard();
-        }
-    }
-     */
 }

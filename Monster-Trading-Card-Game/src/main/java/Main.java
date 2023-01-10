@@ -13,7 +13,7 @@ public class Main {
             app = new App(new DatabaseService().getConnection());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        };
+        }
         Server server = new Server(app, 7777);
         try {
             server.start();

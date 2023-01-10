@@ -35,7 +35,7 @@ public class CardController extends Controller{
         setDeckDao(deckDao);
     }
 
-    //GET /cards *****
+    //GET /cards
     public Response getCardsFromUser(String username) {
         try {
             //check if Token ok
@@ -180,7 +180,7 @@ public class CardController extends Controller{
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
-    //POST /decks
+    //PUT /decks
     public Response assembleDeck(String body, String username){
         try {
             //check if Token ok

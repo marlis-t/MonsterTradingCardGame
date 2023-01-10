@@ -36,7 +36,6 @@ public class Request {
             String line;
             line = inputStream.readLine();
 
-            //what if line == null
             //if content added
             if (line != null) {
                 String[] splitFirstLine = line.split(" ");
@@ -53,7 +52,7 @@ public class Request {
                     }
                     if (line.startsWith(CONTENT_TYPE)) {
                         setContentType(getContentTypeFromInputLine(line));
-                    }
+                    }//added to parse token from header
                     if(line.startsWith("Authorization")){
                         setAuthToken(getAuthorizationFromInputLine(line));
                     }
@@ -86,7 +85,6 @@ public class Request {
 
         return splitFirstLine[1];
     }
-
 
     private String getParamsFromInputLine(String[] splitFirstLine, Boolean hasParams) {
         if (hasParams) {

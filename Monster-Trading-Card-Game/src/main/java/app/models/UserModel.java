@@ -28,10 +28,8 @@ public class UserModel {
     @JsonAlias({"authToken"})
     private String authToken;
 
-
-
     public UserModel(String username, String password){
-        //for registration and pushing to db
+        //setting up a new user
         setUsername(username);
         setPassword(password);
         setCoins(20);
@@ -44,7 +42,7 @@ public class UserModel {
     }
 
     public UserModel(int userID, String username, int coins, int score, int gamesPlayed) {
-        //User exists already, connect to DB to get Information
+        //User exists already, info from db
         setUserID(userID);
         setUsername(username);
         setCoins(coins);

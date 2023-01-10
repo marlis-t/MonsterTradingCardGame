@@ -21,7 +21,6 @@ public class DeckDao{
     }
 
     public ArrayList<Card> create(ArrayList<Card> cards) throws SQLException {
-        //ArrayList<Card> result = new ArrayList<Card>();
         for(Card card: cards){
             String query = "INSERT INTO decks(CardID, UserID, CardName, Damage, Paused) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = getConnection().prepareStatement(query);
@@ -75,6 +74,4 @@ public class DeckDao{
         statement.execute();
         statement.close();
     }
-
-
 }

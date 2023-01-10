@@ -42,6 +42,7 @@ public class BattleController extends Controller{
         setBattleDirectController(new BattleDirectController(cardDao, deckDao, userDao));
     }
 
+    //POST /battles
     public Response haveBattle(String username){
         try{
             if(!isAuthorized(username + "-mtcgToken")){
@@ -84,8 +85,7 @@ public class BattleController extends Controller{
         BattleModel battle;
         //waits until req. has been accepted
         while((battle = getBattleDao().read(username)).getAcceptor() == null){
-            sleep(500);
-            //wait(500);
+            sleep(250);
         }
         return startBattle(1, battle);
     }
@@ -97,7 +97,7 @@ public class BattleController extends Controller{
             BattleModel tempBattle;
             //waits until battle has ended
             while(!(tempBattle = getBattleDao().read(battle.getRequester())).isEnded()){
-                sleep(500);
+                sleep(250);
             }
             log = "Battle ended successfully";
         }else{
@@ -143,7 +143,7 @@ public class BattleController extends Controller{
             battle.setEnded(true);
             getBattleDao().update(battle);
             //wait until first thread can see that battle has ended
-            sleep(500);
+            sleep(250);
             getBattleDao().delete(battle);
 
             log = collectBattleLog(requester, acceptor);

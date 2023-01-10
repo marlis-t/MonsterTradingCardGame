@@ -5,14 +5,15 @@ public class Deck extends CollectionOfCards {
        super();
    }
     public void emptyDeck(){
-        myCards.clear();
+       //clears out deck
+        getMyCards().clear();
     }
 
     public boolean isDeckEmpty(){
-       if(myCards == null){
+       if(getMyCards() == null){
            throw new NullPointerException("Deck does not exist!");
        }
-       if(myCards.size() == 0){
+       if(getMyCards().size() == 0){
            return true;
        }
        return false;

@@ -34,6 +34,7 @@ public class TradingController extends Controller{
         setDeckDao(deckDao);
     }
 
+    //GET /trades/ID
     public Response getTradingDeal(String tradeID, String username){
         try {
             if(!isAuthorized(username + "-mtcgToken")){
@@ -50,7 +51,7 @@ public class TradingController extends Controller{
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
-
+    //GET /trades
     public Response getAllTradingDeals(String authToken){
         try {
             if(!isAuthorized(authToken)){
@@ -68,6 +69,7 @@ public class TradingController extends Controller{
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
+    //POST /trades
     public Response createTradingDeal(String body, String username){
         try{
             String[] split = body.split("\"");
@@ -154,6 +156,7 @@ public class TradingController extends Controller{
         }
     }
 
+    //POST /trades/ID
     public Response carryOutTradingDeal(String tradeID, String body, String username){
         try{
             String[] split = body.split("\"");
@@ -237,6 +240,7 @@ public class TradingController extends Controller{
             return sendResponseWithType("null", "Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR, ContentType.TEXT);
         }
     }
+    //DELETE /trades/ID
     public Response deleteTradingDeal(String tradeID, String username){
         try {
             //check if trade with this id exists

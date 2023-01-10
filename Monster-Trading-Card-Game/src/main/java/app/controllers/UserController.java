@@ -58,7 +58,7 @@ public class UserController extends Controller{
         if(user == null){
             return sendResponseWithType("null", "User does not exist", HttpStatus.NOT_FOUND, ContentType.TEXT);
         }
-        String stats = "\"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\"";
+        String stats = "{\"Score\": \"" + user.getScore() + "\", \"Games played\": \"" + user.getGamesPlayed() + "\"}";
         return sendResponseWithType(stats, "null", HttpStatus.OK, ContentType.JSON);
     }
 
@@ -196,7 +196,7 @@ public class UserController extends Controller{
         }
         return sendResponseWithType("User deleted", "null", HttpStatus.OK, ContentType.TEXT);
     }
-    //PUT /users/username *****
+    //PUT /users/username
     public Response updateUser(String username, String body) {
         String[] split = body.split("\"");
         String newUsername = "";
@@ -215,7 +215,6 @@ public class UserController extends Controller{
         }
         UserModel oldUser;
         UserModel newUser;
-        //beg. bei 1 und dann +4 sind die deskriptoren
         try {
             oldUser = getUserDao().read(username);
             if (oldUser == null) {

@@ -17,6 +17,7 @@ public class CardGenerator {
 
     private Random randomizer = new Random();
     public CardGenerator(){
+        //prepares generator with all possible values
         setElements(new ArrayList<String>());
         setTypes(new ArrayList<String>());
         setSpecifications(new ArrayList<String>());
@@ -44,6 +45,7 @@ public class CardGenerator {
             String randElement = chooseElement(getRandomizer());
             String randType = chooseType(getRandomizer());
             String randSpec = "";
+            //only monsters get specifications
             if(Objects.equals(randType, "Monster")){
                 randSpec = chooseSpecification(getRandomizer());
             }
@@ -53,6 +55,7 @@ public class CardGenerator {
         }catch(Exception e){
             e.printStackTrace();
         }
+        //randomly generated card
         return new Card("0", 0, cardName, randDamage, false);
     }
 

@@ -37,7 +37,9 @@ public class App implements ServerApp {
 
     public Response handleRequest(Request request) {
         switch (request.getMethod()) {
+            //all get requests
             case GET -> {
+                //all get requests need auth-token
                 if(request.getAuthToken() == null){
                     return new Response(HttpStatus.UNAUTHORIZED, ContentType.JSON, "{ \"error\": \"No Token set\", \"data\": null }");
                 }
@@ -69,6 +71,7 @@ public class App implements ServerApp {
                     return getTradingController().getAllTradingDeals(request.getAuthToken());
                 }
             }
+            //all post requests
             case POST -> {
                 //createPackage *****
                 if (request.getPathname().equals("/packages")) {
@@ -106,6 +109,7 @@ public class App implements ServerApp {
                     return getBattleController().haveBattle(getUsernameFromToken(request.getAuthToken()));
                 }
             }
+            //all put requests
             case PUT -> {
                 String[] split = request.getPathname().split("/");
                 //updateUser by name *****
@@ -122,6 +126,7 @@ public class App implements ServerApp {
                     return getCardController().assembleDeck(request.getBody(), getUsernameFromToken(request.getAuthToken()));
                 }
             }
+            //all delete requests
             case DELETE -> {
                 String[] split = request.getPathname().split("/");
                 if(request.getAuthToken() == null){
@@ -139,13 +144,14 @@ public class App implements ServerApp {
                 }
             }
             default -> {
+                //undefined method
                 return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, "{ \"error\": \"Method Not Found\", \"data\": null }");
-
             }
         }
         return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, "{ \"error\": \"Method Not Found\", \"data\": null }");
     }
     public String parseUsernameFromPath(String[] split){
+        //get username if in path
         if(split == null){
             throw new IllegalArgumentException("Path is null");
         }
@@ -158,6 +164,7 @@ public class App implements ServerApp {
         return split[length-1];
     }
     public String getUsernameFromToken(String auth){
+        //extract username from token
         if(auth == null){
             throw new IllegalArgumentException("AuthToken is null");
         }

@@ -1,0 +1,373 @@
+
+NEW BATTLE
+
+User 'kienboec' and User 'altenhof' are battling
+This is a mutation round!
+Round 0:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 250, NormalMutationMonster-> 255
+Final damage: NormalMutationMonster-> 250, NormalMutationMonster-> 255
+Card NormalMutationMonster of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 1:
+Card WaterGoblin and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterGoblin-> 10, NormalSpell-> 45
+Final damage: WaterGoblin-> 5, NormalSpell-> 90
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterGoblin
+
+Round 2:
+Card NormalDragon and Card NormalKnight have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalKnight-> 20
+Final damage: NormalDragon-> 50, NormalKnight-> 20
+Card NormalDragon of User kienboec won
+User kienboec gains Card NormalKnight
+
+Round 3:
+Card NormalKnight and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalKnight-> 20, WaterSpell-> 20
+Final damage: NormalKnight-> 0, WaterSpell-> 10
+Card WaterSpell of User altenhof won
+User altenhof gains Card NormalKnight
+
+Round 4:
+Card NormalSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 28, WaterSpell-> 22
+Final damage: NormalSpell-> 56, WaterSpell-> 11
+Card NormalSpell of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 5:
+Card WaterSpell and Card NormalKnight have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 22, NormalKnight-> 20
+Final damage: WaterSpell-> 11, NormalKnight-> 0
+Card WaterSpell of User kienboec won
+User kienboec gains Card NormalKnight
+
+Round 6:
+Card NormalSpell and Card WaterGoblin have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 28, WaterGoblin-> 10
+Final damage: NormalSpell-> 56, WaterGoblin-> 5
+Card NormalSpell of User kienboec won
+User kienboec gains Card WaterGoblin
+
+Round 7:
+Card NormalDragon and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalSpell-> 45
+Final damage: NormalDragon-> 50, NormalSpell-> 45
+Card NormalDragon of User kienboec won
+User kienboec gains Card NormalSpell
+
+Round 8:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 28, NormalSpell-> 50
+Final damage: NormalSpell-> 28, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalSpell
+
+Round 9:
+Card WaterGoblin and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterGoblin-> 10, NormalSpell-> 28
+Final damage: WaterGoblin-> 5, NormalSpell-> 56
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterGoblin
+
+This is a mutation round!
+Round 10:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 252, NormalMutationMonster-> 263
+Final damage: NormalMutationMonster-> 252, NormalMutationMonster-> 263
+Card NormalMutationMonster of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 11:
+Card NormalDragon and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, WaterSpell-> 20
+Final damage: NormalDragon-> 100, WaterSpell-> 10
+Card NormalDragon of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 12:
+Card NormalSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, WaterSpell-> 22
+Final damage: NormalSpell-> 90, WaterSpell-> 11
+Card NormalSpell of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 13:
+Card NormalDragon and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalSpell-> 28
+Final damage: NormalDragon-> 50, NormalSpell-> 28
+Card NormalDragon of User kienboec won
+User kienboec gains Card NormalSpell
+
+Round 14:
+Card NormalKnight and Card WaterGoblin have been chosen.
+Damage (before type and specification includes) : NormalKnight-> 20, WaterGoblin-> 10
+Final damage: NormalKnight-> 20, WaterGoblin-> 10
+Card NormalKnight of User kienboec won
+User kienboec gains Card WaterGoblin
+
+Round 15:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, NormalSpell-> 50
+Final damage: NormalSpell-> 45, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalSpell
+
+Round 16:
+Card NormalDragon and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalSpell-> 45
+Final damage: NormalDragon-> 50, NormalSpell-> 45
+Card NormalDragon of User kienboec won
+User kienboec gains Card NormalSpell
+
+Round 17:
+Card WaterSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 22, NormalSpell-> 50
+Final damage: WaterSpell-> 11, NormalSpell-> 100
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 18:
+Card NormalDragon and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalSpell-> 50
+Final damage: NormalDragon-> 50, NormalSpell-> 50
+The round ended in a draw
+
+Round 19:
+Card NormalKnight and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalKnight-> 20, NormalSpell-> 50
+Final damage: NormalKnight-> 20, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalKnight
+
+This is a mutation round!
+Round 20:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 240, NormalMutationMonster-> 285
+Final damage: NormalMutationMonster-> 240, NormalMutationMonster-> 285
+Card NormalMutationMonster of User altenhof won
+User altenhof gains Card WaterGoblin
+
+Round 21:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 28, NormalSpell-> 50
+Final damage: NormalSpell-> 28, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalSpell
+
+Round 22:
+Card WaterSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, WaterSpell-> 22
+Final damage: WaterSpell-> 20, WaterSpell-> 22
+Card WaterSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 23:
+Card NormalDragon and Card WaterGoblin have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, WaterGoblin-> 10
+Final damage: NormalDragon-> 50, WaterGoblin-> 0
+Card NormalDragon of User kienboec won
+User kienboec gains Card WaterGoblin
+
+Round 24:
+Card NormalDragon and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, WaterSpell-> 20
+Final damage: NormalDragon-> 100, WaterSpell-> 10
+Card NormalDragon of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 25:
+Card WaterSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, WaterSpell-> 22
+Final damage: WaterSpell-> 20, WaterSpell-> 22
+Card WaterSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 26:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, NormalSpell-> 28
+Final damage: NormalSpell-> 45, NormalSpell-> 28
+Card NormalSpell of User kienboec won
+User kienboec gains Card NormalSpell
+
+Round 27:
+Card NormalDragon and Card NormalKnight have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalKnight-> 20
+Final damage: NormalDragon-> 50, NormalKnight-> 20
+Card NormalDragon of User kienboec won
+User kienboec gains Card NormalKnight
+
+Round 28:
+Card WaterGoblin and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : WaterGoblin-> 10, WaterSpell-> 20
+Final damage: WaterGoblin-> 10, WaterSpell-> 20
+Card WaterSpell of User altenhof won
+User altenhof gains Card WaterGoblin
+
+Round 29:
+Card NormalDragon and Card WaterGoblin have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, WaterGoblin-> 10
+Final damage: NormalDragon-> 50, WaterGoblin-> 0
+Card NormalDragon of User kienboec won
+User kienboec gains Card WaterGoblin
+
+This is a mutation round!
+Round 30:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 250, NormalMutationMonster-> 285
+Final damage: NormalMutationMonster-> 250, NormalMutationMonster-> 285
+Card NormalMutationMonster of User altenhof won
+User altenhof gains Card NormalKnight
+
+Round 31:
+Card NormalSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, WaterSpell-> 20
+Final damage: NormalSpell-> 90, WaterSpell-> 10
+Card NormalSpell of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 32:
+Card WaterGoblin and Card NormalKnight have been chosen.
+Damage (before type and specification includes) : WaterGoblin-> 10, NormalKnight-> 20
+Final damage: WaterGoblin-> 10, NormalKnight-> 20
+Card NormalKnight of User altenhof won
+User altenhof gains Card WaterGoblin
+
+Round 33:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 28, NormalSpell-> 50
+Final damage: NormalSpell-> 28, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalSpell
+
+Round 34:
+Card WaterSpell and Card NormalKnight have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, NormalKnight-> 20
+Final damage: WaterSpell-> 10, NormalKnight-> 0
+Card WaterSpell of User kienboec won
+User kienboec gains Card NormalKnight
+
+Round 35:
+Card WaterSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, NormalSpell-> 50
+Final damage: WaterSpell-> 10, NormalSpell-> 100
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 36:
+Card NormalKnight and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalKnight-> 20, NormalSpell-> 50
+Final damage: NormalKnight-> 20, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalKnight
+
+Round 37:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, NormalSpell-> 28
+Final damage: NormalSpell-> 45, NormalSpell-> 28
+Card NormalSpell of User kienboec won
+User kienboec gains Card NormalSpell
+
+Round 38:
+Card NormalDragon and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, NormalSpell-> 50
+Final damage: NormalDragon-> 50, NormalSpell-> 50
+The round ended in a draw
+
+Round 39:
+Card NormalSpell and Card NormalKnight have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, NormalKnight-> 20
+Final damage: NormalSpell-> 45, NormalKnight-> 20
+Card NormalSpell of User kienboec won
+User kienboec gains Card NormalKnight
+
+This is a mutation round!
+Round 40:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 258, NormalMutationMonster-> 257
+Final damage: NormalMutationMonster-> 258, NormalMutationMonster-> 257
+Card NormalMutationMonster of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 41:
+Card NormalSpell and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, WaterSpell-> 20
+Final damage: NormalSpell-> 90, WaterSpell-> 10
+Card NormalSpell of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 42:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 28, NormalSpell-> 50
+Final damage: NormalSpell-> 28, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalSpell
+
+Round 43:
+Card WaterSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, NormalSpell-> 50
+Final damage: WaterSpell-> 10, NormalSpell-> 100
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 44:
+Card NormalKnight and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalKnight-> 20, NormalSpell-> 28
+Final damage: NormalKnight-> 20, NormalSpell-> 28
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalKnight
+
+Round 45:
+Card NormalDragon and Card WaterGoblin have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, WaterGoblin-> 10
+Final damage: NormalDragon-> 50, WaterGoblin-> 0
+Card NormalDragon of User kienboec won
+User kienboec gains Card WaterGoblin
+
+Round 46:
+Card WaterSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 22, NormalSpell-> 28
+Final damage: WaterSpell-> 11, NormalSpell-> 56
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+Round 47:
+Card NormalSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : NormalSpell-> 45, NormalSpell-> 50
+Final damage: NormalSpell-> 45, NormalSpell-> 50
+Card NormalSpell of User altenhof won
+User altenhof gains Card NormalSpell
+
+Round 48:
+Card NormalDragon and Card WaterSpell have been chosen.
+Damage (before type and specification includes) : NormalDragon-> 50, WaterSpell-> 20
+Final damage: NormalDragon-> 100, WaterSpell-> 10
+Card NormalDragon of User kienboec won
+User kienboec gains Card WaterSpell
+
+Round 49:
+Card WaterSpell and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterSpell-> 20, NormalSpell-> 28
+Final damage: WaterSpell-> 10, NormalSpell-> 56
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterSpell
+
+This is a mutation round!
+Round 50:
+Card NormalMutationMonster and Card NormalMutationMonster have been chosen.
+Damage (before type and specification includes) : NormalMutationMonster-> 280, NormalMutationMonster-> 285
+Final damage: NormalMutationMonster-> 280, NormalMutationMonster-> 285
+Card NormalMutationMonster of User altenhof won
+User altenhof gains Card NormalDragon
+
+Round 51:
+Card WaterGoblin and Card NormalSpell have been chosen.
+Damage (before type and specification includes) : WaterGoblin-> 10, NormalSpell-> 28
+Final damage: WaterGoblin-> 5, NormalSpell-> 56
+Card NormalSpell of User altenhof won
+User altenhof gains Card WaterGoblin
+
+User altenhof won the battle

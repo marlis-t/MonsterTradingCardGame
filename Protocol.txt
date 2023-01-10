@@ -25,17 +25,25 @@ problems with e.g. the damage-calculation could lead to contaminated battle resu
 ->TradingDeal tests check for proper parsing of input and therefore correct initialization as otherwise deals may not be fulfillable
 ->App tests check for correct parsing of information as otherwise Requests could not continue properly
 
+Unique Feature:
+->implemented in battle
+->every tenth round is a mutation round
+-->1 basis card is chosen from decks
+-->best 4 cards from stack are chosen and their elements and damages are combined into a mutation card
+-->winner of round gains basis card
+->to make use of best cards, change up flow of battle with cards that are not in the deck
+
 Time spent:
 As I first had a slightly wrong understanding of the desired functionality of the project, I wrote a lot of code that I had to remove later;
 Therefore I spend more time on the project than what the project looks like now.
 Estimated time spent on project: ~80hrs
 
 Additional information:
-->modified curl script: changes names of some cards to include elements, changed port to 7777, modified body of carry-out-trade/assemble-deck request for easier parsing
+->modified curl script: changed names of some cards to include elements, changed port to 7777, modified body of carry-out-trade/assemble-deck request for easier parsing
 -->modified version attached as 'MonsterTradingCards.exercise.curl.modified.bat'
 ->a file depicting the history of git branches attached as 'Git-Tree.txt'
 ->a file depicting the history of commits with messages attached as 'History.txt'
-->a class diagram and a battle-sequence diagram attached in Diagrams package inside project
+->a battle-sequence diagram attached in Diagrams package inside project
 -> a file depicting the database design attached as 'db.sql' in DB package inside project
 
 ->link to git repository https://github.com/marlis-t/MonsterTradingCardGame.git

@@ -4,7 +4,6 @@ import app.controllers.BattleDirectController;
 import app.models.Card;
 import card.Enum.ELEMENT;
 import card.Enum.TYPE;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import user.User;
@@ -17,8 +16,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-@Getter(AccessLevel.PRIVATE)
-@Setter(AccessLevel.PRIVATE)
+@Getter
+@Setter
 public class Battle {
     private BattleDirectController battleDirectController;
     private User User1;
